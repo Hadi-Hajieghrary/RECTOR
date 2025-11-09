@@ -21,7 +21,7 @@ HEADER
 
 # Generate tree excluding data folder files, git, cache, and other large directories
 tree -L 3 \
-    -I 'data|.git|__pycache__|*.pyc|.pytest_cache|.ipynb_checkpoints|*.egg-info|.cache|.mypy_cache|.ruff_cache|node_modules' \
+    -I 'data|.git|__pycache__|*.pyc|.pytest_cache|.ipynb_checkpoints|*.egg-info|.cache|.mypy_cache|.ruff_cache|node_modules|References' \
     --dirsfirst \
     -F >> "$WORKSPACE_TREE_FILE"
 
