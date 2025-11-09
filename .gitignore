@@ -426,6 +426,7 @@ References/
 data/**/*
 !data/**/.gitkeep
 !data/**/
+!data/DATA_INVENTORY.md
 # Specifically ignore common data file types
 *.tfrecord
 *.tfrecord-*

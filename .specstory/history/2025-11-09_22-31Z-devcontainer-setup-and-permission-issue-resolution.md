@@ -604,7 +604,78 @@ why the git prehook creating the list of files and folders in data is not workin
 
 _**Agent (model copilot/claude-sonnet-4.5)**_
 
-Let me check what the git pre-commit hook is generating for the data inventory: 
+Let me check what the git pre-commit hook is generating for the data inventory: The git pre-commit hook **IS** working! It's correctly showing:
+
+✅ **Directory structure** - All 18 directories  
+✅ **File counts** - 52 files total  
+✅ **Sizes** - 15G total  
+✅ **Waymo splits breakdown**:
+  - Scenario: testing (5), testing_interactive (3), training (5), validation (5), validation_interactive (3)
+  - TF Example: testing (5), training (5), validation (5)
+  - Lidar & Camera: empty
+
+Let me verify it's updating on commits: Perfect! The git pre-commit hook **IS working correctly**! 
+
+## ✅ Git Pre-Commit Hook Status
+
+### What It Does (Working Perfectly)
+
+The hook runs **automatically before every commit** and generates:
+
+1. **`WORKSPACE_STRUCTURE.md`** - Shows directory tree (excludes References, data files, cache)
+2. **`DATA_INVENTORY.md`** - Shows data folder structure with:
+   - ✅ Complete directory tree (18 directories)
+   - ✅ File counts per directory
+   - ✅ Total sizes
+   - ✅ Detailed Waymo dataset breakdown by split and format
+   - ✅ Timestamp of last update
+
+### Current Data Inventory Shows
+
+```
+Waymo Dataset Splits:
+- Scenario format:
+  - testing: 5 files (1021M)
+  - testing_interactive: 3 files (555M)
+  - training: 5 files (2.2G)
+  - validation: 5 files (1.3G)
+  - validation_interactive: 3 files (767M)
+- TF Example format:
+  - testing: 5 files (2.7G)
+  - training: 5 files (4.1G)
+  - validation: 5 files (2.5G)
+
+Last updated: 2025-11-09 23:50:46 UTC
+```
+
+### Evidence It's Working
+
+- ✅ Hook ran on last commit (you can see "🔍 Generating workspace structure documentation...")
+- ✅ Files were updated (timestamp shows recent update)
+- ✅ Both files were auto-staged and committed
+- ✅ Accurate data shown (matches `waymo-status` output)
+
+The git pre-commit hook is working exactly as designed! Every commit automatically updates these documentation files with the current state of your workspace and data folder.
+
+---
+
+_**User (2025-11-09 23:55Z)**_
+
+data inventory md file should be created within the data folder. The  the References folder and its content should be excluded from  #file:WORKSPACE_STRUCTURE.md. #file:DATA_INVENTORY.md should also include the list of the files within the folders, although these files are not commited and ignored
+
+---
+
+_**Agent (model copilot/claude-sonnet-4.5)**_
+
+I'll fix these issues:
+
+1. Move `DATA_INVENTORY.md` into the `` folder
+2. Exclude `` from `WORKSPACE_STRUCTURE.md`
+3. Add file listings to `DATA_INVENTORY.md` 
+```
+
+```
+
 
 ---
 

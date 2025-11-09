@@ -31,11 +31,10 @@ Auto-generated workspace structure (updated on commit).
 │   ├── post-create.sh
 │   ├── README.md
 │   └── requirements.base.txt
-├── DATA_INVENTORY.md
 ├── LICENSE
 └── WORKSPACE_STRUCTURE.md
 
-12 directories, 16 files
+12 directories, 15 files
 ```
 
-*Last updated: 2025-11-09 23:52:09 UTC*
+*Last updated: 2025-11-09 23:56:52 UTC*
