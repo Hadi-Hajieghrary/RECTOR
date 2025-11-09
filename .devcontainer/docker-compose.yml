@@ -1,0 +1,64 @@
+version: "3.9"
+
+services:
+  rector-dev:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+      args:
+        USERNAME: developer
+        USER_UID: 1000
+        USER_GID: 1000
+    
+    image: rector-dev:latest
+    
+    # GPU configuration
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    
+    # Legacy GPU support (for older Docker versions)
+    runtime: nvidia
+    
+    # Shared memory for PyTorch dataloaders
+    shm_size: "4gb"
+    
+    # Volume mounts
+    volumes:
+      # Mount workspace
+      - ..:/workspace:cached
+      
+      # Persistent caches
+      - rector-cache:/workspace/.cache
+      - rector-venv:/opt/venv
+      
+      # Waymo dataset
+      - waymo-data:/workspace/data/waymo_open_dataset_motion_v_1_3_0:cached
+    
+    # Environment variables
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+      - CUDA_VISIBLE_DEVICES=0
+      - WAYMO_DATA_ROOT=/workspace/data/waymo_open_dataset_motion_v_1_3_0
+      - TORCH_HOME=${TORCH_HOME:-/workspace/.cache/torch}
+      - HF_HOME=${HF_HOME:-/workspace/.cache/huggingface}
+      - TORCH_CUDA_ARCH_LIST=${TORCH_CUDA_ARCH_LIST:-8.6}
+    
+    working_dir: /workspace
+    
+    # Keep container running
+    command: sleep infinity
+
+# Named volumes for persistence
+volumes:
+  rector-cache:
+    driver: local
+  rector-venv:
+    driver: local
+  waymo-data:
+    driver: local
