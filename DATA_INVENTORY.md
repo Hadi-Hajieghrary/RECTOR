@@ -36,8 +36,8 @@ data/
 - **Total Size**: 4.0K
 
 ### waymo_open_dataset_motion_v_1_3_0/
-- **Files**: 38
-- **Total Size**: 9.3G
+- **Files**: 43
+- **Total Size**: 13G
 
 **Waymo Dataset Splits**:
 - Scenario format:
@@ -45,9 +45,10 @@ data/
   - training: 5 files (2.2G)
   - validation: 5 files (1.3G)
 - TF Example format:
+  - testing: 5 files (1.9G)
   - training: 5 files (4.1G)
-  - validation: 5 files (836M)
+  - validation: 5 files (2.5G)
 - Lidar & Camera format:
 
 
-*Last updated: 2025-11-09 23:29:46 UTC*
+*Last updated: 2025-11-09 23:31:44 UTC*
