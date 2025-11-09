@@ -9,7 +9,6 @@
 *.user
 *.userosscache
 *.sln.docstates
-*.env
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -416,3 +415,43 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# RECTOR specific ignores
+# References folder - Contains reference materials, papers, code snippets for Copilot context
+# This folder is not part of the project codebase and should not be versioned
+References/
+
+# Data files - Ignore all files within data/ subdirectories but keep the directory structure
+# This allows empty directories to be tracked while excluding large dataset files
+data/**/*
+!data/**/.gitkeep
+!data/**/
+# Specifically ignore common data file types
+*.tfrecord
+*.tfrecord-*
+*.h5
+*.hdf5
+*.parquet
+*.feather
+*.arrow
+*.pkl
+*.pickle
+*.npy
+*.npz
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.bin
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.7z
+
+# Allow specific data documentation or metadata files if needed
+!data/**/*.md
+!data/**/*.txt
+!data/**/*.json
+!data/**/*.yaml
+!data/**/*.yml
