@@ -67,6 +67,10 @@ print_info "✓ Bucket access OK"
 # Create directory structure
 print_step "Creating directory structure..."
 mkdir -p "${DATA_DIR}"/{scenario,tf_example,lidar_and_camera}/{training,validation,testing}
+mkdir -p "${DATA_DIR}"/scenario/{training_20s,validation_interactive,testing_interactive}
+
+# Create .gitkeep files to preserve directory structure in Git
+find "${DATA_DIR}" -type d -exec touch {}/.gitkeep \; 2>/dev/null || true
 
 # Download function
 download_sample() {
@@ -101,7 +105,7 @@ download_sample "scenario" "validation" $NUM_SAMPLE_FILES
 download_sample "scenario" "testing" $NUM_SAMPLE_FILES
 
 # Optional: Download interactive scenarios (human-driven vehicles)
-if [ "${DOWNLOAD_INTERACTIVE:-0}" = "1" ]; then
+if [ "${DOWNLOAD_INTERACTIVE:-0}" != "0" ]; then
     echo ""
     print_step "Downloading INTERACTIVE scenarios..."
     download_sample "scenario" "validation_interactive" $NUM_SAMPLE_FILES
@@ -109,7 +113,7 @@ if [ "${DOWNLOAD_INTERACTIVE:-0}" = "1" ]; then
 fi
 
 # Optional: Download 20-second extended scenarios
-if [ "${DOWNLOAD_20S:-0}" = "1" ]; then
+if [ "${DOWNLOAD_20S:-0}" != "0" ]; then
     echo ""
     print_step "Downloading 20-second extended scenarios..."
     download_sample "scenario" "training_20s" $NUM_SAMPLE_FILES
@@ -123,7 +127,7 @@ download_sample "tf_example" "validation" $NUM_SAMPLE_FILES
 download_sample "tf_example" "testing" $NUM_SAMPLE_FILES
 
 # Optional: Download lidar_and_camera (very large, skip by default)
-if [ "${DOWNLOAD_LIDAR:-0}" = "1" ]; then
+if [ "${DOWNLOAD_LIDAR:-0}" != "0" ]; then
     echo ""
     print_step "Downloading LIDAR_AND_CAMERA format..."
     download_sample "lidar_and_camera" "training" $NUM_SAMPLE_FILES
