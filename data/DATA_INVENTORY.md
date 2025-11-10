@@ -15,6 +15,9 @@ data/
 │   │   ├── validation
 │   │   └── validation_interactive
 │   └── tf_example
+│       ├── testing
+│       ├── training
+│       └── validation
 ├── processed
 └── waymo_open_dataset_motion_v_1_3_0
     ├── lidar_and_camera
@@ -33,7 +36,7 @@ data/
         ├── training
         └── validation
 
-26 directories
+29 directories
 ```
 
 ## Data Statistics
@@ -44,32 +47,85 @@ data/
 
 
 ### movies/
-- **Files**: 21
-- **Total Size**: 7.5M
+- **Files**: 74
+- **Total Size**: 79M
 
 **Files:**
 ```
+README.md
+scenario/testing/3f406d0912ffa31f.gif
 scenario/testing/3f406d0912ffa31f.mp4
+scenario/testing/53efd22f9e0bd276.gif
 scenario/testing/53efd22f9e0bd276.mp4
+scenario/testing/6a44e4cc442136f7.gif
 scenario/testing/6a44e4cc442136f7.mp4
+scenario/testing/b4c70831fa79c6c8.gif
 scenario/testing/b4c70831fa79c6c8.mp4
+scenario/testing/d0beaff4f74fe217.gif
 scenario/testing/d0beaff4f74fe217.mp4
 scenario/testing_interactive/2fcbbbb8a4db2a7f.mp4
 scenario/testing_interactive/310f98b182de5b5a.mp4
 scenario/testing_interactive/6e04de6d151c38a4.mp4
+scenario/training/28fe360951cf98d6.gif
 scenario/training/28fe360951cf98d6.mp4
+scenario/training/2a0be260c6478180.gif
 scenario/training/2a0be260c6478180.mp4
+scenario/training/610c7fcfe8e7eb4d.gif
 scenario/training/610c7fcfe8e7eb4d.mp4
+scenario/training/bcafb1298382d410.gif
 scenario/training/bcafb1298382d410.mp4
+scenario/training/bce9167fc4acc6c8.gif
 scenario/training/bce9167fc4acc6c8.mp4
+scenario/validation/ae0532d70d1198c.gif
 scenario/validation/ae0532d70d1198c.mp4
+scenario/validation/b85e1bd6cc8e74c0.gif
 scenario/validation/b85e1bd6cc8e74c0.mp4
+scenario/validation/d9fa8be36c4d3547.gif
 scenario/validation/d9fa8be36c4d3547.mp4
+scenario/validation/f010a76faccf7bc2.gif
 scenario/validation/f010a76faccf7bc2.mp4
+scenario/validation/f1c75f0f2e2d01a2.gif
 scenario/validation/f1c75f0f2e2d01a2.mp4
 scenario/validation_interactive/234dfbe99b740c80.mp4
 scenario/validation_interactive/517e33af3e9907c6.mp4
 scenario/validation_interactive/7ae30118456e74a7.mp4
+tf_example/testing/testing_tfexample_0000.mp4
+tf_example/testing/testing_tfexample_0001.mp4
+tf_example/testing/testing_tfexample_0002.mp4
+tf_example/testing/testing_tfexample_0003.mp4
+tf_example/testing/testing_tfexample_0004.mp4
+tf_example/testing/testing_tfexample_0005.mp4
+tf_example/testing/testing_tfexample_0006.mp4
+tf_example/testing/testing_tfexample_0007.mp4
+tf_example/testing/testing_tfexample_0008.mp4
+tf_example/testing/testing_tfexample_0009.mp4
+tf_example/training/training_tfexample_0000.gif
+tf_example/training/training_tfexample_0000.mp4
+tf_example/training/training_tfexample_0001.gif
+tf_example/training/training_tfexample_0001.mp4
+tf_example/training/training_tfexample_0002.gif
+tf_example/training/training_tfexample_0002.mp4
+tf_example/training/training_tfexample_0003.gif
+tf_example/training/training_tfexample_0003.mp4
+tf_example/training/training_tfexample_0004.gif
+tf_example/training/training_tfexample_0004.mp4
+tf_example/training/training_tfexample_0005.gif
+tf_example/training/training_tfexample_0005.mp4
+tf_example/training/training_tfexample_0006.gif
+tf_example/training/training_tfexample_0006.mp4
+tf_example/training/training_tfexample_0007.mp4
+tf_example/training/training_tfexample_0008.mp4
+tf_example/training/training_tfexample_0009.mp4
+tf_example/validation/validation_tfexample_0000.mp4
+tf_example/validation/validation_tfexample_0001.mp4
+tf_example/validation/validation_tfexample_0002.mp4
+tf_example/validation/validation_tfexample_0003.mp4
+tf_example/validation/validation_tfexample_0004.mp4
+tf_example/validation/validation_tfexample_0005.mp4
+tf_example/validation/validation_tfexample_0006.mp4
+tf_example/validation/validation_tfexample_0007.mp4
+tf_example/validation/validation_tfexample_0008.mp4
+tf_example/validation/validation_tfexample_0009.mp4
 ```
 
 ### processed/
@@ -154,4 +210,4 @@ scenario/validation_interactive/7ae30118456e74a7.mp4
 - **validation**: empty
 
 
-*Last updated: 2025-11-10 01:02:49 UTC*
+*Last updated: 2025-11-10 01:56:12 UTC*
