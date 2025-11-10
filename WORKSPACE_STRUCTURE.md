@@ -13,28 +13,10 @@ Auto-generated workspace structure (updated on commit).
 │   └── pretrained/
 ├── notebooks/
 ├── output/
-├── References/
-│   ├── ref1/
-│   ├── ref2/
-│   ├── ref3/
-│   │   └── requirements.txt*
-│   ├── ref4/
-│   │   ├── CLI_USAGE.md*
-│   │   ├── FORMAT_CHANGE_README.md*
-│   │   ├── setup.py*
-│   │   ├── test_format_integration.py*
-│   │   └── test_new_format.py*
-│   ├── devcontainer.json
-│   ├── docker-compose.yml
-│   ├── Dockerfile
-│   ├── fix-permissions.sh
-│   ├── post-create.sh
-│   ├── README.md
-│   └── requirements.base.txt
 ├── LICENSE
 └── WORKSPACE_STRUCTURE.md
 
-12 directories, 15 files
+7 directories, 2 files
 ```
 
-*Last updated: 2025-11-10 00:00:40 UTC*
+*Last updated: 2025-11-10 00:01:09 UTC*
