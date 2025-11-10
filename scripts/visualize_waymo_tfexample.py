@@ -487,13 +487,23 @@ class WaymoTFExampleVisualizer:
         output_path = Path(output_path)
         output_path.parent.mkdir(parents=True, exist_ok=True)
         
+        # Save MP4 version
         if writer == 'ffmpeg':
             writer_obj = FFMpegWriter(fps=fps, bitrate=1800)
+            anim.save(str(output_path), writer=writer_obj)
+            print(f"MP4 saved: {output_path}")
+            
+            # Also save GIF version for GitHub display (reduced fps)
+            if output_path.suffix.lower() == ".mp4":
+                gif_path = output_path.with_suffix('.gif')
+                print(f"Creating GIF (5 fps): {gif_path}")
+                pillow_writer = PillowWriter(fps=5)  # Reduced fps
+                anim.save(str(gif_path), writer=pillow_writer)
+                print(f"GIF saved: {gif_path}")
         else:
             writer_obj = PillowWriter(fps=fps)
-        
-        anim.save(str(output_path), writer=writer_obj)
-        print(f"Animation saved: {output_path}")
+            anim.save(str(output_path), writer=writer_obj)
+            print(f"Animation saved: {output_path}")
 
 
 def load_tfexamples(data_dir: Path, num_scenarios: int = 10) -> List[Tuple[str, tf.train.Example]]:

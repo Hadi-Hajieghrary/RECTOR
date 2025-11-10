@@ -25,10 +25,10 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 import matplotlib
-import matplotlib.pyplot as plt
 import matplotlib.patches as patches
-from matplotlib.animation import FuncAnimation, FFMpegWriter, PillowWriter
+import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.animation import FFMpegWriter, FuncAnimation, PillowWriter
 from tqdm import tqdm
 
 # Try importing TensorFlow for Waymo data loading
@@ -450,17 +450,29 @@ class WaymoScenarioVisualizer:
             blit=False,
         )
         
-        # Save animation
+        # Save animation as MP4 and GIF
+        output_path = Path(output_path)
+        
+        # Save MP4 version
         if writer.lower() == "ffmpeg":
             writer_obj = FFMpegWriter(fps=self.fps, bitrate=5000)
             anim.save(output_path, writer=writer_obj)
+            print(f"MP4 saved: {output_path}")
         elif writer.lower() == "pillow":
             writer_obj = PillowWriter(fps=self.fps)
             anim.save(output_path, writer=writer_obj)
+            print(f"Animation saved: {output_path}")
         else:
             raise ValueError(f"Unknown writer: {writer}")
         
-        print(f"Animation saved: {output_path}")
+        # Also save GIF version for GitHub display (reduced fps for smaller size)
+        if writer.lower() == "ffmpeg" and output_path.suffix.lower() == ".mp4":
+            gif_path = output_path.with_suffix('.gif')
+            print(f"Creating GIF (5 fps): {gif_path}")
+            pillow_writer = PillowWriter(fps=5)  # Reduced fps for smaller GIF
+            anim.save(gif_path, writer=pillow_writer)
+            print(f"GIF saved: {gif_path}")
+        
         plt.close()
 
 
