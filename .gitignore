@@ -456,3 +456,9 @@ data/**/*
 !data/**/*.json
 !data/**/*.yaml
 !data/**/*.yml
+
+# Allow movie files to be tracked
+!data/**/*.mp4
+!data/**/*.gif
+!data/**/*.avi
+!data/**/*.mov
