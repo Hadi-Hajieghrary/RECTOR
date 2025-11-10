@@ -76,12 +76,68 @@ SCENARIO_SPLITS=(
     "testing_interactive"
 )
 
+# List of splits to process for tf_example format
+TFEXAMPLE_SPLITS=(
+    "training"
+    "validation"
+    "testing"
+)
+
 # Generate movies for scenario format
 echo ""
 echo "Generating movies for scenario format..."
 for split in "${SCENARIO_SPLITS[@]}"; do
     generate_movies "scenario" "$split"
 done
+
+# Generate movies for tf_example format
+echo ""
+echo "Generating movies for tf_example format..."
+TFEXAMPLE_SCRIPT="/workspace/scripts/visualize_waymo_tfexample.py"
+if [ -f "$TFEXAMPLE_SCRIPT" ]; then
+    for split in "${TFEXAMPLE_SPLITS[@]}"; do
+        local input_dir="${DATA_DIR}/tf_example/${split}"
+        local output_dir="${MOVIES_DIR}/tf_example/${split}"
+        
+        # Check if input directory exists and has tfrecord files
+        if [ ! -d "$input_dir" ]; then
+            continue
+        fi
+        
+        local file_count=$(find "$input_dir" -name "*.tfrecord*" 2>/dev/null | wc -l)
+        if [ "$file_count" -eq 0 ]; then
+            continue
+        fi
+        
+        echo "Processing tf_example/$split (found $file_count files)..."
+        
+        # Create output directory
+        mkdir -p "$output_dir"
+        
+        # Check if movies already exist
+        local existing_movies=$(find "$output_dir" -name "*.mp4" 2>/dev/null | wc -l)
+        if [ "$existing_movies" -ge "$MAX_SCENARIOS" ]; then
+            echo "  Already have $existing_movies movies (max: $MAX_SCENARIOS), skipping generation."
+            continue
+        fi
+        
+        # Generate movies (suppress TensorFlow warnings)
+        python "$TFEXAMPLE_SCRIPT" \
+            --data_dir "$input_dir" \
+            --num_scenarios "$MAX_SCENARIOS" \
+            --output_dir "$output_dir" \
+            --fps 10 \
+            --dpi 100 \
+            2>&1 | grep -v "tensorflow\|oneDNN\|GPU\|CUDA\|TensorRT\|NUMA" || true
+        
+        # Add generated movies to git staging
+        if [ -d "$output_dir" ]; then
+            find "$output_dir" -name "*.mp4" -exec git add {} \; 2>/dev/null || true
+        fi
+    done
+else
+    echo "  TF Example visualization script not found, skipping."
+fi
 
 # Count total movies generated
 total_movies=$(find "$MOVIES_DIR" -name "*.mp4" 2>/dev/null | wc -l)
