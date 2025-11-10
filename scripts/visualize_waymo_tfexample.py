@@ -181,8 +181,9 @@ class WaymoTFExampleVisualizer:
             'width': width,
         }
     
-    def plot_roadgraph(self, ax: plt.Axes, roadgraph_xyz: np.ndarray, 
-                      roadgraph_type: np.ndarray, roadgraph_valid: np.ndarray):
+    def plot_roadgraph(self, ax: plt.Axes, roadgraph_xyz: np.ndarray,
+                      roadgraph_type: np.ndarray,
+                      roadgraph_valid: np.ndarray):
         """
         Plot road graph features.
         
@@ -198,21 +199,19 @@ class WaymoTFExampleVisualizer:
         # Reshape to [N, 3]
         roadgraph_xyz = roadgraph_xyz.reshape(-1, 3)
         roadgraph_valid = roadgraph_valid.reshape(-1)
-        roadgraph_type = roadgraph_type.reshape(-1)
         
         valid_points = roadgraph_valid > 0
         if not np.any(valid_points):
             return
         
         xyz = roadgraph_xyz[valid_points]
-        types = roadgraph_type[valid_points]
         
         # Plot road features
-        ax.scatter(xyz[:, 0], xyz[:, 1], c=COLORS['roadmap'], 
+        ax.scatter(xyz[:, 0], xyz[:, 1], c=COLORS['roadmap'],
                   s=1, alpha=0.3, label='Road Graph')
     
     def plot_agent_trajectory(self, ax: plt.Axes, x: np.ndarray, y: np.ndarray,
-                             valid: np.ndarray, color: str, label: str, 
+                             valid: np.ndarray, color: str, label: str,
                              alpha: float = 1.0, linewidth: float = 2):
         """
         Plot agent trajectory.
@@ -235,10 +234,53 @@ class WaymoTFExampleVisualizer:
         if len(valid_indices) == 0:
             return
         
-        ax.plot(x[valid], y[valid], color=color, linewidth=linewidth, 
+        ax.plot(x[valid], y[valid], color=color, linewidth=linewidth,
                alpha=alpha, label=label)
         ax.scatter(x[valid], y[valid], color=color, s=20, alpha=alpha, zorder=5)
     
+    def _compute_plot_limits(self, data: Dict) -> Tuple[Tuple[float, float], Tuple[float, float]]:
+        """
+        Compute plot limits from valid roadgraph and agent positions.
+        
+        Args:
+            data: Parsed tf_example data
+            
+        Returns:
+            Tuple of (xlim, ylim) where each is (min, max)
+        """
+        all_x = []
+        all_y = []
+        
+        # Get valid roadgraph points
+        if len(data['roadgraph_xyz']) > 0:
+            xyz = data['roadgraph_xyz'].reshape(-1, 3)
+            valid = data['roadgraph_valid'].reshape(-1) > 0
+            if np.any(valid):
+                all_x.extend(xyz[valid, 0])
+                all_y.extend(xyz[valid, 1])
+        
+        # Get valid agent positions from all timesteps
+        for state_key in ['state_past', 'state_current', 'state_future']:
+            if state_key in data:
+                x = data[state_key]['x']
+                y = data[state_key]['y']
+                valid = data[state_key]['valid']
+                if len(x) > 0 and np.any(valid):
+                    all_x.extend(x[valid])
+                    all_y.extend(y[valid])
+        
+        # Compute limits with margin
+        if len(all_x) > 0 and len(all_y) > 0:
+            x_min, x_max = np.min(all_x), np.max(all_x)
+            y_min, y_max = np.min(all_y), np.max(all_y)
+            margin = 20
+            xlim = (x_min - margin, x_max + margin)
+            ylim = (y_min - margin, y_max + margin)
+        else:
+            xlim = (-100, 100)
+            ylim = (-100, 100)
+        
+        return xlim, ylim
     def plot_agent_box(self, ax: plt.Axes, x: float, y: float, heading: float,
                       length: float = 4.0, width: float = 2.0, color: str = 'red',
                       alpha: float = 0.8):
@@ -343,17 +385,8 @@ class WaymoTFExampleVisualizer:
         num_agents = len(data['agent_type'])
         max_agents = min(num_agents, 16)  # Limit for performance
         
-        # Pre-compute plot limits from roadgraph
-        if len(data['roadgraph_xyz']) > 0:
-            roadgraph_xyz = data['roadgraph_xyz'].reshape(-1, 3)
-            x_min, x_max = roadgraph_xyz[:, 0].min(), roadgraph_xyz[:, 0].max()
-            y_min, y_max = roadgraph_xyz[:, 1].min(), roadgraph_xyz[:, 1].max()
-            margin = 20
-            xlim = (x_min - margin, x_max + margin)
-            ylim = (y_min - margin, y_max + margin)
-        else:
-            xlim = (-100, 100)
-            ylim = (-100, 100)
+        # Pre-compute plot limits from VALID roadgraph and agent positions
+        xlim, ylim = self._compute_plot_limits(data)
         
         def init():
             """Initialize animation."""
