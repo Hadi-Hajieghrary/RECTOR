@@ -9,6 +9,9 @@ Auto-generated workspace structure (updated on commit).
 ├── data/
 │   ├── cache/
 │   │   └── .gitkeep
+│   ├── movies/
+│   │   ├── scenario/
+│   │   └── tf_example/
 │   ├── processed/
 │   │   └── .gitkeep
 │   ├── waymo_open_dataset_motion_v_1_3_0/
@@ -23,6 +26,7 @@ Auto-generated workspace structure (updated on commit).
 │   │   ├── check_waymo_status.sh*
 │   │   ├── clear_waymo_data.sh*
 │   │   ├── download_waymo_sample.sh*
+│   │   ├── git-pre-commit-generate-movies.sh*
 │   │   ├── git-pre-commit-hook.sh*
 │   │   └── setup_git_hooks.sh*
 │   ├── devcontainer.json
@@ -39,11 +43,14 @@ Auto-generated workspace structure (updated on commit).
 │   └── pretrained/
 ├── notebooks/
 ├── output/
+├── scripts/
+│   ├── visualize_simple.py
+│   └── visualize_waymo_scenario.py
 ├── .gitignore
 ├── LICENSE
 └── WORKSPACE_STRUCTURE.md
 
-16 directories, 20 files
+20 directories, 23 files
 ```
 
-*Last updated: 2025-11-10 00:06:55 UTC*
+*Last updated: 2025-11-10 00:55:12 UTC*

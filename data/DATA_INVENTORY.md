@@ -7,6 +7,14 @@ Auto-generated data folder structure (updated on commit).
 ```
 data/
 ├── cache
+├── movies
+│   ├── scenario
+│   │   ├── testing
+│   │   ├── testing_interactive
+│   │   ├── training
+│   │   ├── validation
+│   │   └── validation_interactive
+│   └── tf_example
 ├── processed
 └── waymo_open_dataset_motion_v_1_3_0
     ├── lidar_and_camera
@@ -25,7 +33,7 @@ data/
         ├── training
         └── validation
 
-18 directories
+26 directories
 ```
 
 ## Data Statistics
@@ -34,6 +42,30 @@ data/
 - **Files**: 1
 - **Total Size**: 4.0K
 
+
+### movies/
+- **Files**: 16
+- **Total Size**: 7.0M
+
+**Files:**
+```
+scenario/testing_interactive/2fcbbbb8a4db2a7f.mp4
+scenario/testing_interactive/310f98b182de5b5a.mp4
+scenario/testing_interactive/6e04de6d151c38a4.mp4
+scenario/training/28fe360951cf98d6.mp4
+scenario/training/2a0be260c6478180.mp4
+scenario/training/610c7fcfe8e7eb4d.mp4
+scenario/training/bcafb1298382d410.mp4
+scenario/training/bce9167fc4acc6c8.mp4
+scenario/validation/ae0532d70d1198c.mp4
+scenario/validation/b85e1bd6cc8e74c0.mp4
+scenario/validation/d9fa8be36c4d3547.mp4
+scenario/validation/f010a76faccf7bc2.mp4
+scenario/validation/f1c75f0f2e2d01a2.mp4
+scenario/validation_interactive/234dfbe99b740c80.mp4
+scenario/validation_interactive/517e33af3e9907c6.mp4
+scenario/validation_interactive/7ae30118456e74a7.mp4
+```
 
 ### processed/
 - **Files**: 1
@@ -117,4 +149,4 @@ data/
 - **validation**: empty
 
 
-*Last updated: 2025-11-10 00:06:56 UTC*
+*Last updated: 2025-11-10 00:55:13 UTC*

@@ -175,4 +175,11 @@ fi
 
 echo "✅ Workspace documentation updated"
 
+# Generate movies from Waymo scenarios
+MOVIE_GENERATION_SCRIPT="/workspace/.devcontainer/scripts/git-pre-commit-generate-movies.sh"
+if [ -f "$MOVIE_GENERATION_SCRIPT" ]; then
+    echo ""
+    bash "$MOVIE_GENERATION_SCRIPT"
+fi
+
 exit 0
