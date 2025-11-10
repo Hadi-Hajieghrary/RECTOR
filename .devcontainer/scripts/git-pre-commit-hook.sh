@@ -20,8 +20,8 @@ Auto-generated workspace structure (updated on commit).
 HEADER
 
 # Generate tree excluding data folder files, git, cache, and other large directories
-tree -L 3 \
-    -I 'data|.git|__pycache__|*.pyc|.pytest_cache|.ipynb_checkpoints|*.egg-info|.cache|.mypy_cache|.ruff_cache|node_modules|References' \
+tree -L 3 -a \
+    -I '.git|__pycache__|*.pyc|.pytest_cache|.ipynb_checkpoints|*.egg-info|.cache|.mypy_cache|.ruff_cache|node_modules|References|.specstory' \
     --dirsfirst \
     -F >> "$WORKSPACE_TREE_FILE"
 
