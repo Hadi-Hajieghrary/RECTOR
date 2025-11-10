@@ -79,26 +79,36 @@ class WaymoTFExampleVisualizer:
         """
         features = example.features.feature
         
-        # Extract state features (shape: [num_agents, num_steps, state_dim])
-        # State includes: x, y, z, length, width, height, heading, velocity_x, velocity_y, valid
-        state_past = self._parse_feature(features, 'state/past/x', 'state/past/y', 
-                                         'state/past/valid', 'state/past/bbox_yaw',
-                                         'state/past/vel_yaw')
-        state_current = self._parse_feature(features, 'state/current/x', 'state/current/y',
-                                            'state/current/valid', 'state/current/bbox_yaw',
-                                            'state/current/vel_yaw')
-        state_future = self._parse_feature(features, 'state/future/x', 'state/future/y',
-                                           'state/future/valid', 'state/future/bbox_yaw',
-                                           'state/future/vel_yaw')
+        # Determine number of agents (usually 128)
+        num_agents = len(self._get_float_list(features, 'state/current/x'))
+        
+        # Extract state features - data is flattened as [agent0_t0, agent0_t1, ..., agent1_t0, agent1_t1, ...]
+        # Need to reshape to [num_agents, num_timesteps]
+        state_past = self._parse_and_reshape_feature(
+            features, num_agents, 10,  # 10 past timesteps
+            'state/past/x', 'state/past/y', 'state/past/valid',
+            'state/past/bbox_yaw', 'state/past/length', 'state/past/width'
+        )
+        state_current = self._parse_and_reshape_feature(
+            features, num_agents, 1,  # 1 current timestep
+            'state/current/x', 'state/current/y', 'state/current/valid',
+            'state/current/bbox_yaw', 'state/current/length', 'state/current/width'
+        )
+        state_future = self._parse_and_reshape_feature(
+            features, num_agents, 80,  # 80 future timesteps
+            'state/future/x', 'state/future/y', 'state/future/valid',
+            'state/future/bbox_yaw', 'state/future/length', 'state/future/width'
+        )
         
         # Extract roadgraph features
         roadgraph_xyz = self._get_float_list(features, 'roadgraph_samples/xyz')
         roadgraph_type = self._get_int_list(features, 'roadgraph_samples/type')
         roadgraph_valid = self._get_int_list(features, 'roadgraph_samples/valid')
         
-        # Extract agent types
-        agent_type = self._get_int_list(features, 'state/type')
-        agent_valid = self._get_int_list(features, 'state/is_sdc')
+        # Extract agent types and validity
+        agent_type = self._get_float_list(features, 'state/type')
+        is_sdc = self._get_int_list(features, 'state/is_sdc')
+        tracks_to_predict = self._get_int_list(features, 'state/tracks_to_predict')
         
         return {
             'state_past': state_past,
@@ -108,7 +118,9 @@ class WaymoTFExampleVisualizer:
             'roadgraph_type': roadgraph_type,
             'roadgraph_valid': roadgraph_valid,
             'agent_type': agent_type,
-            'is_sdc': agent_valid,
+            'is_sdc': is_sdc,
+            'tracks_to_predict': tracks_to_predict,
+            'num_agents': num_agents,
         }
     
     def _get_float_list(self, features, key: str) -> np.ndarray:
@@ -123,21 +135,50 @@ class WaymoTFExampleVisualizer:
             return np.array(features[key].int64_list.value)
         return np.array([])
     
-    def _parse_feature(self, features, x_key: str, y_key: str, 
-                      valid_key: str, heading_key: str, vel_key: str) -> Dict:
-        """Parse x, y, valid, heading, and velocity features."""
+    def _parse_and_reshape_feature(self, features, num_agents: int,
+                                   num_timesteps: int, x_key: str,
+                                   y_key: str, valid_key: str,
+                                   heading_key: str, length_key: str,
+                                   width_key: str) -> Dict:
+        """
+        Parse and reshape features from flattened to [num_agents, num_timesteps].
+        
+        TF Example format stores data flattened:
+        [agent0_t0, agent0_t1, ..., agent1_t0, agent1_t1, ...]
+        """
         x = self._get_float_list(features, x_key)
         y = self._get_float_list(features, y_key)
         valid = self._get_int_list(features, valid_key)
         heading = self._get_float_list(features, heading_key)
-        vel = self._get_float_list(features, vel_key)
+        length = self._get_float_list(features, length_key)
+        width = self._get_float_list(features, width_key)
+        
+        # Reshape from flat to [num_agents, num_timesteps]
+        expected_size = num_agents * num_timesteps
+        
+        if len(x) == expected_size:
+            x = x.reshape(num_agents, num_timesteps)
+            y = y.reshape(num_agents, num_timesteps)
+            valid = valid.reshape(num_agents, num_timesteps).astype(bool)
+            heading = heading.reshape(num_agents, num_timesteps)
+            length = length.reshape(num_agents, num_timesteps)
+            width = width.reshape(num_agents, num_timesteps)
+        else:
+            # If sizes don't match, return empty arrays
+            x = np.zeros((num_agents, num_timesteps))
+            y = np.zeros((num_agents, num_timesteps))
+            valid = np.zeros((num_agents, num_timesteps), dtype=bool)
+            heading = np.zeros((num_agents, num_timesteps))
+            length = np.zeros((num_agents, num_timesteps))
+            width = np.zeros((num_agents, num_timesteps))
         
         return {
             'x': x,
             'y': y,
-            'valid': valid.astype(bool),
+            'valid': valid,
             'heading': heading,
-            'velocity': vel,
+            'length': length,
+            'width': width,
         }
     
     def plot_roadgraph(self, ax: plt.Axes, roadgraph_xyz: np.ndarray, 
@@ -236,32 +277,40 @@ class WaymoTFExampleVisualizer:
         fig, ax = plt.subplots(figsize=self.figsize, dpi=self.dpi)
         
         # Plot roadgraph
-        self.plot_roadgraph(ax, data['roadgraph_xyz'], 
+        self.plot_roadgraph(ax, data['roadgraph_xyz'],
                           data['roadgraph_type'], data['roadgraph_valid'])
         
         # Determine number of agents
-        num_agents = len(data['agent_type'])
+        num_agents = data['num_agents']
+        tracks_to_predict = data.get('tracks_to_predict', np.zeros(num_agents))
         
-        # Plot agent trajectories
-        for agent_idx in range(min(num_agents, 32)):  # Limit to first 32 agents
-            # Get agent data
-            past_x = data['state_past']['x'][agent_idx::num_agents] if len(data['state_past']['x']) > 0 else np.array([])
-            past_y = data['state_past']['y'][agent_idx::num_agents] if len(data['state_past']['y']) > 0 else np.array([])
-            past_valid = data['state_past']['valid'][agent_idx::num_agents] if len(data['state_past']['valid']) > 0 else np.array([])
+        # Plot agent trajectories - data is now [num_agents, num_timesteps]
+        for agent_idx in range(min(num_agents, 32)):  # Limit display
+            # Skip invalid agents
+            if not np.any(data['state_current']['valid'][agent_idx]):
+                continue
             
-            future_x = data['state_future']['x'][agent_idx::num_agents] if len(data['state_future']['x']) > 0 else np.array([])
-            future_y = data['state_future']['y'][agent_idx::num_agents] if len(data['state_future']['y']) > 0 else np.array([])
-            future_valid = data['state_future']['valid'][agent_idx::num_agents] if len(data['state_future']['valid']) > 0 else np.array([])
+            # Get agent data (already reshaped)
+            past_x = data['state_past']['x'][agent_idx]
+            past_y = data['state_past']['y'][agent_idx]
+            past_valid = data['state_past']['valid'][agent_idx]
             
-            # Plot trajectories
-            if len(past_x) > 0 and np.any(past_valid):
+            future_x = data['state_future']['x'][agent_idx]
+            future_y = data['state_future']['y'][agent_idx]
+            future_valid = data['state_future']['valid'][agent_idx]
+            
+            # Plot trajectories (only if agent has valid data)
+            if np.any(past_valid):
                 self.plot_agent_trajectory(ax, past_x, past_y, past_valid,
-                                          COLORS['history'], f'Agent {agent_idx} Past',
+                                          COLORS['history'],
+                                          f'Agent {agent_idx}',
                                           alpha=0.6, linewidth=1.5)
             
-            if len(future_x) > 0 and np.any(future_valid):
-                self.plot_agent_trajectory(ax, future_x, future_y, future_valid,
-                                          COLORS['future'], f'Agent {agent_idx} Future',
+            if np.any(future_valid):
+                self.plot_agent_trajectory(ax, future_x, future_y,
+                                          future_valid,
+                                          COLORS['future'],
+                                          f'Agent {agent_idx}',
                                           alpha=0.6, linewidth=1.5)
         
         ax.set_xlabel('X (m)', fontsize=12)
@@ -339,40 +388,49 @@ class WaymoTFExampleVisualizer:
                 data_source = 'future'
                 time_label = f"Future: t={current_step}"
             
-            # Plot agents at current timestep
+            # Plot agents at current timestep - data is [num_agents, num_timesteps]
             for agent_idx in range(max_agents):
                 if data_source == 'past':
-                    x_all = data['state_past']['x'][agent_idx::num_agents] if len(data['state_past']['x']) > 0 else np.array([])
-                    y_all = data['state_past']['y'][agent_idx::num_agents] if len(data['state_past']['y']) > 0 else np.array([])
-                    valid_all = data['state_past']['valid'][agent_idx::num_agents] if len(data['state_past']['valid']) > 0 else np.array([])
-                    heading_all = data['state_past']['heading'][agent_idx::num_agents] if len(data['state_past']['heading']) > 0 else np.array([])
+                    x_all = data['state_past']['x'][agent_idx]
+                    y_all = data['state_past']['y'][agent_idx]
+                    valid_all = data['state_past']['valid'][agent_idx]
+                    heading_all = data['state_past']['heading'][agent_idx]
+                    length_all = data['state_past']['length'][agent_idx]
+                    width_all = data['state_past']['width'][agent_idx]
                 else:
-                    x_all = data['state_future']['x'][agent_idx::num_agents] if len(data['state_future']['x']) > 0 else np.array([])
-                    y_all = data['state_future']['y'][agent_idx::num_agents] if len(data['state_future']['y']) > 0 else np.array([])
-                    valid_all = data['state_future']['valid'][agent_idx::num_agents] if len(data['state_future']['valid']) > 0 else np.array([])
-                    heading_all = data['state_future']['heading'][agent_idx::num_agents] if len(data['state_future']['heading']) > 0 else np.array([])
+                    x_all = data['state_future']['x'][agent_idx]
+                    y_all = data['state_future']['y'][agent_idx]
+                    valid_all = data['state_future']['valid'][agent_idx]
+                    heading_all = data['state_future']['heading'][agent_idx]
+                    length_all = data['state_future']['length'][agent_idx]
+                    width_all = data['state_future']['width'][agent_idx]
                 
-                if current_step < len(x_all) and current_step < len(valid_all):
-                    if valid_all[current_step]:
-                        x = x_all[current_step]
-                        y = y_all[current_step]
-                        heading = heading_all[current_step] if current_step < len(heading_all) else 0.0
-                        
-                        # Plot trajectory history up to current point
-                        if current_step > 0:
-                            hist_x = x_all[:current_step+1]
-                            hist_y = y_all[:current_step+1]
-                            hist_valid = valid_all[:current_step+1]
-                            ax.plot(hist_x[hist_valid], hist_y[hist_valid],
-                                   color=COLORS['vehicle'], alpha=0.4, linewidth=1)
-                        
-                        # Plot current position
-                        self.plot_agent_box(ax, x, y, heading,
-                                          color=COLORS['vehicle'], alpha=0.8)
+                if current_step < len(x_all) and valid_all[current_step]:
+                    x = x_all[current_step]
+                    y = y_all[current_step]
+                    heading = heading_all[current_step]
+                    length = length_all[current_step]
+                    width = width_all[current_step]
+                    
+                    # Plot trajectory history up to current point
+                    if current_step > 0:
+                        hist_x = x_all[:current_step+1]
+                        hist_y = y_all[:current_step+1]
+                        hist_valid = valid_all[:current_step+1]
+                        ax.plot(hist_x[hist_valid], hist_y[hist_valid],
+                               color=COLORS['vehicle'], alpha=0.4,
+                               linewidth=1)
+                    
+                    # Plot current position with actual dimensions
+                    self.plot_agent_box(ax, x, y, heading,
+                                      length=max(length, 1.0),
+                                      width=max(width, 0.5),
+                                      color=COLORS['vehicle'], alpha=0.8)
             
             ax.set_xlabel('X (m)', fontsize=12)
             ax.set_ylabel('Y (m)', fontsize=12)
-            ax.set_title(f'{title}\n{time_label}', fontsize=14, fontweight='bold')
+            ax.set_title(f'{title}\n{time_label}', fontsize=14,
+                        fontweight='bold')
             
             return []
         
