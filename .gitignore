@@ -449,6 +449,7 @@ data/**/*
 *.tgz
 *.zip
 *.7z
+nohup.out
 
 # Allow specific data documentation or metadata files if needed
 !data/**/*.md
@@ -462,3 +463,6 @@ data/**/*
 !data/**/*.gif
 !data/**/*.avi
 !data/**/*.mov
+
+# External repositories (cloned during devcontainer setup)
+externals/

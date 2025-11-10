@@ -9,6 +9,13 @@ chmod +x .devcontainer/scripts/*.sh 2>/dev/null || true
 chmod +x scripts/*.sh 2>/dev/null || true
 chmod +x scripts/waymo/*.sh 2>/dev/null || true
 
+# Setup external repositories (M2I and Waymo Open Dataset)
+echo ""
+if [ -f ".devcontainer/scripts/setup-externals.sh" ]; then
+    bash .devcontainer/scripts/setup-externals.sh
+fi
+echo ""
+
 # Create directory structure
 echo "📁 Creating directory structure..."
 mkdir -p \
@@ -39,20 +46,6 @@ fi
 if [ -f "setup.py" ] || [ -f "pyproject.toml" ]; then
     echo "📦 Installing project in editable mode..."
     pip install -e . || echo "⚠️  Project installation failed (continue anyway)"
-fi
-
-# Build M2I Cython extensions if available
-if [ -d "external/M2I/src" ]; then
-    echo "🛠️  Building M2I Cython extensions..."
-    cd external/M2I/src
-    
-    if [ -f "setup.py" ]; then
-        python setup.py build_ext --inplace 2>/dev/null || {
-            echo "⚠️  M2I Cython build failed (optional - will use Python fallback)"
-        }
-    fi
-    
-    cd /workspace
 fi
 
 # Add useful bash aliases

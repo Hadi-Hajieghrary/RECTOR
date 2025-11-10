@@ -45,10 +45,12 @@ generate_movies() {
     # Create output directory
     mkdir -p "$output_dir"
     
-    # Check if movies already exist
+    # Check if movies already exist (check MP4s since they're the primary format)
     local existing_movies=$(find "$output_dir" -name "*.mp4" 2>/dev/null | wc -l)
     if [ "$existing_movies" -ge "$MAX_SCENARIOS" ]; then
         echo "  Already have $existing_movies movies (max: $MAX_SCENARIOS), skipping generation."
+        # Still add any existing GIFs to staging
+        find "$output_dir" -name "*.gif" -exec git add {} \; 2>/dev/null || true
         return
     fi
     
@@ -61,9 +63,10 @@ generate_movies() {
         --dpi 100 \
         2>&1 | grep -v "tensorflow\|oneDNN\|GPU\|CUDA\|TensorRT\|NUMA" || true
     
-    # Add generated movies to git staging
+    # Add generated movies to git staging (both MP4 and GIF)
     if [ -d "$output_dir" ]; then
         find "$output_dir" -name "*.mp4" -exec git add {} \; 2>/dev/null || true
+        find "$output_dir" -name "*.gif" -exec git add {} \; 2>/dev/null || true
     fi
 }
 
@@ -114,10 +117,12 @@ if [ -f "$TFEXAMPLE_SCRIPT" ]; then
         # Create output directory
         mkdir -p "$output_dir"
         
-        # Check if movies already exist
+        # Check if movies already exist (check MP4s since they're the primary format)
         local existing_movies=$(find "$output_dir" -name "*.mp4" 2>/dev/null | wc -l)
         if [ "$existing_movies" -ge "$MAX_SCENARIOS" ]; then
             echo "  Already have $existing_movies movies (max: $MAX_SCENARIOS), skipping generation."
+            # Still add any existing GIFs to staging
+            find "$output_dir" -name "*.gif" -exec git add {} \; 2>/dev/null || true
             continue
         fi
         
@@ -130,9 +135,10 @@ if [ -f "$TFEXAMPLE_SCRIPT" ]; then
             --dpi 100 \
             2>&1 | grep -v "tensorflow\|oneDNN\|GPU\|CUDA\|TensorRT\|NUMA" || true
         
-        # Add generated movies to git staging
+        # Add generated movies to git staging (both MP4 and GIF)
         if [ -d "$output_dir" ]; then
             find "$output_dir" -name "*.mp4" -exec git add {} \; 2>/dev/null || true
+            find "$output_dir" -name "*.gif" -exec git add {} \; 2>/dev/null || true
         fi
     done
 else
@@ -141,9 +147,11 @@ fi
 
 # Count total movies generated
 total_movies=$(find "$MOVIES_DIR" -name "*.mp4" 2>/dev/null | wc -l)
+total_gifs=$(find "$MOVIES_DIR" -name "*.gif" 2>/dev/null | wc -l)
 echo ""
 echo "=== Movie Generation Complete ==="
-echo "Total movies: $total_movies"
+echo "Total MP4 files: $total_movies"
+echo "Total GIF files: $total_gifs"
 echo ""
 
 exit 0
