@@ -10,7 +10,7 @@ print_warn() { echo -e "${YELLOW}[WARN]${NC} $1"; }
 print_error() { echo -e "${RED}[ERROR]${NC} $1"; }
 print_step() { echo -e "${BLUE}[STEP]${NC} $1"; }
 
-DATA_DIR="${WAYMO_DATA_ROOT:-/workspace/data/waymo_open_dataset_motion_v_1_3_0}"
+DATA_DIR="${WAYMO_DATA_ROOT:-/workspace/data/datasets/waymo_open_dataset/motion_v_1_3_0}"
 
 echo "════════════════════════════════════════════════════════════"
 echo "  RECTOR - Waymo Dataset Cleaner"

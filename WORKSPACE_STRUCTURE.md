@@ -7,6 +7,7 @@ Auto-generated workspace structure (updated on commit).
 ```
 ./
 ├── data/
+│   ├── cache/
 │   ├── datasets/
 │   │   └── waymo_open_dataset/
 │   ├── movies/
@@ -14,13 +15,16 @@ Auto-generated workspace structure (updated on commit).
 │   ├── scripts/
 │   │   ├── bash/
 │   │   ├── lib/
+│   │   ├── INDEX.md
 │   │   ├── README.md
+│   │   ├── verify_scripts_exist.sh*
 │   │   └── waymo*
 │   ├── tests/
 │   │   ├── README.md
 │   │   ├── test_data_loading.py
 │   │   ├── test_preprocessing_backup.py
 │   │   └── test_preprocessing.py*
+│   ├── DATA_INVENTORY.md
 │   ├── .gitkeep
 │   └── README.md
 ├── .devcontainer/
@@ -78,7 +82,7 @@ Auto-generated workspace structure (updated on commit).
 ├── tree.log
 └── WORKSPACE_STRUCTURE.md
 
-31 directories, 40 files
+32 directories, 43 files
 ```
 
-*Last updated: 2025-11-10 21:50:47 UTC*
+*Last updated: 2025-11-10 23:54:21 UTC*

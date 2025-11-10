@@ -308,7 +308,7 @@ The scenario format includes several splits:
 - **validation_interactive**: Interactive validation scenarios with human-driven vehicles
 - **testing_interactive**: Interactive testing scenarios with human-driven vehicles
 
-Data is stored at `/workspace/data/waymo_open_dataset_motion_v_1_3_0/` with subdirectories for each format and split.
+Data is stored at `/workspace/data/datasets/waymo_open_dataset/motion_v_1_3_0/raw/` with subdirectories for each format and split.
 
 The interactive scenarios are particularly useful for testing models that need to predict or interact with human-driven vehicles, while the 20-second scenarios enable longer planning horizons.
 
@@ -318,7 +318,7 @@ If you already have the Waymo dataset on your host machine, you can mount it ins
 
 ```yaml
 volumes:
-  - /absolute/path/to/your/waymo_dataset:/workspace/data/waymo_open_dataset_motion_v_1_3_0:cached
+  - /absolute/path/to/your/waymo_dataset:/workspace/data/datasets/waymo_open_dataset/motion_v_1_3_0/raw:cached
 ```
 
 Then rebuild the container.

@@ -19,9 +19,9 @@ echo ""
 # Create directory structure
 echo "📁 Creating directory structure..."
 mkdir -p \
-    data/waymo_open_dataset_motion_v_1_3_0/uncompressed/{lidar_and_camera,scenario,tf_example} \
+    data/datasets/waymo_open_dataset/motion_v_1_3_0/raw \
+    data/datasets/waymo_open_dataset/motion_v_1_3_0/processed \
     data/cache \
-    data/processed \
     models/checkpoints \
     models/pretrained \
     output \
@@ -105,11 +105,11 @@ PYCHECK
 
 # Check for Waymo dataset
 echo ""
-if [ -d "data/waymo_open_dataset_motion_v_1_3_0/uncompressed" ]; then
+if [ -d "data/datasets/waymo_open_dataset/motion_v_1_3_0/raw" ]; then
     echo "📊 Checking Waymo dataset..."
-    bash scripts/waymo/check_waymo_status.sh 2>/dev/null || echo "ℹ️  Run 'waymo-status' to check dataset"
+    ./data/scripts/waymo status 2>/dev/null || echo "ℹ️  Run './data/scripts/waymo status' to check dataset"
 else
-    echo "ℹ️  Waymo dataset not found. Use 'waymo-download' to download data."
+    echo "ℹ️  Waymo dataset not found. Use './data/scripts/waymo download' to download data."
 fi
 
 echo ""

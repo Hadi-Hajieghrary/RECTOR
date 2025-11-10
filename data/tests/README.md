@@ -11,19 +11,19 @@ Comprehensive test suite for Waymo data preprocessing and loading.
 ```bash
 # Test with existing preprocessed data
 python data/tests/test_preprocessing.py \
-    --data-dir data/processed/itp_training \
+    --data-dir data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/itp_training \
     --num-samples 5
 
 # Run end-to-end test (preprocess + load)
 python data/tests/test_preprocessing.py \
     --test-preprocessing \
-    --input-dir data/waymo_open_dataset_motion_v_1_3_0/scenario/training \
+    --input-dir data/datasets/waymo_open_dataset/motion_v_1_3_0/raw/scenario/training \
     --output-dir /tmp/test_preprocessed \
     --max-files 2
 
 # Test batching
 python data/tests/test_preprocessing.py \
-    --data-dir data/processed/itp_training \
+    --data-dir data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/itp_training \
     --test-batching \
     --batch-size 8
 ```

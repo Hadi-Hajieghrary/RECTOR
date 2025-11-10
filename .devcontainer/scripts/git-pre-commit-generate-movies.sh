@@ -4,12 +4,12 @@ set -e
 echo "=== Pre-commit Hook: Generating Waymo Scenario Movies ==="
 
 # Base directories
-DATA_DIR="/workspace/data/waymo_open_dataset_motion_v_1_3_0"
+DATA_DIR="/workspace/data/datasets/waymo_open_dataset/motion_v_1_3_0/raw"
 MOVIES_DIR="/workspace/data/movies"
 MAX_SCENARIOS=10
 
 # Check if viz_waymo_scenario.py exists
-VISUALIZE_SCRIPT="/workspace/data/scripts/viz_waymo_scenario.py"
+VISUALIZE_SCRIPT="/workspace/data/scripts/lib/viz_waymo_scenario.py"
 if [ ! -f "$VISUALIZE_SCRIPT" ]; then
     echo "Warning: Visualization script not found at $VISUALIZE_SCRIPT"
     echo "Skipping movie generation."
