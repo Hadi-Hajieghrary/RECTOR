@@ -13,7 +13,7 @@ print_error() { echo -e "${RED}[ERROR]${NC} $1"; }
 # Configuration
 WOMD_VERSION="${WOMD_VERSION:-v_1_3_0}"
 BUCKET="gs://waymo_open_dataset_motion_${WOMD_VERSION}/uncompressed"
-DATA_DIR="${WAYMO_DATA_ROOT:-/workspace/data/waymo_open_dataset_motion_v_1_3_0}"
+DATA_DIR="${WAYMO_RAW_ROOT:-/workspace/data/datasets/waymo_open_dataset/motion_v_1_3_0/raw}"
 NUM_SAMPLE_FILES="${NUM_SAMPLE_FILES:-5}"
 
 echo "════════════════════════════════════════════════════════════"

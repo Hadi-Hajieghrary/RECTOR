@@ -9,7 +9,7 @@ print_info() { echo -e "${GREEN}[INFO]${NC} $1"; }
 print_warn() { echo -e "${YELLOW}[WARN]${NC} $1"; }
 print_header() { echo -e "${BLUE}$1${NC}"; }
 
-DATA_DIR="${WAYMO_DATA_ROOT:-/workspace/data/waymo_open_dataset_motion_v_1_3_0}"
+DATA_DIR="${WAYMO_RAW_ROOT:-/workspace/data/datasets/waymo_open_dataset/motion_v_1_3_0/raw}"
 
 echo "════════════════════════════════════════════════════════════"
 echo "  RECTOR - Waymo Dataset Status"

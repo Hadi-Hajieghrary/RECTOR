@@ -7,21 +7,22 @@ Auto-generated workspace structure (updated on commit).
 ```
 ./
 ├── data/
-│   ├── cache/
-│   │   └── .gitkeep
+│   ├── datasets/
+│   │   └── waymo_open_dataset/
 │   ├── movies/
-│   │   ├── scenario/
-│   │   ├── tf_example/
-│   │   └── README.md
-│   ├── processed/
-│   │   └── .gitkeep
-│   ├── waymo_open_dataset_motion_v_1_3_0/
-│   │   ├── lidar_and_camera/
-│   │   ├── scenario/
-│   │   ├── tf_example/
-│   │   └── .gitkeep
-│   ├── DATA_INVENTORY.md
-│   └── .gitkeep
+│   │   └── waymo_open_dataset/
+│   ├── scripts/
+│   │   ├── bash/
+│   │   ├── lib/
+│   │   ├── README.md
+│   │   └── waymo*
+│   ├── tests/
+│   │   ├── README.md
+│   │   ├── test_data_loading.py
+│   │   ├── test_preprocessing_backup.py
+│   │   └── test_preprocessing.py*
+│   ├── .gitkeep
+│   └── README.md
 ├── .devcontainer/
 │   ├── scripts/
 │   │   ├── check_waymo_status.sh*
@@ -29,6 +30,7 @@ Auto-generated workspace structure (updated on commit).
 │   │   ├── download_waymo_sample.sh*
 │   │   ├── git-pre-commit-generate-movies.sh*
 │   │   ├── git-pre-commit-hook.sh*
+│   │   ├── setup-externals.sh*
 │   │   └── setup_git_hooks.sh*
 │   ├── devcontainer.json
 │   ├── docker-compose.yml
@@ -38,24 +40,45 @@ Auto-generated workspace structure (updated on commit).
 │   ├── README.md
 │   └── requirements.base.txt
 ├── experiments/
+├── externals/
+│   ├── M2I/
+│   │   ├── configs/
+│   │   ├── scripts/
+│   │   ├── src/
+│   │   ├── conda.cuda111.yaml
+│   │   ├── .gitignore
+│   │   ├── LICENSE
+│   │   ├── README.md
+│   │   └── requirements.txt
+│   └── waymo-open-dataset/
+│       ├── docs/
+│       ├── src/
+│       ├── tutorial/
+│       ├── CONTRIBUTING.md
+│       ├── .gitignore
+│       ├── LICENSE
+│       ├── LOG.md
+│       └── README.md
 ├── logs/
 ├── models/
 │   ├── checkpoints/
 │   └── pretrained/
+│       ├── conditional/
+│       └── densetnt/
 ├── notebooks/
 ├── output/
 ├── scripts/
-│   ├── regenerate_all_movies.sh*
-│   ├── visualize_simple.py
-│   ├── visualize_waymo_scenario.py
-│   └── visualize_waymo_tfexample.py
+├── tests/
 ├── .gitignore
 ├── LICENSE
 ├── nohup.out
+├── preprocess_full.log
+├── README.md
 ├── regenerate.log
+├── tree.log
 └── WORKSPACE_STRUCTURE.md
 
-20 directories, 28 files
+31 directories, 40 files
 ```
 
-*Last updated: 2025-11-10 02:08:11 UTC*
+*Last updated: 2025-11-10 21:50:47 UTC*

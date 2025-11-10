@@ -26,7 +26,6 @@ mkdir -p \
     models/pretrained \
     output \
     logs \
-    experiments \
     notebooks \
     .cache/torch \
     .cache/huggingface
@@ -56,7 +55,6 @@ cat >> ~/.bashrc <<'EOF'
 alias rector-train='python scripts/train.py'
 alias rector-eval='python scripts/validate.py'
 alias rector-viz='python scripts/visualize.py'
-alias tb='tensorboard --logdir=experiments --host=0.0.0.0 --port=6006'
 alias jlab='jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root'
 
 # Waymo dataset helpers

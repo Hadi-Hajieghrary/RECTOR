@@ -8,8 +8,8 @@ DATA_DIR="/workspace/data/waymo_open_dataset_motion_v_1_3_0"
 MOVIES_DIR="/workspace/data/movies"
 MAX_SCENARIOS=10
 
-# Check if visualize_waymo_scenario.py exists
-VISUALIZE_SCRIPT="/workspace/scripts/visualize_waymo_scenario.py"
+# Check if viz_waymo_scenario.py exists
+VISUALIZE_SCRIPT="/workspace/data/scripts/viz_waymo_scenario.py"
 if [ ! -f "$VISUALIZE_SCRIPT" ]; then
     echo "Warning: Visualization script not found at $VISUALIZE_SCRIPT"
     echo "Skipping movie generation."
@@ -96,7 +96,7 @@ done
 # Generate movies for tf_example format
 echo ""
 echo "Generating movies for tf_example format..."
-TFEXAMPLE_SCRIPT="/workspace/scripts/visualize_waymo_tfexample.py"
+TFEXAMPLE_SCRIPT="/workspace/data/scripts/viz_waymo_tfexample.py"
 if [ -f "$TFEXAMPLE_SCRIPT" ]; then
     for split in "${TFEXAMPLE_SPLITS[@]}"; do
         local input_dir="${DATA_DIR}/tf_example/${split}"

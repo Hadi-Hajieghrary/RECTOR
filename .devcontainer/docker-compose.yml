@@ -29,22 +29,22 @@ services:
     
     # Volume mounts
     volumes:
-      # Mount workspace
+      # Mount workspace (includes all data on host filesystem)
       - ..:/workspace:cached
       
       # Persistent caches
       - rector-cache:/workspace/.cache
       - rector-venv:/opt/venv
-      
-      # Waymo dataset
-      - waymo-data:/workspace/data/waymo_open_dataset_motion_v_1_3_0:cached
     
     # Environment variables
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=compute,utility
       - CUDA_VISIBLE_DEVICES=0
-      - WAYMO_DATA_ROOT=/workspace/data/waymo_open_dataset_motion_v_1_3_0
+      - WAYMO_DATA_ROOT=/workspace/data/datasets/waymo_open_dataset/motion_v_1_3_0
+      - WAYMO_RAW_ROOT=/workspace/data/datasets/waymo_open_dataset/motion_v_1_3_0/raw
+      - WAYMO_PROCESSED_ROOT=/workspace/data/datasets/waymo_open_dataset/motion_v_1_3_0/processed
+      - WAYMO_MOVIES_ROOT=/workspace/data/movies/waymo_open_dataset/motion_v_1_3_0
       - TORCH_HOME=${TORCH_HOME:-/workspace/.cache/torch}
       - HF_HOME=${HF_HOME:-/workspace/.cache/huggingface}
       - TORCH_CUDA_ARCH_LIST=${TORCH_CUDA_ARCH_LIST:-8.6}
@@ -59,6 +59,4 @@ volumes:
   rector-cache:
     driver: local
   rector-venv:
-    driver: local
-  waymo-data:
     driver: local

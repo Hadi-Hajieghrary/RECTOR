@@ -9,7 +9,6 @@ DIRS=(
     "/workspace/models"
     "/workspace/output"
     "/workspace/logs"
-    "/workspace/experiments"
     "/workspace/.cache"
     "/workspace/notebooks"
 )
