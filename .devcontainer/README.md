@@ -13,7 +13,9 @@ This development container is built on **NVIDIA CUDA 12.2 with cuDNN 8 on Ubuntu
 - **Scientific Stack**: NumPy, SciPy, Matplotlib, and specialized geometry tools
 - **Development Tools**: Jupyter Lab, TensorBoard, comprehensive testing and linting tools
 - **Waymo Dataset Integration**: Pre-configured tools and scripts for dataset management
+- **Video Generation**: ffmpeg for creating visualization movies from scenarios
 - **GPU Optimization**: Properly configured CUDA environment with debugging support
+- **Automated Documentation**: Git hooks that auto-generate workspace structure files
 
 The first build takes 10-15 minutes, but after that, you're up and running in under 30 seconds every time.
 
@@ -205,9 +207,11 @@ git lfs track "*.h5"
 
 **Git Pre-Commit Hook** automatically generates workspace documentation:
 - `WORKSPACE_STRUCTURE.md` - Complete workspace tree (excludes data files)
-- `DATA_INVENTORY.md` - Data folder structure with file counts and sizes
+- `data/DATA_INVENTORY.md` - Data folder structure with file counts and sizes
 
-The hook runs automatically before each commit, keeping your workspace documentation up-to-date. If you need to reinstall it:
+The hook is automatically installed during container creation via the post-create script. It runs before each commit, keeping your workspace documentation up-to-date.
+
+If you need to manually reinstall it:
 ```bash
 bash .devcontainer/scripts/setup_git_hooks.sh
 ```

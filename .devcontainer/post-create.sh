@@ -16,6 +16,15 @@ if [ -f ".devcontainer/scripts/setup-externals.sh" ]; then
 fi
 echo ""
 
+# Setup Git hooks
+echo "🔧 Setting up Git hooks..."
+if [ -f ".devcontainer/scripts/setup_git_hooks.sh" ]; then
+    bash .devcontainer/scripts/setup_git_hooks.sh
+else
+    echo "⚠️  Git hooks setup script not found"
+fi
+echo ""
+
 # Create directory structure
 echo "📁 Creating directory structure..."
 mkdir -p \

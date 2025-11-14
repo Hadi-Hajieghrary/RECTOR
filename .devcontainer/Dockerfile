@@ -20,11 +20,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     protobuf-compiler libprotobuf-dev \
     # OpenCV and graphics dependencies
     libgl1 libglib2.0-0 libsm6 libxext6 libxrender-dev \
+    # ffmpeg for video generation
+    ffmpeg \
     # Additional utilities
     vim nano htop tmux screen \
     # Google Cloud SDK dependencies (for gsutil)
     apt-transport-https ca-certificates gnupg \
- && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/*
 
 # Install Google Cloud SDK for gsutil (Waymo dataset downloads)
 RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | \
@@ -42,9 +44,9 @@ ENV LANG=en_US.UTF-8 \
 
 # Create non-root user with sudo access
 RUN groupadd --gid ${USER_GID} ${USERNAME} \
- && useradd -s /bin/bash --uid ${USER_UID} --gid ${USER_GID} -m ${USERNAME} \
- && echo "${USERNAME} ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/${USERNAME} \
- && chmod 0440 /etc/sudoers.d/${USERNAME}
+    && useradd -s /bin/bash --uid ${USER_UID} --gid ${USER_GID} -m ${USERNAME} \
+    && echo "${USERNAME} ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/${USERNAME} \
+    && chmod 0440 /etc/sudoers.d/${USERNAME}
 
 # Python virtual environment at /opt/venv
 RUN python3 -m venv /opt/venv
