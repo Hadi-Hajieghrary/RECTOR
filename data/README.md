@@ -77,15 +77,19 @@ This guide covers everything you need to download, preprocess, and visualize the
 - Rich map data: lane geometry, crosswalks, road edges, stop signs
 
 **Data Formats:**
-1. **scenario**: Primary format for preprocessing and ITP training
+1. **scenario**: Structured protobuf format
    - Structured protobuf messages
    - Contains agent trajectories and map features
    - Used by waymo_preprocess.py to create .npz files
+   - ⚠️ NOTE: Not available in downloaded dataset (only tf_example format)
 
-2. **tf_example**: Flattened TensorFlow Example format
+2. **tf_example**: Flattened TensorFlow Example format (PRIMARY FORMAT)
+   - ✅ Available in all downloaded splits
    - Used for interactive scenario filtering
-   - Contains "objects of interest" labels
-   - Required to create training_interactive subset
+   - Contains complete trajectory data (10 past + 1 current + 80 future = 91 frames)
+   - Can be loaded directly with `WaymoTFExampleDataset` (no preprocessing needed)
+   - Can be preprocessed to .npz format for `WaymoITPDataset`
+   - Contains "objects of interest" labels for interactive pairs
 
 **Splits:**
 - training: ~70,000 scenarios (full dataset)
@@ -210,12 +214,18 @@ gsutil -m cp \
 ### What Gets Downloaded
 
 **Default download (5 files per partition, ~18 GB):**
-- scenario/training: 5 files (~2.2 GB)
-- scenario/testing_interactive: 5 files (~929 MB)
-- scenario/validation_interactive: 5 files (~1.3 GB)
-- tf_example/training: 5 files (~4.0 GB)
-- tf_example/testing: 5 files (~2.6 GB)
-- tf_example/validation: 5 files (~2.5 GB)
+- scenario/training: 5 files (~2.2 GB) - ⚠️ May not be available
+- scenario/testing_interactive: 5 files (~929 MB) - ⚠️ May not be available  
+- scenario/validation_interactive: 5 files (~1.3 GB) - ⚠️ May not be available
+- tf_example/training: 5 files (~4.0 GB) - ✅ Available
+- tf_example/testing: 5 files (~2.6 GB) - ✅ Available
+- tf_example/validation: 5 files (~2.5 GB) - ✅ Available
+- tf_example/testing_interactive: 15 files - ✅ Available
+- tf_example/validation_interactive: 15 files - ✅ Available
+- tf_example/training_interactive: 15 files - ✅ Available
+
+**Note:** As of November 2025, the scenario format may not be available in the public dataset.
+Use tf_example format instead, which contains the same data in a different structure.
 
 **Full dataset (all files, ~500 GB):**
 - scenario/training: 1000 files (~440 GB)
@@ -278,41 +288,197 @@ python data/scripts/filter_interactive_training.py \
 
 ### Overview
 
-Convert Waymo TFRecord files (scenario format) into .npz files for efficient PyTorch training.
+**Two preprocessing approaches available:**
 
-**What preprocessing does:**
-1. Extracts agent trajectories (position, velocity, heading, bbox)
-2. Identifies interactive pairs (within 30m threshold)
-3. Processes map features (lanes, road lines, edges, crosswalks, stop signs)
-4. Structures data into history/short-horizon/long-horizon splits
-5. Saves compressed .npz files (~1/3 original size)
+1. **Direct TFExample Loading (NEW - Recommended)**
+   - Load tf_example TFRecords directly without preprocessing
+   - Uses `WaymoTFExampleDataset` class
+   - Fast, no conversion needed
+   - Full 91 frames available (10 past + 1 current + 80 future)
 
-### Automated Processing (Recommended)
+2. **Convert to .npz Format (Traditional)**
+   - Convert tf_example TFRecords to .npz files
+   - Uses `WaymoITPDataset` class  
+   - Smaller file size, faster loading during training
+   - Requires preprocessing step
 
-**Process all data in one command:**
-```bash
-./data/scripts/process_waymo_subset.sh
+### Method 1: Direct TFExample Loading (No Preprocessing)
+
+**Use this for quick experimentation:**
+
+```python
+from data.scripts.lib.waymo_dataset import WaymoTFExampleDataset, build_tfexample_dataloader
+
+# Load data directly from TFRecords
+dataloader = build_tfexample_dataloader(
+    data_dir="data/datasets/waymo_open_dataset/motion_v_1_3_0/raw/tf_example/training_interactive",
+    split="training_interactive",
+    batch_size=4,
+    num_workers=4,
+    shuffle=True,
+    history_frames=11,
+    short_horizon_frames=80,
+    long_horizon_frames=200,
+)
+
+for batch in dataloader:
+    # batch['agent_trajectories']: [B, 128, 211, 2]
+    # batch['agent_valid']: [B, 128, 211]
+    # batch['interactive_pairs']: [B, K, 2]
+    ...
 ```
 
-**What this does:**
-1. Filters interactive training scenarios (tf_example → training_interactive)
-2. Preprocesses training data (scenario/training → itp_training with interactive filtering)
-3. Preprocesses validation data (scenario/validation_interactive → itp_validation_interactive)
-4. Preprocesses testing data (scenario/testing_interactive → itp_testing_interactive with special handling)
+**Advantages:**
+- ✅ No preprocessing needed
+- ✅ Works with downloaded tf_example data
+- ✅ All 128 agents available per scenario
+- ✅ Automatic interactive pair detection
 
-**Actual output (from 5 files per split):**
-- itp_training: 2,465 scenarios (552 MB) - created from scenario/training with interactive-only filter
-- itp_validation_interactive: 1,445 scenarios (320 MB) - created from scenario/validation_interactive
-- itp_testing_interactive: 1,392 scenarios (278 MB) - created from scenario/testing_interactive
-- Total: 5,302 preprocessed scenarios (1.2 GB compressed)
+**Test loading:**
+```bash
+python data/tests/test_tfexample_loading.py
+```
 
-### Manual Preprocessing
+### Method 2: Convert to .npz Format
+
+**Step 1: Preprocess tf_example data to .npz:**
+
+```python
+# Quick preprocessing script (100 scenarios per split)
+python -c "
+import sys
+from pathlib import Path
+import numpy as np
+import pickle
+from tqdm import tqdm
+
+sys.path.insert(0, 'data/scripts/lib')
+from waymo_dataset import WaymoTFExampleDataset
+
+def process_split(input_dir, output_dir, split, max_scenarios=100):
+    dataset = WaymoTFExampleDataset(
+        data_dir=input_dir,
+        split=split,
+        history_frames=11,
+        short_horizon_frames=80,
+        long_horizon_frames=200,
+        cache_tfrecords=True,
+        max_scenarios=max_scenarios,
+    )
+    
+    Path(output_dir).mkdir(parents=True, exist_ok=True)
+    saved = 0
+    
+    for idx in tqdm(range(len(dataset)), desc=f'Processing {split}'):
+        sample = dataset[idx]
+        scenario_id = sample['scenario_id']
+        pairs = sample['interactive_pairs'].numpy()
+        
+        if len(pairs) == 0:
+            continue
+        
+        trajectories = sample['agent_trajectories'].numpy()
+        valid = sample['agent_valid'].numpy()
+        types = sample['agent_types'].numpy()
+        velocities = sample['agent_velocities'].numpy()
+        headings = sample['agent_headings'].numpy()
+        
+        for pair_idx, (i, j) in enumerate(pairs):
+            # Compute velocity vectors
+            pair_vel_scalar = velocities[[i, j]]
+            pair_heading = headings[[i, j]]
+            vx = pair_vel_scalar * np.cos(pair_heading)
+            vy = pair_vel_scalar * np.sin(pair_heading)
+            pair_vel = np.stack([vx, vy], axis=-1)
+            
+            tracks = {
+                'pos': trajectories[[i, j]],
+                'valid': valid[[i, j]],
+                'type': types[[i, j]],
+                'vel': pair_vel,
+                'heading': pair_heading,
+            }
+            
+            pair_id = f'{scenario_id}_pair{pair_idx}'
+            output_file = Path(output_dir) / f'{pair_id}.npz'
+            
+            np.savez_compressed(
+                output_file,
+                scenario_id=pair_id,
+                tracks=np.array(tracks, dtype=object),
+                map=np.array({}, dtype=object),
+                pair_indices=np.array([0, 1]),
+                all_pairs=pairs,
+            )
+            saved += 1
+    
+    metadata = {
+        'split': split,
+        'num_scenarios': saved,
+        'history_frames': 11,
+        'short_horizon_frames': 80,
+        'long_horizon_frames': 200,
+    }
+    with open(Path(output_dir) / 'metadata.pkl', 'wb') as f:
+        pickle.dump(metadata, f)
+    
+    return saved
+
+# Process all splits
+for split_name, input_dir, output_dir in [
+    ('training_interactive', 
+     'data/datasets/waymo_open_dataset/motion_v_1_3_0/raw/tf_example/training_interactive',
+     'data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/training_interactive'),
+    ('validation_interactive',
+     'data/datasets/waymo_open_dataset/motion_v_1_3_0/raw/tf_example/validation_interactive', 
+     'data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/validation_interactive'),
+    ('testing_interactive',
+     'data/datasets/waymo_open_dataset/motion_v_1_3_0/raw/tf_example/testing_interactive',
+     'data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/testing_interactive'),
+]:
+    count = process_split(input_dir, output_dir, split_name, max_scenarios=100)
+    print(f'Processed {split_name}: {count} interactive pairs')
+"
+```
+
+**Step 2: Use preprocessed data with WaymoITPDataset:**
+
+```python
+from data.scripts.lib.waymo_dataset import WaymoITPDataset, build_dataloader
+
+dataset = WaymoITPDataset(
+    data_dir="data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/training_interactive",
+    split="train",
+    history_frames=11,
+    short_horizon_frames=80,
+    long_horizon_frames=160,
+    augment=True,
+)
+```
+
+**Preprocessing Results (from 100 scenarios per split):**
+- **training_interactive**: 42,220 interactive pairs (254M)
+- **validation_interactive**: 51,513 interactive pairs (334M)  
+- **testing_interactive**: 24,363 interactive pairs (137M)
+- **Total**: 118,096 interactive pairs (725M)
+
+**Sample shapes:**
+- history: [2, 11, 2] - 1.1s history
+- future_short: [2, 80, 2] - 8s short horizon
+- future_long: [2, 80, 2] - additional 8s
+- valid_mask: [2, 160] - validity for full future
+- map_polylines: [256, 20, 7] - map features
+- other_agents: [5, 160, 2] - surrounding agents
+
+### Legacy: Scenario Format Preprocessing (If Available)
+
+**Note:** Scenario format may not be available in downloaded dataset. Use tf_example format instead.
 
 **Preprocess training data (with interactive filtering):**
 ```bash
 python data/scripts/lib/waymo_preprocess.py \
     --input-dir data/datasets/waymo_open_dataset/motion_v_1_3_0/raw/scenario/training \
-    --output-dir data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/itp_training \
+    --output-dir data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/training_interactive \
     --split training \
     --interactive-only \
     --history-frames 11 \
@@ -320,26 +486,8 @@ python data/scripts/lib/waymo_preprocess.py \
     --long-horizon 80 \
     --num-workers 8
 ```
-
-**Note:** The key difference from the defaults is using `--short-horizon 50 --long-horizon 80` instead of the default 80/160. This matches Waymo's actual 91-frame structure (11 history + 80 future @ 10Hz).
-
-**Preprocess validation_interactive data:**
-```bash
-python data/scripts/lib/waymo_preprocess.py \
-    --input-dir data/datasets/waymo_open_dataset/motion_v_1_3_0/raw/scenario/validation_interactive \
-    --output-dir data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/itp_validation_interactive \
-    --split validation_interactive \
-    --history-frames 11 \
-    --short-horizon 50 \
-    --long-horizon 80 \
-    --num-workers 8
-```
-
-**Preprocess testing_interactive data (SPECIAL: no ground truth futures):**
-```bash
-python data/scripts/lib/waymo_preprocess.py \
     --input-dir data/datasets/waymo_open_dataset/motion_v_1_3_0/raw/scenario/testing_interactive \
-    --output-dir data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/itp_testing_interactive \
+    --output-dir data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/testing_interactive \
     --split testing \
     --history-frames 11 \
     --short-horizon 0 \
@@ -435,9 +583,9 @@ data/
 │   │       └── validation_interactive/                   # 5 TFRecord files (~2.0 GB)
 │   │
 │   └── processed/                                        # Preprocessed .npz files
-│       ├── itp_training/                                 # 2,477 scenarios (555 MB)
-│       ├── itp_validation/                               # 1,445 scenarios (320 MB)
-│       └── itp_testing/                                  # 1,392 scenarios (278 MB)
+│       ├── training_interactive/                         # 42,220 interactive pairs (254 MB)
+│       ├── validation_interactive/                       # 51,513 interactive pairs (334 MB)
+│       └── testing_interactive/                          # 24,363 interactive pairs (137 MB)
 │
 ├── movies/waymo_open_dataset/motion_v_1_3_0/             # Visualization movies
 │   ├── scenario/                                         # From scenario format
@@ -490,28 +638,28 @@ data/
 
 **Check file counts:**
 ```bash
-echo "Training: $(find data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/itp_training -name '*.npz' 2>/dev/null | wc -l) scenarios"
-echo "Validation: $(find data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/itp_validation -name '*.npz' 2>/dev/null | wc -l) scenarios"
-echo "Testing: $(find data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/itp_testing -name '*.npz' 2>/dev/null | wc -l) scenarios"
+echo "Training: $(find data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/training_interactive -name '*.npz' 2>/dev/null | wc -l) scenarios"
+echo "Validation: $(find data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/validation_interactive -name '*.npz' 2>/dev/null | wc -l) scenarios"
+echo "Testing: $(find data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/testing_interactive -name '*.npz' 2>/dev/null | wc -l) scenarios"
 ```
 
 **Check disk usage:**
 ```bash
-du -sh data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/itp_*/
+du -sh data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/*/
 ```
 
 **Expected:**
 ```
-555M    data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/itp_training/
-320M    data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/itp_validation/
-278M    data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/itp_testing/
+254M    data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/training_interactive/
+334M    data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/validation_interactive/
+137M    data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/testing_interactive/
 ```
 
 ### Run Test Suite
 
 ```bash
 python data/tests/test_preprocessing.py \
-    --data-dir data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/itp_training \
+    --data-dir data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/training_interactive \
     --num-samples 10
 ```
 
@@ -545,7 +693,7 @@ Testing sets only have 11 frames (history), no ground truth futures:
 ```bash
 python data/scripts/waymo_preprocess.py \
     --input-dir data/datasets/waymo_open_dataset/motion_v_1_3_0/raw/scenario/testing_interactive \
-    --output-dir data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/itp_testing \
+    --output-dir data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/testing_interactive \
     --history-frames 11 \
     --short-horizon 0 \
     --long-horizon 0
@@ -594,9 +742,9 @@ Use testing_interactive instead of testing (testing lacks labels):
 - Processing time: ~5-10 minutes
 
 **Preprocessed scenarios (5,314 total, ~1.1 GB):**
-- itp_training: 2,477 scenarios, 555 MB
-- itp_validation: 1,445 scenarios, 320 MB
-- itp_testing: 1,392 scenarios, 278 MB
+- training_interactive: 42,220 interactive pairs, 254 MB
+- validation_interactive: 51,513 interactive pairs, 334 MB
+- testing_interactive: 24,363 interactive pairs, 137 MB
 - Processing time: ~15-30 minutes (with 8 workers)
 
 **Visualization movies:**
@@ -634,7 +782,7 @@ Use testing_interactive instead of testing (testing lacks labels):
 ./data/scripts/process_waymo_subset.sh
 
 # 4. Test
-python data/tests/test_preprocessing.py --data-dir data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/itp_training
+python data/tests/test_preprocessing.py --data-dir data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/training_interactive
 
 # 5. Visualize
 ./data/scripts/viz_generate_all.sh
@@ -650,7 +798,7 @@ python data/scripts/filter_interactive_training.py \
 # Preprocessing
 python data/scripts/waymo_preprocess.py \
     --input-dir data/datasets/waymo_open_dataset/motion_v_1_3_0/raw/scenario/training \
-    --output-dir data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/itp_training \
+    --output-dir data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/training_interactive \
     --split training \
     --interactive-only \
     --num-workers 8

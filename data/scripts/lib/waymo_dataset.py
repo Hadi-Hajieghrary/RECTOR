@@ -1,12 +1,23 @@
 """Data loading and preprocessing for Waymo Open Motion Dataset - ITP Format."""
 
 import pickle
+import warnings
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 import numpy as np
 import torch
 from torch.utils.data import DataLoader, Dataset
+from tqdm import tqdm
+
+# Try importing TensorFlow for tf_example support
+try:
+    import tensorflow as tf
+    tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
+    HAS_TF = True
+except ImportError:
+    HAS_TF = False
+    warnings.warn("TensorFlow not found. TFExample dataset will not be available.")
 
 
 class WaymoITPDataset(Dataset):
@@ -489,6 +500,432 @@ def collate_fn(batch: List[Dict]) -> Dict[str, torch.Tensor]:
     return batched
 
 
+class WaymoTFExampleDataset(Dataset):
+    """
+    Dataset for loading Waymo tf_example format directly from TFRecords.
+    
+    This loader reads TFRecord files on-the-fly without preprocessing.
+    Suitable for quick experimentation with raw Waymo data.
+    
+    Uses M2I's feature schema from waymo_tutorial.py.
+    """
+
+    def __init__(
+        self,
+        data_dir: str,
+        split: str = "training",
+        history_frames: int = 11,
+        short_horizon_frames: int = 80,
+        long_horizon_frames: int = 200,
+        max_agents: int = 128,
+        max_road_points: int = 20000,
+        interaction_threshold: float = 30.0,
+        cache_tfrecords: bool = True,
+        max_scenarios: Optional[int] = None,
+    ):
+        """
+        Args:
+            data_dir: Path to tf_example TFRecord files
+            split: Dataset split name
+            history_frames: Number of history frames (default 11)
+            short_horizon_frames: Short horizon frames (default 80)
+            long_horizon_frames: Long horizon frames (default 200)
+            max_agents: Maximum agents per scenario
+            max_road_points: Maximum road graph points
+            interaction_threshold: Distance threshold for interactions
+            cache_tfrecords: Cache parsed examples in memory
+            max_scenarios: Max scenarios to load (for testing)
+        """
+        if not HAS_TF:
+            raise ImportError(
+                "TensorFlow required for TFExample dataset. "
+                "Install: pip install tensorflow"
+            )
+
+        self.data_dir = Path(data_dir)
+        self.split = split
+        self.history = history_frames
+        self.short_horizon = short_horizon_frames
+        self.long_horizon = long_horizon_frames
+        self.max_agents = max_agents
+        self.max_road_points = max_road_points
+        self.interaction_threshold = interaction_threshold
+        self.cache_tfrecords = cache_tfrecords
+
+        # Load TFRecord files
+        self.tfrecord_files = sorted(self.data_dir.glob("*.tfrecord*"))
+        if not self.tfrecord_files:
+            raise ValueError(f"No TFRecord files found in {data_dir}")
+
+        print(f"Found {len(self.tfrecord_files)} TFRecord files")
+
+        # Load and cache examples
+        self.examples = []
+        self.scenario_ids = []
+        self._load_examples(max_scenarios)
+
+        print(f"Loaded {len(self.examples)} scenarios from {split}")
+
+    def _load_examples(self, max_scenarios: Optional[int] = None):
+        """Load and cache TFRecord examples."""
+        from tqdm import tqdm
+        
+        count = 0
+        for tfrecord_file in tqdm(self.tfrecord_files,
+                                   desc="Loading TFRecords"):
+            dataset = tf.data.TFRecordDataset(
+                str(tfrecord_file), compression_type=''
+            )
+
+            for raw_record in dataset:
+                if max_scenarios and count >= max_scenarios:
+                    return
+
+                example = tf.train.Example()
+                example.ParseFromString(raw_record.numpy())
+
+                # Extract scenario ID
+                features = example.features.feature
+                if 'scenario/id' in features:
+                    scenario_id = features['scenario/id'].bytes_list.value[
+                        0].decode('utf-8')
+                else:
+                    scenario_id = f"scenario_{count}"
+
+                if self.cache_tfrecords:
+                    self.examples.append(example)
+                else:
+                    self.examples.append((tfrecord_file, count))
+
+                self.scenario_ids.append(scenario_id)
+                count += 1
+
+    def __len__(self) -> int:
+        return len(self.examples)
+
+    def __getitem__(self, idx: int) -> Dict[str, torch.Tensor]:
+        """Get a training sample with agent data and road graph."""
+        if self.cache_tfrecords:
+            example = self.examples[idx]
+        else:
+            raise NotImplementedError("Lazy loading not yet supported")
+
+        scenario_id = self.scenario_ids[idx]
+        features = example.features.feature
+
+        # Parse data using M2I's feature schema
+        data = self._parse_features(features)
+
+        return {
+            "scenario_id": scenario_id,
+            "agent_trajectories": torch.FloatTensor(
+                data["trajectories"]
+            ),  # (N, T, 2)
+            "agent_valid": torch.BoolTensor(data["valid"]),  # (N, T)
+            "agent_types": torch.LongTensor(data["types"]),  # (N,)
+            "agent_velocities": torch.FloatTensor(
+                data["velocities"]
+            ),  # (N, T)
+            "agent_headings": torch.FloatTensor(
+                data["headings"]
+            ),  # (N, T)
+            "roadgraph_xyz": torch.FloatTensor(
+                data["roadgraph_xyz"]
+            ),  # (P, 3)
+            "roadgraph_type": torch.LongTensor(
+                data["roadgraph_type"]
+            ),  # (P,)
+            "roadgraph_valid": torch.BoolTensor(
+                data["roadgraph_valid"]
+            ),  # (P,)
+            "interactive_pairs": torch.LongTensor(
+                data["interactive_pairs"]
+            ),  # (K, 2)
+        }
+
+    def _parse_features(self, features: Dict) -> Dict[str, np.ndarray]:
+        """Parse tf_example features using M2I schema."""
+        # Get number of agents
+        if 'state/id' in features:
+            num_agents = len(features['state/id'].float_list.value)
+        else:
+            num_agents = self.max_agents
+
+        # Extract trajectories (past 10 + current 1 + future 80 = 91 frames)
+        total_available = 91
+        total_needed = self.history + self.long_horizon
+
+        # Initialize arrays
+        trajectories = np.zeros((num_agents, total_needed, 2),
+                                dtype=np.float32)
+        valid = np.zeros((num_agents, total_needed), dtype=bool)
+        velocities = np.zeros((num_agents, total_needed), dtype=np.float32)
+        headings = np.zeros((num_agents, total_needed), dtype=np.float32)
+
+        # Extract past (10 frames)
+        past_x = self._get_feature(features, 'state/past/x',
+                                    num_agents * 10)
+        past_y = self._get_feature(features, 'state/past/y',
+                                    num_agents * 10)
+        past_valid = self._get_feature(features, 'state/past/valid',
+                                        num_agents * 10, is_int=True)
+        past_yaw = self._get_feature(features, 'state/past/bbox_yaw',
+                                      num_agents * 10)
+
+        # Extract current (1 frame)
+        curr_x = self._get_feature(features, 'state/current/x', num_agents)
+        curr_y = self._get_feature(features, 'state/current/y', num_agents)
+        curr_valid = self._get_feature(features, 'state/current/valid',
+                                        num_agents, is_int=True)
+        curr_yaw = self._get_feature(features, 'state/current/bbox_yaw',
+                                      num_agents)
+
+        # Extract future (80 frames)
+        future_x = self._get_feature(features, 'state/future/x',
+                                      num_agents * 80)
+        future_y = self._get_feature(features, 'state/future/y',
+                                      num_agents * 80)
+        future_valid = self._get_feature(features, 'state/future/valid',
+                                          num_agents * 80, is_int=True)
+        future_yaw = self._get_feature(features, 'state/future/bbox_yaw',
+                                        num_agents * 80)
+
+        # Reshape and concatenate
+        if len(past_x) > 0:
+            past_x = np.array(past_x).reshape(num_agents, 10)
+            past_y = np.array(past_y).reshape(num_agents, 10)
+            past_valid = np.array(past_valid).reshape(num_agents, 10)
+            past_yaw = np.array(past_yaw).reshape(num_agents, 10)
+
+            curr_x = np.array(curr_x).reshape(num_agents, 1)
+            curr_y = np.array(curr_y).reshape(num_agents, 1)
+            curr_valid = np.array(curr_valid).reshape(num_agents, 1)
+            curr_yaw = np.array(curr_yaw).reshape(num_agents, 1)
+
+            future_x = np.array(future_x).reshape(num_agents, 80)
+            future_y = np.array(future_y).reshape(num_agents, 80)
+            future_valid = np.array(future_valid).reshape(num_agents, 80)
+            future_yaw = np.array(future_yaw).reshape(num_agents, 80)
+
+            # Concatenate: [past 10, current 1, future 80] = 91 frames
+            all_x = np.concatenate([past_x, curr_x, future_x], axis=1)
+            all_y = np.concatenate([past_y, curr_y, future_y], axis=1)
+            all_valid = np.concatenate(
+                [past_valid, curr_valid, future_valid], axis=1
+            )
+            all_yaw = np.concatenate([past_yaw, curr_yaw, future_yaw],
+                                      axis=1)
+
+            # Copy available data
+            available = min(total_available, total_needed)
+            trajectories[:, :available, 0] = all_x[:, :available]
+            trajectories[:, :available, 1] = all_y[:, :available]
+            valid[:, :available] = all_valid[:, :available].astype(bool)
+            headings[:, :available] = all_yaw[:, :available]
+
+            # Compute velocities from positions
+            for t in range(1, available):
+                dt = 0.1  # 10Hz
+                dx = trajectories[:, t, 0] - trajectories[:, t - 1, 0]
+                dy = trajectories[:, t, 1] - trajectories[:, t - 1, 1]
+                velocities[:, t] = np.sqrt(dx**2 + dy**2) / dt
+
+        # Extract agent types
+        types = self._get_feature(features, 'state/type', num_agents)
+        types = np.array(types, dtype=np.int64) if types else np.zeros(
+            num_agents, dtype=np.int64)
+
+        # Extract road graph
+        roadgraph_xyz, roadgraph_type, roadgraph_valid = (
+            self._extract_roadgraph(features)
+        )
+
+        # Find interactive pairs
+        interactive_pairs = self._find_interactive_pairs(trajectories, valid)
+
+        return {
+            "trajectories": trajectories,
+            "valid": valid,
+            "velocities": velocities,
+            "headings": headings,
+            "types": types,
+            "roadgraph_xyz": roadgraph_xyz,
+            "roadgraph_type": roadgraph_type,
+            "roadgraph_valid": roadgraph_valid,
+            "interactive_pairs": interactive_pairs,
+        }
+
+    def _get_feature(self, features: Dict, key: str, expected_len: int,
+                     is_int: bool = False) -> List:
+        """Extract feature from tf.Example."""
+        if key not in features:
+            return []
+
+        if is_int:
+            values = list(features[key].int64_list.value)
+        else:
+            values = list(features[key].float_list.value)
+
+        return values
+
+    def _extract_roadgraph(
+        self, features: Dict
+    ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+        """Extract road graph features."""
+        # Get xyz coordinates (flattened)
+        xyz_flat = self._get_feature(features, 'roadgraph_samples/xyz',
+                                      self.max_road_points * 3)
+        types_flat = self._get_feature(features, 'roadgraph_samples/type',
+                                        self.max_road_points, is_int=True)
+        valid_flat = self._get_feature(features, 'roadgraph_samples/valid',
+                                        self.max_road_points, is_int=True)
+
+        # Reshape
+        if len(xyz_flat) > 0:
+            num_points = len(xyz_flat) // 3
+            xyz = np.array(xyz_flat).reshape(num_points, 3).astype(
+                np.float32)
+            types = np.array(types_flat[:num_points], dtype=np.int64)
+            valid = np.array(valid_flat[:num_points], dtype=bool)
+
+            # Pad or truncate to max_road_points
+            if num_points < self.max_road_points:
+                pad_size = self.max_road_points - num_points
+                xyz = np.vstack(
+                    [xyz, np.zeros((pad_size, 3), dtype=np.float32)]
+                )
+                types = np.concatenate(
+                    [types, np.zeros(pad_size, dtype=np.int64)]
+                )
+                valid = np.concatenate([valid, np.zeros(pad_size, dtype=bool)])
+            else:
+                xyz = xyz[:self.max_road_points]
+                types = types[:self.max_road_points]
+                valid = valid[:self.max_road_points]
+        else:
+            # Empty road graph
+            xyz = np.zeros((self.max_road_points, 3), dtype=np.float32)
+            types = np.zeros(self.max_road_points, dtype=np.int64)
+            valid = np.zeros(self.max_road_points, dtype=bool)
+
+        return xyz, types, valid
+
+    def _find_interactive_pairs(
+        self, trajectories: np.ndarray, valid: np.ndarray
+    ) -> np.ndarray:
+        """Find interactive agent pairs based on proximity."""
+        num_agents = trajectories.shape[0]
+        pairs = []
+
+        for i in range(num_agents):
+            for j in range(i + 1, num_agents):
+                both_valid = valid[i] & valid[j]
+                if not np.any(both_valid):
+                    continue
+
+                valid_times = np.where(both_valid)[0]
+                distances = np.linalg.norm(
+                    trajectories[i, valid_times] - trajectories[
+                        j, valid_times],
+                    axis=1
+                )
+
+                if np.min(distances) < self.interaction_threshold:
+                    pairs.append([i, j])
+
+        if not pairs:
+            return np.zeros((0, 2), dtype=np.int64)
+
+        return np.array(pairs, dtype=np.int64)
+
+
+def collate_tfexample_batch(batch: List[Dict]) -> Dict[str, torch.Tensor]:
+    """Collate function for TFExample batches."""
+    scenario_ids = [item['scenario_id'] for item in batch]
+
+    batch_dict = {
+        'scenario_id': scenario_ids,
+        'agent_trajectories': torch.stack(
+            [item['agent_trajectories'] for item in batch]
+        ),
+        'agent_valid': torch.stack([item['agent_valid'] for item in batch]),
+        'agent_types': torch.stack([item['agent_types'] for item in batch]),
+        'agent_velocities': torch.stack(
+            [item['agent_velocities'] for item in batch]
+        ),
+        'agent_headings': torch.stack(
+            [item['agent_headings'] for item in batch]
+        ),
+        'roadgraph_xyz': torch.stack(
+            [item['roadgraph_xyz'] for item in batch]
+        ),
+        'roadgraph_type': torch.stack(
+            [item['roadgraph_type'] for item in batch]
+        ),
+        'roadgraph_valid': torch.stack(
+            [item['roadgraph_valid'] for item in batch]
+        ),
+    }
+
+    # Handle variable-length interactive pairs
+    max_pairs = max(item['interactive_pairs'].shape[0] for item in batch)
+    if max_pairs > 0:
+        pairs_padded = []
+        for item in batch:
+            pairs = item['interactive_pairs']
+            if pairs.shape[0] < max_pairs:
+                padding = torch.full(
+                    (max_pairs - pairs.shape[0], 2), -1, dtype=torch.long
+                )
+                pairs = torch.cat([pairs, padding], dim=0)
+            pairs_padded.append(pairs)
+        batch_dict['interactive_pairs'] = torch.stack(pairs_padded)
+    else:
+        batch_dict['interactive_pairs'] = torch.zeros(
+            (len(batch), 0, 2), dtype=torch.long
+        )
+
+    return batch_dict
+
+
+def build_tfexample_dataloader(
+    data_dir: str,
+    split: str = "training",
+    batch_size: int = 16,
+    num_workers: int = 4,
+    shuffle: bool = True,
+    **dataset_kwargs
+) -> DataLoader:
+    """
+    Build DataLoader for tf_example data.
+    
+    Args:
+        data_dir: Path to tf_example TFRecord files
+        split: Dataset split name
+        batch_size: Batch size
+        num_workers: Number of workers
+        shuffle: Whether to shuffle
+        **dataset_kwargs: Additional dataset arguments
+    
+    Returns:
+        DataLoader instance
+    """
+    dataset = WaymoTFExampleDataset(
+        data_dir=data_dir,
+        split=split,
+        **dataset_kwargs
+    )
+
+    return DataLoader(
+        dataset,
+        batch_size=batch_size,
+        shuffle=shuffle,
+        num_workers=num_workers,
+        pin_memory=True,
+        collate_fn=collate_tfexample_batch,
+    )
+
+
 def build_dataloader(
     config: Dict,
     split: str = "train",
@@ -550,3 +987,4 @@ def build_dataloader(
     )
     
     return dataloader
+

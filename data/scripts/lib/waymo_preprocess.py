@@ -8,7 +8,7 @@ optimized for Interactive Trajectory Planning (ITP) training.
 Usage:
     python preprocess_waymo_for_itp.py \\
         --input-dir data/datasets/waymo_open_dataset/motion_v_1_3_0/raw/scenario/training \\
-        --output-dir data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/itp_training \\
+        --output-dir data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/training_interactive \\
         --split training \\
         --interactive-only \\
         --num-workers 8

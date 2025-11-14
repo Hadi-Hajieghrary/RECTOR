@@ -1,26 +1,31 @@
 # Waymo Data Processing Scripts
 
 ┌─────────────────────────────────────────────────────────────────────────┐
-│ ✅ STATUS: FULLY IMPLEMENTED (November 10, 2025)                        │
+│ ✅ STATUS: FULLY UPDATED (November 14, 2025)                            │
 │                                                                         │
-│ All scripts documented below have been implemented and tested.          │
-│ Test: 30 files downloaded successfully (18 GB, 6 partitions)           │
+│ Key Updates:                                                            │
+│ - TF_Example format is the PRIMARY format (scenario format unavailable)│
+│ - Direct TFExample loading added (WaymoTFExampleDataset)               │
+│ - Preprocessing from tf_example to .npz format implemented             │
+│ - 118,096 interactive pairs preprocessed from 100 scenarios/split      │
 │                                                                         │
-│ ⚠️  VERIFICATION REQUIRED - Run this to check:                          │
-│    ./data/scripts/verify_scripts_exist.sh                              │
-│                                                                         │
-│ Or manually: git ls-files data/scripts/bash/                           │
-│ If empty, scripts exist but aren't committed yet.                      │
+│ Test Results:                                                           │
+│ ✅ training_interactive: 42,220 pairs (254M)                            │
+│ ✅ validation_interactive: 51,513 pairs (334M)                          │
+│ ✅ testing_interactive: 24,363 pairs (137M)                             │
 └─────────────────────────────────────────────────────────────────────────┘
 
 Simple, intuitive tools for managing the Waymo Open Motion Dataset v1.3.0: download, verify, filter, preprocess, and visualize.
 
 This folder contains a small CLI plus modular bash and Python scripts.
 
-> **📝 Implementation Note:** All scripts in this directory (`bash/`, `lib/`, and the `waymo` CLI) 
-> were implemented on November 10, 2025. They are fully functional and tested with 30 files 
-> successfully downloaded (18 GB). If you're reading this and the scripts don't exist, they 
-> haven't been committed to the repository yet - check git status.
+## Important: TF_Example Format is Primary
+
+**As of November 2025, the Waymo dataset uses tf_example format:**
+- ✅ tf_example format available for all splits
+- ❌ scenario protobuf format may not be available
+- Use `WaymoTFExampleDataset` for direct loading
+- Or preprocess tf_example to .npz for `WaymoITPDataset`
 
 ## Quick start
 
@@ -143,18 +148,56 @@ git status data/scripts/
 
 ### Preprocess data
 
-Converts Waymo TFRecords (scenario format) into compressed `.npz` for ITP training.
+**Two methods available:**
 
-```bash
-./data/scripts/waymo process [--split SPLIT] [--format scenario|tf_example] [--workers N] [--interactive-only]
+**Method 1: Direct TFExample Loading (Recommended - No Preprocessing)**
+```python
+from data.scripts.lib.waymo_dataset import WaymoTFExampleDataset, build_tfexample_dataloader
 
-# Examples
-./data/scripts/waymo process                               # training split, 8 workers
-./data/scripts/waymo process --split validation_interactive
-./data/scripts/waymo process --workers 16 --interactive-only
+# Load directly from TFRecords
+dataloader = build_tfexample_dataloader(
+    data_dir="data/datasets/waymo_open_dataset/motion_v_1_3_0/raw/tf_example/training_interactive",
+    split="training_interactive",
+    batch_size=4,
+    num_workers=4,
+)
 ```
 
-Under the hood this runs `lib/waymo_preprocess.py` via `bash/process.sh`.
+**Method 2: Convert tf_example to .npz format**
+```python
+# Process 100 scenarios from each split
+import sys
+from pathlib import Path
+import numpy as np
+import pickle
+from tqdm import tqdm
+
+sys.path.insert(0, 'data/scripts/lib')
+from waymo_dataset import WaymoTFExampleDataset
+
+for split_name, input_dir, output_dir in [
+    ('training_interactive', 
+     'data/datasets/waymo_open_dataset/motion_v_1_3_0/raw/tf_example/training_interactive',
+     'data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/training_interactive'),
+    # ... similar for validation_interactive, testing_interactive
+]:
+    dataset = WaymoTFExampleDataset(
+        data_dir=input_dir, split=split_name, max_scenarios=100
+    )
+    # ... save as .npz (see data/README.md for full code)
+```
+
+**Results from 100 scenarios per split:**
+- training_interactive: 42,220 pairs (254M)
+- validation_interactive: 51,513 pairs (334M)
+- testing_interactive: 24,363 pairs (137M)
+
+**Legacy: Scenario format preprocessing (if available):**
+```bash
+./data/scripts/waymo process [--split SPLIT] [--workers N] [--interactive-only]
+```
+
+Note: Scenario format may not be available. Use tf_example format instead.
 
 ### Visualize data
 
@@ -606,7 +649,7 @@ python lib/waymo_preprocess.py \```bash
 
     --input-dir data/datasets/waymo_open_dataset/motion_v_1_3_0/raw/scenario/training \pip install tensorflow waymo-open-dataset-tf-2-11-0 matplotlib numpy
 
-    --output-dir data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/itp_training \```
+    --output-dir data/datasets/waymo_open_dataset/motion_v_1_3_0/processed/training_interactive \```
 
     --split training \
 
