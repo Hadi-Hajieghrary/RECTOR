@@ -457,6 +457,8 @@ nohup.out
 !data/**/*.json
 !data/**/*.yaml
 !data/**/*.yml
+!data/**/*.sh
+!data/**/*.py
 
 # Allow movie files to be tracked
 !data/**/*.mp4
