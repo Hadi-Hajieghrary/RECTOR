@@ -1,0 +1,6 @@
+[submodule "externals/M2I"]
+	path = externals/M2I
+	url = https://github.com/Tsinghua-MARS-Lab/M2I
+[submodule "externals/waymo-open-dataset"]
+	path = externals/waymo-open-dataset
+	url = git@github.com:waymo-research/waymo-open-dataset.git

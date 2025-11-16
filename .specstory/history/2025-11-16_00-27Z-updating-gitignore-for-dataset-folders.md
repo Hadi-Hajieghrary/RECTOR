@@ -40,9 +40,119 @@ The .gitignore has been updated to track the folder structure within `` (includi
 
 ---
 
-_**User (2025-11-16 00:32Z)**_
+_**User (2025-11-16 00:35Z)**_
 
 git status does not show the fub directories?
+
+---
+
+_**Agent (model copilot/grok-code-fast-1)**_
+
+The subdirectories under `` are now showing in `git status` as staged new files (the `.gitkeep` files in each directory). This tracks the folder structure while keeping the actual dataset files ignored. You can commit these changes to add the folder structure to git.
+
+---
+
+_**User (2025-11-16 00:40Z)**_
+
+how to add git submodules within externals folder?
+
+---
+
+_**Agent (model copilot/grok-code-fast-1)**_
+
+To add git submodules within the `` folder, follow these steps. This assumes you have the URLs of the repositories you want to add as submodules.
+
+### 1. **Navigate to your repository root** (if not already there):
+   ```bash
+   cd /home/hadi/WorkSpace/RECTOR
+   ```
+
+### 2. **Add a submodule**:
+   Use the `git submodule add` command, specifying the repository URL and the path inside ``. For example:
+   ```bash
+   git submodule add <repository-url> externals/<submodule-name>
+   ```
+   - Replace `<repository-url>` with the full URL of the external repository (e.g., `https://github.com/user/repo.git`).
+   - Replace `<submodule-name>` with a suitable name for the submodule folder (e.g., `repo`).
+
+   Example:
+   ```bash
+   git submodule add https://github.com/example/external-repo.git externals/external-repo
+   ```
+
+### 3. **Initialize and update the submodule** (if needed):
+   After adding, initialize and clone the submodule:
+   ```bash
+   git submodule update --init --recursive
+   ```
+
+### 4. **Commit the changes**:
+   The submodule addition creates a `.gitmodules` file and updates the index. Stage and commit:
+   ```bash
+   git add .gitmodules externals/<submodule-name>
+   git commit -m "Add submodule for <submodule-name>"
+   ```
+
+### 5. **Push the changes**:
+   ```bash
+   git push
+   ```
+
+### Additional Notes:
+- **Cloning with submodules**: When others clone your repo, they can initialize submodules with:
+  ```bash
+  git clone --recurse-submodules <your-repo-url>
+  ```
+  Or after cloning: `git submodule update --init --recursive`.
+- **Updating submodules**: To update to the latest commit in a submodule:
+  ```bash
+  cd externals/<submodule-name>
+  git pull origin main  # or the appropriate branch
+  cd ../..
+  git add externals/<submodule-name>
+  git commit -m "Update submodule <submodule-name>"
+  ```
+- **Removing a submodule**: If needed, remove with:
+  ```bash
+  git submodule deinit externals/<submodule-name>
+  git rm externals/<submodule-name>
+  rm -rf .git/modules/externals/<submodule-name>
+  git commit -m "Remove submodule <submodule-name>"
+  ```
+- Ensure the `` folder is not ignored in `.gitignore` (it's currently not ignored, as per your file).
+
+If you have specific repositories in mind, provide their URLs, and I can help with the exact commands!
+
+---
+
+_**User (2025-11-16 00:44Z)**_
+
+git submodule add https://github.com/Tsinghua-MARS-Lab/M2I ./externals
+fatal: 'externals' already exists and is not a valid git repo
+
+---
+
+_**Agent (model copilot/grok-code-fast-1)**_
+
+
+
+---
+
+_**User (2025-11-16 00:45Z)**_
+
+remove the submodule
+
+---
+
+_**Agent (model copilot/grok-code-fast-1)**_
+
+The submodule has been successfully removed. The `externals` directory and related submodule configurations (`.gitmodules`, `.git/modules/externals`) have been deleted. Your repository is back to its previous state without the submodule. If you have other changes (like the modified `.gitignore`), you can commit them separately if needed.
+
+---
+
+_**User (2025-11-16 00:45Z)**_
+
+clear
 
 ---
 

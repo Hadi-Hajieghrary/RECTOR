@@ -451,5 +451,3 @@ data/**/*
 *.7z
 nohup.out
 
-# External repositories (cloned during devcontainer setup)
-externals/
