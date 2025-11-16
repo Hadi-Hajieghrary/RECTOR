@@ -451,20 +451,5 @@ data/**/*
 *.7z
 nohup.out
 
-# Allow specific data documentation or metadata files if needed
-!data/**/*.md
-!data/**/*.txt
-!data/**/*.json
-!data/**/*.yaml
-!data/**/*.yml
-!data/**/*.sh
-!data/**/*.py
-
-# Allow movie files to be tracked
-!data/**/*.mp4
-!data/**/*.gif
-!data/**/*.avi
-!data/**/*.mov
-
 # External repositories (cloned during devcontainer setup)
 externals/
