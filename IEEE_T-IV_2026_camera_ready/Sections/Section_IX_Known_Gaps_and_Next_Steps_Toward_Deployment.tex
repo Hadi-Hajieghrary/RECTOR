@@ -1,0 +1,20 @@
+The current results support rule-aware selection as a useful research mechanism, but they do not close the gap to a Transactions-level deployment study. The missing pieces are direct: a genuinely reactive, closed-loop evaluation with non-trivial candidate diversity; stronger use of the full evaluator on the rules that matter most for safety; and test-set compliance reporting so that geometric degradation and rule compliance are analyzed on the same held-out population.
+
+%-------------------------------------------------------------------------------
+\subsection{Deployment Priorities}
+\label{subsec:limitations}
+%-------------------------------------------------------------------------------
+
+Near-term engineering priorities are therefore: (i) close the 24/28 proxy gap or add conservative abstention for the remaining audit-only rules; (ii) treat the learned Safety/Legal applicability policy as an ablation and use the conservative always-on policy for those tiers in any deployment-facing variant; (iii) improve generator quality so more candidate mass lies inside the compliant region; and (iv) extend evaluation to reactive closed-loop or receding-horizon settings with non-trivial agent interaction.
+
+%-------------------------------------------------------------------------------
+\subsection{Future Work}
+\label{subsec:future_work}
+%-------------------------------------------------------------------------------
+
+Open research questions are narrower and more important than a long wish list. How much of the remaining violation rate is due to generator coverage rather than selector design? What is the right policy when no candidate satisfies the highest-priority tier? Which closed-loop assumptions are needed for credible safety evidence? How should rule catalogs evolve across jurisdictions while remaining auditable and regression-testable?
+
+%-------------------------------------------------------------------------------
+\subsection{Open Questions}
+\label{subsec:open_questions}
+The present paper does not answer those questions; it isolates selection-time rule enforcement as a useful lever and identifies the highest-value directions for extending it beyond the current evaluation setting. For acceptance as a Transactions paper, the remaining work is not more framing but stronger evidence: reactive closed-loop experiments, compliance on the held-out test split, and full-evaluator handling of the critical safety rules. In that sense, the contribution is a prioritized selection mechanism for a fixed candidate set, with deployment value coming from auditable risk reduction at the tail rather than from a claim that WOMD as a whole is broadly noncompliant.

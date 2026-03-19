@@ -1,0 +1,123 @@
+RECTOR sits at the intersection of multimodal prediction, rule-aware decision-making, and auditable autonomy. Prior work provides strong candidate generators and robust planning-time constraint methods; the missing piece is a practical selection layer that ranks a fixed candidate set according to explicit traffic-rule priorities.
+
+%-------------------------------------------------------------------------------
+\subsection{Candidate Trajectory Generation}
+\label{subsec:candidate_generation}
+%-------------------------------------------------------------------------------
+
+Anchor-based, query-based, latent-variable, and diffusion-based predictors all improve candidate diversity, including LaneGCN~\cite{liang2020lanegcn}, TNT/DenseTNT~\cite{zhao2021tnt,gu2021densetnt}, MTR~\cite{shi2022motion}, Wayformer~\cite{nayakanti2023wayformer}, QCNet~\cite{zhou2023qcnet}, GameFormer~\cite{huang2023gameformer}, Trajectron++~\cite{salzmann2020trajectron}, MotionLM~\cite{seff2023motionlm}, and MotionDiffuser~\cite{jiang2023motiondiffuser}. Constraint-guided generators such as CTG and CTG++~\cite{zhong2023ctg,zhong2023ctgpp} directly push generation toward compliant regions. RECTOR is orthogonal to these choices: it treats generation as upstream and intervenes only at selection time.
+
+%-------------------------------------------------------------------------------
+\subsection{When Are Rules Enforced? Constraint Entry Taxonomy}
+\label{subsec:constraint_entry_taxonomy}
+%-------------------------------------------------------------------------------
+
+Rules can enter at planning time, policy-learning time, or selection time. Planning-time methods such as MPC, CBFs, and reachability analysis~\cite{borrelli2005mpc,ames2017control,althoff2010reachability} can offer strong guarantees under explicit models. Policy-time methods such as constrained RL and shielding~\cite{altman1999constrained,achiam2017constrained,vitelli2022safetynet} encode safety during learning but can be difficult to audit. RECTOR targets the less-explored third option: post-generation selection-time enforcement, in which an explicit selector exploits existing multimodal diversity.
+
+%-------------------------------------------------------------------------------
+\subsection{Rule Representation and Priority Structures}
+\label{subsec:rule_representation_priority}
+%-------------------------------------------------------------------------------
+
+Structured rule representations already exist in industry and planning. RSS~\cite{shalev2017formal} formalizes safe envelopes, while Censi~et~al.~\cite{censi2019liability} show how autonomous-driving rules can be organized lexicographically. In learning-based prediction, however, rules are usually collapsed into scalar penalties, so cross-tier trade-offs depend on weight tuning~\cite{marler2004survey}. RECTOR brings the rulebook idea into a learned multi-modal prediction stack with scene-conditioned applicability prediction, differentiable rule proxies, and batched lexicographic selection.
+
+%-------------------------------------------------------------------------------
+\subsection{Selection and Reranking over Candidate Sets}
+\label{subsec:selection_reranking}
+%-------------------------------------------------------------------------------
+
+Most predictors still choose the final mode by confidence or sampling. Learned rerankers and differentiable solvers can impose additional structure~\cite{amos2017optnet,amos2018differentiable}, but full traffic-rule semantics remain difficult to encode without obscuring the decision logic. RECTOR instead uses a non-parametric selector with applicability gating and tiered ranking, keeping the final decision explicit.
+
+%-------------------------------------------------------------------------------
+\subsection{Explainability and Auditability}
+\label{subsec:explainability_auditability}
+%-------------------------------------------------------------------------------
+
+For safety-critical selection, auditability matters more than generic feature attribution. RECTOR exposes rule-level applicability, tier-wise scores, and the first tier that determined the outcome, yielding a compact decision record that supports debugging and regression tracking.
+
+%-------------------------------------------------------------------------------
+\subsection{Benchmarks and Compliance Metrics}
+\label{subsec:benchmarks_metrics}
+%-------------------------------------------------------------------------------
+
+Benchmarks in trajectory prediction have historically emphasized geometric coverage, for example, on Argoverse and nuScenes~\cite{chang2019argoverse,caesar2020nuscenes}. More recent planning-aware evaluations such as nuPlan and Waymo scenario-centric studies~\cite{caesar2021nuplan,montali2024waymo} underscore that selected-trajectory safety and compliance must also be measured. Table~\ref{tab:related_work_comparison} summarizes where RECTOR fits in that landscape.
+
+\begin{table*}[t]
+
+\centering
+
+\small
+
+\caption{Positioning of RECTOR as a Generator-Agnostic Selection Layer Relative to Related Work}
+
+\label{tab:related_work_comparison}
+
+\begin{tabular}{l|ccccc}
+
+\toprule
+
+\textbf{Method} & \textbf{Multi-Modal} & \textbf{Rule-Aware (Decision)} & \textbf{Tiered Priority} & \textbf{Decision Trace} & \textbf{Real-Time} \\
+
+\midrule
+
+\multicolumn{6}{l}{\textit{Multi-Modal Prediction Methods}} \\
+
+TNT/DenseTNT~\cite{zhao2021tnt,gu2021densetnt} & \checkmark & --- & --- & --- & \checkmark \\
+
+Trajectron++~\cite{salzmann2020trajectron} & \checkmark & --- & --- & --- & \checkmark \\
+
+MTR~\cite{shi2022motion} & \checkmark & --- & --- & --- & \checkmark \\
+
+Wayformer~\cite{nayakanti2023wayformer} & \checkmark & --- & --- & --- & \checkmark \\
+
+MotionDiffuser~\cite{jiang2023motiondiffuser} & \checkmark & --- & --- & --- & $\sim$ \\
+
+QCNet~\cite{zhou2023qcnet} & \checkmark & --- & --- & --- & \checkmark \\
+
+GameFormer~\cite{huang2023gameformer} & \checkmark & --- & --- & --- & \checkmark \\
+
+CTG/CTG++~\cite{zhong2023ctg,zhong2023ctgpp} & \checkmark & \checkmark & --- & --- & $\sim$ \\
+
+\midrule
+
+\multicolumn{6}{l}{\textit{Constraint Enforcement and Safety}} \\
+
+MPC-based~\cite{borrelli2005mpc} & --- & \checkmark & $\sim$ & \checkmark & $\sim$ \\
+
+CBF-based~\cite{ames2017control} & --- & \checkmark & $\sim$ & \checkmark & $\sim$ \\
+
+Constrained RL~\cite{achiam2017constrained} & --- & \checkmark & --- & --- & \checkmark \\
+
+RSS~\cite{shalev2017formal} & --- & \checkmark & --- & \checkmark & $\sim$ \\
+
+SafetyNet~\cite{vitelli2022safetynet} & --- & \checkmark & --- & --- & \checkmark \\
+
+Rulebooks~\cite{censi2019liability} & --- & \checkmark & \checkmark & \checkmark & --- \\
+
+\midrule
+
+\multicolumn{6}{l}{\textit{RECTOR (This Work)}} \\
+
+\textbf{RECTOR (Ours)} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+
+\bottomrule
+
+\end{tabular}
+
+\vspace{2mm}
+
+
+
+\small
+
+\textbf{Legend:} \checkmark~= Full support. $\sim$~= Partial/conditional support. ---~= Not supported.
+
+\vspace{1mm}
+
+
+
+\small
+
+\textbf{Note:} Rows under \textit{Multi-Modal Prediction Methods} are \emph{candidate generators}.  They do not natively include rule-aware, tiered decision logic; attaching RECTOR to any such generator yields a composite stack that is rule-aware, hierarchical, and interpretable \emph{at selection time}.  Characterisations in this table are based on published descriptions of each method as research baselines and may not reflect the current state of any commercial implementation.
+
+\end{table*}

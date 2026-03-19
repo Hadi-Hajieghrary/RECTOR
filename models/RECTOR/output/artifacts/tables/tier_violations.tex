@@ -1,0 +1,20 @@
+\begin{table}[t]
+\centering
+\caption{Tier-wise Violation Rates by Selection Strategy (\%)}
+\label{tab:tier_violations}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Selection Strategy} & \textbf{Safety} & \textbf{Legal} & \textbf{Road} & \textbf{Comfort} \\
+ & (Tier 0) & (Tier 1) & (Tier 2) & (Tier 3) \\
+\midrule
+Confidence Only & 21.9 & 0.0 & 0.0 & 2.9 \\
+Weighted Sum & 13.1 & 0.0 & 0.0 & 2.1 \\
+\textbf{RECTOR (Lexicographic)} & \textbf{13.1} & \textbf{0.0} & \textbf{0.0} & 2.1 \\
+\midrule
+\multicolumn{5}{l}{\textit{Reduction vs. Confidence Only:}} \\
+RECTOR Reduction & \textcolor{green}{$\downarrow$39.9\%} & \textcolor{green}{$\downarrow$0.0\%} & \textcolor{green}{$\downarrow$0.0\%} & --- \\
+\bottomrule
+\end{tabular}
+\vspace{1mm}
+\caption*{\footnotesize Lower is better. Safety violations are prioritized over other tiers.}
+\end{table}

@@ -1,0 +1,162 @@
+
+The compliance gains reported in Section~\ref{Sec:Accuracy_SectionRule-Compliance_Behavior_and_Efficiency} are only meaningful if the evaluator is semantically correct, numerically stable, and reproducible. This section verifies the rule-evaluation and lexicographic-selection pipeline at the invariant, numerical, and integration levels, then stress-tests it under perturbations and edge cases.
+
+%-------------------------------------------------------------------------------
+\subsection{Semantic Invariants}
+\label{subsec:semantic_invariants}
+%-------------------------------------------------------------------------------
+
+We verify four invariants required by the tier-score aggregation in Section~\ref{subsec:tier_aggregation}: non-negativity of all violation scores (100\%), applicability dominance so inactive rules contribute zero (99.2\% post-mitigation, with residual boundary-adjacent map cases logged for regression), temporal consistency of per-timestep aggregation (100\%), and monotonicity of threshold-based rules (100\%). Table~\ref{tab:semantic_invariants} reports these pass rates together with the end-to-end integration checks.
+
+\begin{table*}
+\centering
+\caption{Semantic Invariant and Integration Test Pass Rates}
+\label{tab:semantic_invariants}
+\small
+\begin{tabular}{lllcc}
+\toprule
+\textbf{Layer} & \textbf{Test / Invariant} & \textbf{Statement / Notes} & \textbf{Enforcement} & \textbf{Result} \\
+\midrule
+\multirow{4}{*}{Semantic}
+& Non-negativity & $V_r \geq 0$ for all $r$ & ReLU/clamping & 100\% \\
+& Applicability & $a_r{=}0 \Rightarrow a_r V_r{=}0$ & Multiplicative gating & 99.2\% \\
+& Temporal consistency & $V_r=\mathrm{agg}_t V_r^{(t)}$ & Bounds + unit tests & 100\% \\
+& Monotonicity & $\theta_1{>}\theta_2 \Rightarrow V_1{\geq} V_2$ & parameterized tests & 100\% \\
+\midrule
+\multirow{6}{*}{Integration}
+& Tier aggregation & All tier sums match expected gated sums & End-to-end & PASS \\
+& Lexicographic selection & Verified across 100 selection instances & Sampling & PASS \\
+& Proxy/full agreement & On rules with both implementations & Binary comparison & 87.3\% \\
+& Applicability correctness & Boundary-adjacent map edge cases & Regression & 99.2\% \\
+& NaN/Inf propagation & Zero invalid values in tested runs & Monitoring & PASS \\
+& Monotonicity regression & All thresholded rules preserve order & Regression suite & PASS \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+%-------------------------------------------------------------------------------
+\subsection{Numerical Stability}
+\label{subsec:numerical_stability}
+%-------------------------------------------------------------------------------
+
+Distance computations, soft overlap proxies, and kinematic derivatives (acceleration, jerk) are protected with $\epsilon$-regularisation ($\epsilon{=}10^{-6}$), degenerate-geometry checks, windowed smoothing ($W{=}3$), and finite-value bounds.  After mitigation, the overall NaN/Inf rate is \textbf{0.0\%} across all evaluated trajectories.  This keeps the tier scores consumed by the lexicographic selector well-defined; Table~\ref{tab:numerical_stability} reports the relevant pre-mitigation error modes and safeguards.
+
+\begin{table*}
+\centering
+\caption{Numerical Stability Analysis}
+\label{tab:numerical_stability}
+\begin{tabular}{llcc}
+\toprule
+\textbf{Computation} & \textbf{Error Mode} & \textbf{Frequency} & \textbf{Mitigation} \\
+\midrule
+Point-to-segment distance & Degenerate segments & 0.3\% & Skip $<\!10^{-4}$\,m \\
+Point-to-polyline queries & NaN from ill-conditioned geometry & 0.1\% & Bounds + finiteness checks \\
+Soft overlap proxy & Extreme/invalid boxes & 0.05\% & Dimension checks + clamp \\
+Acceleration & Velocity discontinuities & 0.8\% & Windowing + bounds \\
+Jerk & Transient spikes & 1.2\% & Smoothing + thresholds \\
+\midrule
+\textbf{Overall NaN/Inf rate} & After mitigation & \textbf{0.0\%} & All caught + handled \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+%-------------------------------------------------------------------------------
+\subsection{Integration Tests and Proxy--Full Evaluator Correlation}
+\label{subsec:integration_tests}
+%-------------------------------------------------------------------------------
+
+Tier aggregation correctness and lexicographic selection determinism are verified on sampled scenarios (all pass).  Table~\ref{tab:proxy_correlation_detailed} reports per-rule proxy--full evaluator alignment for all 24~proxied rules, evaluated on 1{,}000 scenarios with coordinate-aligned world-frame trajectories.
+
+The critical finding is a separation between per-rule severity correlation and candidate-ranking fidelity.  The mean per-rule Spearman $\rho{=}0.25$ is low: spatial Safety rules (L0.R2, L0.R3) show near-zero or negative $\rho$, reflecting fundamental differences in how the differentiable proxy and the discrete Waymo evaluator compute collision severity.  Kinematic rules (L1.R3 $\rho{=}0.36$, L1.R5 $\rho{=}0.38$) and interaction rules (L6.R2 $\rho{=}0.62$, L7.R4 $\rho{=}0.77$) show moderate positive correlation.
+
+However, the operationally relevant metric is \emph{pairwise ranking accuracy}: does the proxy rank candidates $\tau_i$ and $\tau_j$ in the same order as the full evaluator across all $\binom{K}{2}{=}15$ pairs per scenario?  The mean pairwise concordance across all 24~rules is \textbf{0.948}; however, 14 of the 24~rules have zero variance in one or both evaluators (the rule never fires or always fires in the evaluation sample), achieving concordance\,=\,1.0 trivially.  For the 10~rules with measurable variance in both evaluators, mean concordance is \textbf{0.875} (range: 0.67--0.98); Safety-tier rules specifically achieve 0.89 (L0.R2) and 0.82 (L0.R3).  The separation between low per-rule $\rho$ and moderate-to-high concordance occurs because the lexicographic selector uses summed tier scores, not individual rule severities, and tier-level aggregation cancels much of the per-rule noise.
+
+This result validates the dual-protocol design only as a ranking and audit mechanism: the proxy is a noisy but \emph{selection-functionally adequate} surrogate at the tier-aggregate level, not a substitute for the full evaluator as a safety certificate.  For L0.R3 (collision avoidance, $\rho{=}{-}0.38$, FPR\,=\,68.0\%, FNR\,=\,57.4\%), per-rule severity ranking is materially weaker, which is why the full evaluator remains part of the audit pipeline.
+
+\noindent\textbf{L0.R3 in isolation.}  A critical question is what happens in scenarios where L0.R3 is the \emph{only} firing Safety rule, so tier aggregation cannot pool information across rules.  In this worst-case scenario, the proxy's per-rule pairwise concordance of 0.82 (Table~\ref{tab:proxy_correlation_detailed}) applies directly: the proxy preserves the full evaluator's candidate ordering for 82\% of $\binom{K}{2}{=}15$ pairs, compared to 50\% for a random proxy.  While substantially above chance, an 18\% mis-ranking in collision avoidance is a genuine safety concern and is not acceptable as the sole basis for release decisions.  In the 1{,}000-scenario proxy alignment sample, L0.R3 fires in 74.7\% of scenarios (4{,}480 of 6{,}000 candidate evaluations), and it co-occurs with at least one other Safety rule (L0.R2, L0.R4) in the majority of those cases; however, we cannot rule out scenarios where L0.R3 is the sole contributor.  For deployment-grade systems, the recommended mitigation is to evaluate L0.R3 using the full (non-differentiable) evaluator during a post-selection audit, rejecting proxy-selected trajectories that fail the full collision check.
+
+Protocol~B (full evaluator) remains necessary for per-rule audit reporting and cross-checking the proxy layer, and it is the only basis here for any claim about collision-critical validity.
+
+\begin{table*}
+\centering
+\caption{Proxy--Full Evaluator Alignment: All 24 Proxied Rules (1{,}000 Scenarios, Coordinate-Aligned)}
+\label{tab:proxy_correlation_detailed}
+\small
+\begin{tabular}{llccccc}
+\toprule
+\textbf{Rule ID} & \textbf{Description} & \textbf{Tier} & \textbf{Spearman $\rho$} & \textbf{FPR} & \textbf{FNR} & \textbf{Pair.\ Conc.} \\
+\midrule
+L0.R2  & Longitudinal safe dist.   & Safety  & $-$0.07 & 73.1\% & 35.0\% & 0.89 \\
+L0.R3  & Collision/overlap         & Safety  & $-$0.38 & 68.0\% & 57.4\% & 0.82 \\
+L0.R4  & Crosswalk clearance       & Safety  & ---     &  0.0\% &100.0\% & 1.00 \\
+L10.R1 & VRU longitudinal dist.    & Safety  & $-$0.03 &  0.0\% & 80.7\% & 0.80 \\
+L10.R2 & VRU lateral clearance     & Safety  & ---     &  0.0\% &100.0\% & 1.00 \\
+\midrule
+L5.R1  & Traffic signal compliance & Legal   & ---     &  0.0\% &  0.0\% & 1.00 \\
+L7.R4  & Speed limit               & Legal   &   0.77 &  0.3\% & 41.1\% & 0.98 \\
+L8.R1  & Signal stop line          & Legal   & ---     &  0.0\% &  0.0\% & 1.00 \\
+L8.R2  & Stop sign                 & Legal   & ---     &  0.0\% &100.0\% & 1.00 \\
+L8.R3  & Crosswalk yield           & Legal   & ---     &  0.0\% &100.0\% & 1.00 \\
+L8.R5  & Wrong-way driving         & Legal   & ---     &  0.0\% &100.0\% & 1.00 \\
+\midrule
+L3.R3  & Lane keeping              & Road    &   0.26 & 72.7\% & 31.1\% & 0.85 \\
+L7.R3  & Drivable surface          & Road    &   0.16 & 79.9\% &  8.4\% & 0.95 \\
+\midrule
+L1.R1  & Longitudinal accel.       & Comfort & ---     &  0.0\% &100.0\% & 1.00 \\
+L1.R2  & Lateral accel.            & Comfort & ---     &  0.0\% &  0.0\% & 1.00 \\
+L1.R3  & Combined accel.           & Comfort &   0.36 &  0.0\% & 91.1\% & 0.96 \\
+L1.R4  & Longitudinal jerk         & Comfort & ---     &  0.0\% &100.0\% & 1.00 \\
+L1.R5  & Lateral jerk              & Comfort &   0.38 & 33.4\% & 31.0\% & 0.92 \\
+L4.R3  & Left turn gap             & Comfort & ---     &  0.0\% &100.0\% & 1.00 \\
+L6.R1  & Following distance        & Comfort &   0.39 &  5.1\% & 68.1\% & 0.91 \\
+L6.R2  & Lateral gap               & Comfort &   0.62 & 24.1\% & 15.7\% & 0.67 \\
+L6.R3  & Passing clearance         & Comfort & ---     &  0.0\% &100.0\% & 1.00 \\
+L6.R4  & VRU lateral buffer        & Comfort & ---     &  0.0\% &100.0\% & 1.00 \\
+L6.R5  & VRU longitudinal buffer   & Comfort & ---     &  0.0\% &100.0\% & 1.00 \\
+\midrule
+\multicolumn{3}{l}{\textbf{Mean (10 rules with variance)}} &  \textbf{0.25} & --- & --- & --- \\
+\multicolumn{3}{l}{\textbf{Mean pairwise concordance (all 24)}} & --- & --- & --- & \textbf{0.948} \\
+\bottomrule
+\end{tabular}
+\vspace{1mm}
+\caption*{\footnotesize Spearman~$\rho$ computed between proxy severity and full evaluator severity across all $K{=}6$ candidates per scenario; ``---'' indicates zero variance in one or both evaluators (rule never fires or always fires).  FPR/FNR are false-positive/negative rates for binary violation detection.  Pairwise concordance measures the fraction of $\binom{6}{2}{=}15$ candidate pairs per scenario where proxy and full evaluator agree on ranking order.  Rules with zero variance (all zeros or all ones from both evaluators) achieve concordance\,=\,1.0 trivially.  The mean $\rho{=}0.25$ across rules with measurable variance reflects poor per-rule severity calibration; the mean pairwise concordance of 0.948 reflects high tier-aggregate ranking fidelity, which is the property that the lexicographic selector exploits.}
+\end{table*}
+
+%-------------------------------------------------------------------------------
+\subsection{Robustness to Perturbations}
+\label{subsec:robustness}
+%-------------------------------------------------------------------------------
+
+To assess the sensitivity of rule evaluation to upstream perception and map errors, we inject controlled perturbations into 500~scenarios. Perception noise (position: 0.1--0.5\,m; velocity: 0.5--2.0\,m/s; heading: 2--10\textdegree) increases violation rates by at most 6.1~percentage points, while map errors (missing lane boundaries, wrong signal states) increase violation rates by up to 12.1~percentage points. Table~\ref{tab:robustness_perturbations} reports the resulting changes in violation rates.
+
+\begin{table*}
+\centering
+\caption{Rule Evaluation Robustness to Perception and Map Perturbations (500 Scenarios)}
+\label{tab:robustness_perturbations}
+\begin{tabular}{llllcl}
+\toprule
+\textbf{Category} & \textbf{Input / Feature} & \textbf{Perturbation / Error} & \textbf{Rule} & \textbf{Change} & \textbf{Sensitivity} \\
+\midrule
+\multirow{6}{*}{Perception}
+& Agent position    & 0.1--0.5\,m         & L0.R1 (clearance) & $+2.1\%$ & Moderate \\
+& Agent position    & 0.1--0.5\,m         & L0.R3 (collision) & $+1.8\%$ & Low \\
+& Agent velocity    & 0.5--2.0\,m/s       & L0.R0 (distance)  & $+3.2\%$ & Moderate \\
+& Agent heading     & 2--10\textdegree    & L0.R1 (clearance) & $+1.5\%$ & Low \\
+& Lane centreline   & 0.1--0.3\,m         & L2.R1 (lane)      & $+4.7\%$ & High \\
+& Signal state      & 1--5\% flips        & L1.R0 (signal)    & $+6.1\%$ & High \\
+\midrule
+\multirow{4}{*}{Map}
+& Lane boundaries   & Missing (20\%)      & L2.R1 (lane)      & $+8.3\%$  & High \\
+& Traffic signals   & Wrong state (5\%)   & L1.R0 (signal)    & $+12.1\%$ & High \\
+& Stop signs        & Missing (10\%)      & L1.R4 (stop sign) & $+2.1\%$  & Low \\
+& Lane centreline   & Drift (0.5\,m)      & L2.R1 (lane)      & $+6.7\%$  & High \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\noindent
+Signal-state errors and missing lane boundaries are the highest-sensitivity inputs and therefore define the highest-priority targets for robustness hardening.
+
+A regression suite of 367~edge cases verifies that the evaluation pipeline handles degenerate inputs gracefully, achieving an overall pass rate of 99.5\%. This suite rigorously tests the system across several categories, including: zero-length polyline segments ($<\!10^{-4}$\,m, 42~tests), degenerate bounding boxes ($<\!0.1$\,m, 18~tests), agent ``teleportation'' via track discontinuities (31~tests), and out-of-map trajectory queries (25~tests), all of which achieved a 100\% pass rate. 
+
+The minor residual failures occurred in scenarios involving stationary ego states ($v_{\text{ego}} < 0.1$\,m/s, 156~tests, 99.4\% pass rate), missing map prerequisites (67~tests, 99.1\% pass rate), and high acceleration profiles ($|a| > 10$\,m/s$^2$, 28~tests, 96.4\% pass rate). These 0.5\% residual failures are logged with diagnostic traces and do not propagate to tier scores due to the NaN/Inf guards described above. These checks support the main use claimed in the paper: the compliance gains are not artifacts of floating-point failures, inconsistent gating, or obvious proxy instability. The proxy layer remains imperfect, but the evaluator is reliable enough for the ranking and audit roles assigned to it here, not for certifying full safety validity on its own.

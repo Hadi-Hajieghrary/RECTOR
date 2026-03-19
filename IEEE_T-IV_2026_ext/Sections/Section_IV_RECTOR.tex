@@ -1,0 +1,457 @@
+This section specifies the architecture that implements the rule-aware selection problem defined in Section~\ref{Sec:Problem_Formulation}.  RECTOR augments the multi-modal trajectory generator with two rule-aware components designed for auditability and real-time performance: an applicability mechanism and a deterministic tiered scorer.  The reference implementation uses a learned applicability head, but the results section later shows that a parameter-free always-on policy is preferable for Safety and Legal tiers on the current benchmark.  The separation between generator and selector is deliberate---it enables compatibility with any upstream trajectory model while keeping the compliance logic explicit, auditable, and stable under distribution shift.
+
+The section is organized to follow the data through the system.  We begin with a system overview and parameter budget (Section~\ref{subsec:system_overview}), then describe each architectural component in order of the inference pipeline: the scene encoder that produces a shared embedding (Section~\ref{subsec:scene_encoder}), the Transformer--CVAE decoder that generates candidate trajectories (Section~\ref{subsec:trajectory_decoder}), the applicability mechanism used in the reference model (Section~\ref{subsec:applicability_head}), the tiered scorer that implements lexicographic selection (Section~\ref{subsec:tiered_scorer}), and proxy validation against the full evaluator (Section~\ref{subsec:proxy_validation}).  We then describe the training objective (Section~\ref{subsec:training_objective}), the inference procedure (Section~\ref{subsec:inference}), and close with a summary of how these components support the paper's central claim (Section~\ref{subsec:architecture_summary}).
+
+%-------------------------------------------------------------------------------
+\subsection{System Overview}
+\label{subsec:system_overview}
+%-------------------------------------------------------------------------------
+
+Given a scenario $s{=}(\mathbf{x}_{\text{ego}},\mathbf{X}_{\text{agents}},\mathcal{M})$, RECTOR follows a modular three-stage pipeline (Fig.~\ref{fig:rector_architecture}):
+\begin{enumerate}
+    \item \textbf{Scene Encoding \& Candidate Generation:} An M2I-style encoder (PointNet + Transformer) converts heterogeneous history and map context into a dense $D{=}256$-dimensional scene     embedding~$\mathbf{e}_{\text{scene}}$.  A Transformer--CVAE decoder then generates $K{=}6$ diverse ego-trajectory hypotheses $\{\boldsymbol{\tau}^{(k)}\}_{k=1}^{K}$, each with an associated confidence score~$p^{(k)}$.
+    \item \textbf{Applicability Mechanism:} In parallel with trajectory generation, the reference model uses a 3.33\,M-parameter neural head to predict which of the $R{=}28$ cataloged traffic rules are relevant to the current scenario, yielding the applicability mask~$\hat{\mathbf{a}}\in\{0,1\}^{R}$.  Later results show that this learned component is dominated by a parameter-free always-on policy for Safety and Legal tiers, so it should be understood as the reference implementation studied here rather than as the recommended deployment default.
+    \item \textbf{Tiered Lexicographic Scorer:} Each candidate is evaluated against the active rule set using smooth proxies; the scorer selects the trajectory with the minimal violation vector under the strict priority hierarchy Safety~$\succ$~Legal~$\succ$~Road~$\succ$~Comfort (Section~\ref{subsec:lexicographic_selection}).
+\end{enumerate}
+
+\noindent
+We follow the standard supervised forecasting protocol: the generator conditions on a fixed history window of ego and neighbor-agent states over $T_h{=}11$ timesteps (1.1\,s) and predicts $T_f{=}50$ future steps (5.0\,s) at 10\,Hz.  Training minimizes a composite loss over trajectory generation and rule applicability (Section~\ref{subsec:training_objective}); rule signals are used primarily for \emph{selection-time} evaluation, with proxy-based shaping treated as an optional weak regulariser.
+
+Table~\ref{tab:param_breakdown} summarizes the parameter distribution across components, highlighting an important design property: the applicability head adds substantial capacity (3.33\,M parameters, 37.7\%), whereas the tiered scorer itself contains no trainable parameters.  This distinction matters because the results later show that the paper's robust empirical gains come from structured decision logic, while the learned applicability head is not the preferred policy for Safety and Legal deployment on this benchmark.  The following subsections detail each component in turn.
+
+\begin{table}[h]
+\centering
+\small
+\caption{Parameter Breakdown for the Reference Instantiation (CVAE Generator + RECTOR Selection Layer)}
+\label{tab:param_breakdown}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Component} & \textbf{Parameters} & \textbf{Fraction (\%)} \\
+\midrule
+Scene Encoder & 324,288 & 3.7 \\
+Trajectory Decoder & 5,182,165 & 58.7 \\
+Applicability Head + Scorer & 3,327,289 & 37.6 \\
+\midrule
+\textbf{Total} & \textbf{8,833,742} & \textbf{100.0} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent\small\textbf{Note:} ``Applicability Head + Scorer'' includes the applicability MLP and the tiered scorer (fixed threshold/tolerance constants with zero trainable parameters).  PriorNet and PosteriorNet are submodules of the CVAE trajectory decoder; their parameters are included in the decoder count.  The 8.83\,M total is from the canonical two-stage checkpoint (hash c90d4457e4996d22) used in all experiments.  The scene encoder contains 324{,}288 parameters; the trajectory decoder 5{,}182{,}165; and the applicability head (MLP) together with the parameter-free tiered scorer and differentiable selector 3{,}327{,}289.  The earlier single-stage configuration used a smaller PointNet encoder; both versions share the same decoder and applicability head architecture.
+
+
+%-------------------------------------------------------------------------------
+\subsection{Scene Encoder}
+\label{subsec:scene_encoder}
+%-------------------------------------------------------------------------------
+
+The first component in the pipeline is the scene encoder, which maps ego history, neighbor agent histories, and structured map context into a fixed-dimensional embedding $\mathbf{e}_{\text{scene}}\in\mathbb{R}^{D}$ (with $D{=}256$).  We represent map entities (lanes, boundaries, crosswalks, stop lines, and signals) as polylines and treat each polyline as a set of points with semantic features; this vectorised representation supports scalable attention-based fusion across modalities.
+
+Concretely, the encoder comprises three sub-encoders and a fusion stage (see Table~\ref{tab:param_breakdown} for the parameter budget):
+\begin{itemize}
+    \item \textbf{Agent encoder (PointNet-style):} encodes ego and neighbor agent histories into per-agent tokens via temporal encoding and pooling.     
+    \item \textbf{Map polyline encoder (PolylineNet):} encodes lane centre-lines, boundaries, crosswalks, and other map features into per-polyline tokens via pointwise MLP and max-pooling.
+    \item \textbf{Transformer fusion with cross-attention:} a multi-head Transformer encoder over the concatenated agent and map tokens to yield the global scene embedding~$\mathbf{e}_{\text{scene}}$.
+\end{itemize}
+
+\noindent
+A compact formulation is:
+\begin{align}
+\mathbf{h}_{\text{ego}} &= \text{Conv1D}(\mathbf{x}_{\text{ego}}, \text{kernel}=3) \in \mathbb{R}^{B\times 1\times D}, \\
+\mathbf{h}_{\text{lane},\ell} &= \max_{p}\ \text{MLP}\big(\mathcal{M}_{\text{lanes}}[\ell,p,:]\big) \in \mathbb{R}^{B\times 1\times D}, \\
+\mathbf{X}_{\text{tok}} &= \text{TransformerEncoder}\big(\mathbf{h}_{\text{ego}} \oplus
+\mathbf{H}_{\text{agents}} \oplus \mathbf{H}_{\text{lanes}}\big) \in \mathbb{R}^{B\times (1+N+L)\times D}, \\
+\mathbf{e}_{\text{scene}} &= \text{QueryAttn}(\mathbf{q}_{\text{ego}}, \mathbf{X}_{\text{tok}}, \mathbf{X}_{\text{tok}}) \in \mathbb{R}^{B\times D},
+\end{align}
+where $N$ is the number of agent tokens, $L$ is the number of lane-polyline tokens, $\oplus$ concatenates along the token dimension, and $\mathbf{q}_{\text{ego}}$ is a learned ego query used to pool the fused token set into a single scene embedding.  The encoder is intentionally modest in capacity (Table~\ref{tab:param_breakdown}), because the compliance gains should not rely on inflating the backbone; they should arise from rule-aware selection. The scene embedding~$\mathbf{e}_{\text{scene}}$ serves as the shared representation consumed by both the trajectory decoder and the applicability head---a branching point that is central to the architecture. 
+
+\textbf{Reproducibility details.}
+The Conv1D ego encoder uses 3~layers with kernel size~3, channels $[D_\text{in}, 128, D]$, ReLU activations, and batch normalization.  The PolylineNet MLP processes each polyline point through a 2-layer MLP ($[D_\text{in}, 128, D]$) followed by channel-wise max-pooling.  The Transformer fusion layer uses 2 encoder layers with 8 attention heads, $D{=}256$ model dimension, feed-forward dimension 512, and dropout 0.1. Agent history features comprise $(x, y, \cos\theta, \sin\theta, v_x, v_y, \text{width}, \text{length})$ per timestep ($D_\text{in}{=}8$); lane features comprise $(x, y, \text{type}, \text{speed\_limit})$ per polyline point ($D_\text{in}{=}4$).
+
+%-------------------------------------------------------------------------------
+\subsection{Trajectory Decoder}
+\label{subsec:trajectory_decoder}
+%-------------------------------------------------------------------------------
+
+From the scene embedding, the trajectory decoder generates a candidate set of size $K{=}6$ over a horizon of $T{=}50$ timesteps at 10\,Hz.  RECTOR uses a Transformer--CVAE decoder that combines three mechanisms: (i)~query-based goal conditioning for multi-modality, (ii)~a latent variable $\mathbf{z}\in\mathbb{R}^{d_z}$ (with $d_z{=}64$) for residual uncertainty, and (iii)~Transformer decoding for temporally coherent trajectories.
+
+\textbf{Goal conditioning and endpoint supervision.}
+We generate $K$ mode-specific goal embeddings using learnable queries $\mathbf{q}^{(k)}\in\mathbb{R}^{D}$:
+\begin{equation}
+\mathbf{g}_{\text{emb}}^{(k)} = \text{GoalNet}(\mathbf{e}_{\text{scene}}, \mathbf{q}^{(k)}), \quad k\in[K].
+\end{equation}
+A separate linear head predicts the 2D endpoint for supervision:
+\begin{equation}
+\mathbf{g}_{xy}^{(k)} = \text{Linear}_{D\to 2}\big(\mathbf{g}_{\text{emb}}^{(k)}\big)\in\mathbb{R}^{2}.
+\end{equation}
+
+\textbf{CVAE latent variable.}
+To capture residual uncertainty, we model a shared Gaussian prior and posterior conditioned on the scene embedding alone:
+\begin{align}
+p(\mathbf{z}\mid \mathbf{e}_{\text{scene}}) &=
+\mathcal{N}(\boldsymbol{\mu}_{\text{prior}}, \text{diag}(\boldsymbol{\sigma}^2_{\text{prior}})), \\
+q(\mathbf{z}\mid \mathbf{e}_{\text{scene}},\boldsymbol{\tau}^{*}) &=
+\mathcal{N}(\boldsymbol{\mu}_{\text{post}}, \text{diag}(\boldsymbol{\sigma}^2_{\text{post}})),
+\end{align}
+with parameters produced by lightweight MLPs (PriorNet and PosteriorNet). Mode-specific conditioning is provided by the distinct goal embeddings $\mathbf{g}_{\text{emb}}^{(k)}$ at the decoder stage rather than through separate per-mode latent distributions. During training, the posterior conditions on the ground-truth trajectory~$\boldsymbol{\tau}^{*}$; at inference, independent samples are drawn from the shared prior for each mode.
+
+\textbf{Trajectory decoding and confidence.}
+Each mode is decoded by conditioning on $(\mathbf{e}_{\text{scene}},\mathbf{g}_{\text{emb}}^{(k)},\mathbf{z}^{(k)})$. The Transformer decoder uses $L_\text{dec}{=}4$ layers with 8~attention heads, model dimension $D{=}256$, and feed-forward dimension 512. The GoalNet is a 2-layer MLP ($[D{+}D, 256, D]$) with ReLU. PriorNet and PosteriorNet are each 2-layer MLPs mapping from $D$ (or $D{+}T{\times}2$) to $2d_z{=}128$ outputs ($\mu$ and $\log\sigma^2$). The decoder produces a full ego state sequence $(x,y,\theta,v)$ over the horizon, matching the $[T_f,4]$ output shown in Fig.~\ref{fig:decoder}.  Higher-order kinematic quantities required by some rules (e.g., acceleration, jerk, yaw rate) are then computed from this state sequence via discrete-time finite differences during proxy evaluation (Section~\ref{Sec:Rule_Evaluation_And_Data_Pipeline}). A confidence head (linear $D{\to}1$) outputs logits, normalized into $p^{(k)}$ via softmax:
+\begin{equation}
+p^{(k)}=\frac{\exp(\text{logit}^{(k)})}{\sum_{j=1}^{K}\exp(\text{logit}^{(j)})}.
+\end{equation}
+
+Fig.~\ref{fig:decoder} details the decoder structure.  At this point in the pipeline, the generator has produced $K{=}6$ diverse candidate trajectories and their associated confidences.  The next two components---the applicability head and the tiered scorer---determine which of these candidates is selected for execution.
+
+\begin{figure*}
+\centering
+\resizebox{0.95\textwidth}{!}{%
+\begin{tikzpicture}[
+    % Node styles
+    module/.style={
+        rectangle,
+        rounded corners=2pt,
+        draw=#1!70!black,
+        fill=#1!12,
+        minimum width=2.0cm,
+        minimum height=0.8cm,
+        font=\small\bfseries,
+        align=center
+    },
+    data/.style={
+        rectangle,
+        draw=gray!60,
+        fill=gray!8,
+        minimum width=1.6cm,
+        minimum height=0.6cm,
+        font=\scriptsize,
+        align=center
+    },
+    tensor/.style={
+        font=\scriptsize\ttfamily,
+        text=gray!70
+    },
+    operation/.style={
+        circle,
+        draw=gray!60,
+        fill=white,
+        minimum size=0.5cm,
+        font=\scriptsize\bfseries,
+        inner sep=1pt
+    },
+    arrow/.style={->, >=Stealth, thick, gray!60},
+    dashedarrow/.style={->, >=Stealth, thick, gray!50, dashed},
+    label/.style={font=\tiny\itshape, text=gray!60},
+    trainlabel/.style={font=\tiny\bfseries, text=red!60!black},
+    seclabel/.style={font=\scriptsize\bfseries, text=gray!60, align=center}
+]
+
+% ============================================
+% TOP SECTION: Goal Prediction
+% ============================================
+
+\node[data] (goal_queries) at (0, 0) {Goal Queries\\$[K, d]$};
+\node[module=cyan, right=0.8cm of goal_queries] (cross_attn) {Cross-Attn};
+\node[data, right=0.8cm of cross_attn] (goal_feat) {Goal Features\\$\mathbf{g}$};
+
+% Lane features input to cross attention
+\node[data, above=0.5cm of cross_attn] (lane_feat) {Lane Features\\$\mathbf{L}$};
+
+\draw[arrow] (goal_queries) -- (cross_attn);
+\draw[arrow] (cross_attn) -- (goal_feat);
+\draw[arrow] (lane_feat) -- (cross_attn);
+
+% ============================================
+% MIDDLE SECTION: CVAE Prior/Posterior
+% ============================================
+
+% Scene embedding input
+\node[data, below left=0.5cm and 0.5cm of goal_queries] (scene_emb) {Scene Emb.\\$\mathbf{e}_{\text{scene}}$};
+
+% Prior network branch
+\node[module=blue, right=1.0cm of scene_emb] (prior) {Prior Net};
+\node[tensor, right=0.5cm of prior] (prior_params) {$\boldsymbol{\mu}_p, \boldsymbol{\sigma}_p$};
+
+% Posterior network branch (training only)
+\node[data, below=1.2cm of scene_emb] (traj_enc) {Traj. Encoder\\$\text{Enc}(\mathbf{y})$};
+\node[module=red, right=1.0cm of traj_enc] (posterior) {Posterior Net};
+\node[tensor, right=0.5cm of posterior] (post_params) {$\boldsymbol{\mu}_q, \boldsymbol{\sigma}_q$};
+\node[trainlabel, below=0.1cm of posterior] {(training only)};
+
+% Arrows for prior/posterior
+\draw[arrow] (scene_emb.east) -- ++(0.3,0) |- (prior.west);
+\draw[arrow] (prior) -- (prior_params);
+
+% Scene to trajectory encoder
+\draw[arrow] (scene_emb.south) -- ++(0,-0.3) -| (traj_enc.north);
+\draw[dashedarrow] (traj_enc) -- (posterior);
+\draw[dashedarrow] (posterior) -- (post_params);
+
+% Sampling operation
+\node[operation, below =0.8cm of prior_params] (sample) {$\sim$};
+\node[tensor, left=0.3cm of sample] (dist) {$\mathcal{N}(\boldsymbol{\mu}, \boldsymbol{\sigma})$};
+\node[data, right=0.6cm of sample] (z) {$\mathbf{z}$\\$[d_z]$};
+
+\draw[arrow] (prior_params.south) -- ++(0,-0.3) -| (sample);
+\draw[arrow] (sample) -- (z);
+
+
+% Concat operation
+\node[operation, right=1.5cm of z, yshift=0.5cm] (concat) {$\oplus$};
+
+% Memory output
+\node[data, right=0.6cm of concat] (memory) {Memory\\$\mathbf{m}$};
+
+% Arrows to concat
+\draw[arrow] (z.east) -| (concat.south);
+\draw[arrow] (goal_feat.east) -| (concat);
+\draw[arrow] (scene_emb.east) -- ++(0.2,0.0) |- (concat.west);
+
+\draw[arrow] (concat) -- (memory);
+
+% Transformer decoder
+\node[module=green, below=2.0cm of memory, minimum height=1.2cm, minimum width=2.5cm] (transformer) {Transformer\\Decoder};
+\node[label, below=0.1cm of transformer] {\textbf{4 layers, 8 heads}};
+
+% Positional encoding
+\node[module=gray, left=0.6cm of transformer] (pos_enc) {Positional Encoding};
+
+% Trajectory queries
+\node[data, left=0.6cm of pos_enc] (traj_queries) {Trajectory Queries\\$[T_f, d]$};
+
+
+% Memory arrow to transformer
+\draw[arrow] (memory.south) -- ++(0,-0.5) -| (transformer.north);
+\node[tensor, above=0.3cm of transformer, xshift=0.8cm] {\textbf{memory}};
+
+% Output projection
+\node[module=purple, right=0.8cm of transformer] (output_proj) {Output\\Proj.};
+
+% Final output
+\node[data, right=0.6cm of output_proj] (output) {$\hat{\mathbf{y}}$\\$[T_f, 4]$};
+
+% Arrows for decoder
+\draw[arrow] (traj_queries) -- (pos_enc);
+\draw[arrow] (pos_enc) -- (transformer);
+\draw[arrow] (transformer) -- (output_proj);
+\draw[arrow] (output_proj) -- (output);
+
+% ============================================
+% ANNOTATIONS (simple text labels)
+% ============================================
+
+\node[seclabel, left=0.5cm of scene_emb] {CVAE\\Latent};
+\node[seclabel, left=0.5cm of traj_queries] {Parallel\\Decode};
+
+% Dimensions annotation
+\node[tensor, below=0.1cm of output] {\textbf{$(x, y, \theta, v)$}};
+
+\end{tikzpicture}
+}%
+\caption{\textbf{Transformer--CVAE Decoder.}  Goal queries attend to lane features via cross-attention to produce goal features~$\mathbf{g}$.  The scene embedding feeds a prior network $p(\mathbf{z}|\mathcal{C})$; during training, a trajectory encoder and posterior network $q(\mathbf{z}|\mathcal{C}, \mathbf{y})$ provide the latent~$\mathbf{z}$ (dashed path).  The latent, goal features, and scene embedding are concatenated into a memory vector.  Learnable trajectory queries with positional encoding attend to this memory through 4~transformer decoder layers, producing $T_f{=}50$ timesteps in parallel.  The output projection yields ego trajectory states $(x, y, \theta, v)$.}
+\label{fig:decoder}
+\end{figure*}
+
+%-------------------------------------------------------------------------------
+\subsection{Applicability Head}
+\label{subsec:applicability_head}
+%-------------------------------------------------------------------------------
+
+The applicability head should be read as a \emph{tested reference component}, not as the paper's strongest practical recommendation.  In the reference model it predicts, from the scene embedding alone, which of the $R{=}28$ cataloged rules are relevant in the current scenario so that irrelevant rules do not influence the tier scores.  As a secondary benefit, applicability gating can skip unnecessary rule evaluations when the catalog grows.
+
+Formally, the head produces continuous applicability scores and thresholds them for inference-time gating:
+\begin{equation}
+\label{eq:app_head_shorthand}
+\tilde{\mathbf{a}}=\sigma\!\left(\text{MLP}_{\text{app}}(\mathbf{e}_{\text{scene}})\right)\in[0,1]^R,
+\end{equation}
+with $\hat{\mathbf{a}}\in\{0,1\}^R$ obtained by thresholding the logits.  During training, applicability is supervised using oracle labels $\mathbf{a}^*\in\{0,1\}^R$ derived from map and agent annotations:
+\begin{equation}
+\mathcal{L}_{\text{app}}=-\frac{1}{R}\sum_{r=1}^{R}\left[a_r^*\log(\tilde{a}_r)+(1-a_r^*)\log(1-\tilde{a}_r)\right].
+\end{equation}
+
+Architecturally, the implementation uses a tier-aware query mechanism over the shared scene representation, followed by a lightweight cross-tier refinement.  Those details are retained for reproducibility, but the empirical takeaway is now clear from Section~\ref{Sec:Accuracy_SectionRule-Compliance_Behavior_and_Efficiency}: the learned head is not the preferred policy for Safety and Legal tiers on this benchmark.  Under oracle cross-evaluation, a parameter-free always-on policy strictly dominates the 3.33\,M-parameter learned head on both compliance and selected-trajectory accuracy, so the learned module should be regarded as a negative result with residual value limited to Road/Comfort gating, auditable active-rule prediction, and future calibration work.
+
+This result materially changes how the architecture should be interpreted.  The compliance case for RECTOR does \emph{not} rest on the applicability head; it rests on the deterministic tiered scorer and the proxy-evaluation stack.  The learned head remains part of the reference implementation because it is how the experiments were run, but the deployment recommendation supported by the present evidence is conservative always-on activation for Safety and Legal tiers.
+
+%-------------------------------------------------------------------------------
+\subsection{Tiered Scorer}
+\label{subsec:tiered_scorer}
+%-------------------------------------------------------------------------------
+
+With the applicability mask $\hat{\mathbf{a}}$ provided by the head (Section~\ref{subsec:applicability_head}), the tiered scorer implements the prioritized ranking formalized in Section~\ref{subsec:lexicographic_selection}.  Tier scores are aggregated as:
+\begin{equation}
+\label{eq:tier_score_full}
+S_\ell^{(k)}(s)=\sum_{r:\,\ell(r)=\ell}\tilde{w}_r\,\hat{a}_r(s)\cdot \bar{V}_{r,k}(s), \quad \ell\in\{0,1,2,3\},
+\end{equation}
+where $\tilde{w}_r \geq 0$ are per-rule weights normalized within each tier so that $\sum_{r:\,\ell(r)=\ell}\tilde{w}_r = 1$.  This normalization ensures $S_\ell^{(k)}(s)\in[0,1]$ for all $k$ and $\ell$, regardless of the number of rules in the tier---a condition required by Proposition~\ref{thm:scalarization}.  In the reference implementation (\texttt{tiered\_scorer.py}), the weights~$\tilde{w}_r$ default to uniform ($1/n_\ell$ where $n_\ell$ is the number of rules in tier~$\ell$) and are normalized via \texttt{weights / weights.sum()}.
+
+\textbf{Selection.}
+The selector applies tolerance-based lexicographic ranking (Algorithm~\ref{alg:lexicographic}), which preserves priorities and prevents lower-tier improvements from masking higher-tier violations. Remaining near-ties are resolved by the summed residual tier score over the surviving candidates, with candidate index used only as a final exact-tie fallback.
+
+\begin{algorithm}[h]
+\caption{Lexicographic Trajectory Selection with Tolerance}
+\label{alg:lexicographic}
+\begin{algorithmic}[1]
+\State \textbf{Input:} Tier score vectors $\{\mathbf{S}^{(k)}\}_{k=1}^{K}$, tolerances $\{\varepsilon_\ell\}_{\ell=0}^{3}$
+\State \textbf{Output:} Selected index $k^*$
+\State $\mathcal{C}\leftarrow\{1,\ldots,K\}$ \Comment{Candidate set}
+\For{$\ell=0$ \textbf{to} $3$}
+    \State $S^* \leftarrow \min_{k\in\mathcal{C}} S_\ell^{(k)}$
+    \State $\mathcal{C}\leftarrow\{k\in\mathcal{C}: S_\ell^{(k)} \le S^*+\varepsilon_\ell\}$
+    \If{$|\mathcal{C}|=1$} \State \textbf{break} \EndIf
+\EndFor
+\State $k^*\leftarrow \arg\min_{k\in\mathcal{C}}\sum_{\ell=0}^{3} S_\ell^{(k)}$ \Comment{Residual aggregate tie-break}
+\State If multiple $k$ remain, return $\min\text{-index}(\mathcal{C})$
+\State \Return $k^*$
+\end{algorithmic}
+\end{algorithm}
+
+\textbf{GPU-friendly scalarization (optional).}
+For efficient batched execution, we also compute an order-preserving scalar score:
+\begin{equation}
+\text{Score}^{(k)}=\sum_{\ell=0}^{3} B^{4-\ell}\,S_\ell^{(k)},
+\end{equation}
+with $B{=}1000$, yielding multipliers $10^{12},10^{9},10^{6},10^{3}$ for tiers~0--3 respectively (see \texttt{tiered\_scorer.py}). This scalar is used for a fast pre-ranking, followed by the exact Algorithm~\ref{alg:lexicographic} comparator to preserve correctness in the presence of ties and numeric noise. An important practical question is how sensitive the selection is to the
+choice of tolerance parameters. We investigate this next.
+
+%--------------------------------------------
+\subsubsection{Tolerance Sensitivity Analysis}
+\label{subsubsec:tolerance_sensitivity}
+%--------------------------------------------
+
+Tolerance parameters $\{\varepsilon_\ell\}$ control selection stability under near-ties.  Setting all four tier tolerances to a common value~$\varepsilon$ and sweeping across five orders of magnitude shows that selection is stable for $\varepsilon \in [0, 10^{-2}]$: at both $\varepsilon{=}10^{-3}$ (the evaluation default) and $\varepsilon{=}10^{-2}$ (the code default), Safety, Legal, Total violation rates, and selADE are identical (15.03\% Total, 13.15\% S+L, 2.043\,m selADE), because Safety-tier proxy magnitudes are well-separated across modes.  Only at $\varepsilon \geq 0.05$ do S+L violations begin to increase.  We use $\varepsilon{=}10^{-3}$ as the default for all experiments; Fig.~\ref{fig:epsilon_sensitivity} shows the full sweep.
+
+%-------------------------------------------------------------------------------
+\subsection{Proxy Validation Against Full Evaluator}
+\label{subsec:proxy_validation}
+%-------------------------------------------------------------------------------
+
+The tiered scorer relies on smooth proxies to achieve a stable ranking, but deployment requires that proxy-based ranking correlate with the full-catalog evaluator used for auditing.  We validate this alignment by comparing proxy and full evaluator outputs on 1{,}000 \texttt{validation\_interactive} scenarios with coordinate-aligned world-frame trajectories (Table~\ref{tab:proxy_correlation_detailed}, Section~\ref{Sec:Section_VIII_Verification_Invariants_Numerical_Stability_and_Integration_Tests}).
+
+Per-rule Spearman $\rho$ between proxy and full evaluator varies widely: kinematic and interaction rules achieve moderate correlation ($\rho{=}0.36$--$0.77$), while spatial Safety-tier rules show near-zero or negative $\rho$ due to fundamental differences in how the differentiable proxy and the discrete Waymo evaluator compute collision severity.  However, the operationally relevant metric---\emph{pairwise candidate-ranking concordance}---is 0.948 across all 24~proxied rules (0.875 for the 10~rules with measurable variance; Table~\ref{tab:proxy_correlation_detailed}), confirming that tier-aggregate proxy scores preserve the full evaluator's candidate ordering at the tier level.  This separation between poor per-rule severity calibration and high aggregate ranking fidelity occurs because the lexicographic selector uses summed tier scores, not individual rule severities, and tier-level aggregation cancels much of the per-rule noise.  Four of the 28~cataloged rules (14\%) lack differentiable proxies because they require intent modeling, counterfactual reasoning, or multi-agent negotiation.  These rules are excluded from proxy-based ranking and evaluated post-selection for audit reporting; an unproxied rule contributes a score of zero (no penalty), and the post-hoc audit flags any violations detected by the full evaluator.
+
+%-------------------------------------------------------------------------------
+\subsection{Training Objective}
+\label{subsec:training_objective}
+%-------------------------------------------------------------------------------
+
+The preceding subsections describe the inference-time architecture.  We now turn to how the system is trained.  RECTOR employs a \textbf{two-stage training procedure}:
+
+\noindent\textbf{Stage~1 (Applicability Head Pretraining, 20 epochs):} The M2I-style encoder is frozen, and only the applicability head is trained using focal binary cross-entropy ($\gamma{=}2.0$) on oracle applicability labels derived from the WOMD rule evaluation framework.  This stage produces the reference applicability predictor used in the experiments, even though later ablations show that conservative always-on activation is preferable for Safety and Legal tiers on the present benchmark.
+
+\noindent\textbf{Stage~2 (End-to-End Fine-Tuning, 20+5 epochs):}  The full model---encoder, decoder, and applicability head---is trained end-to-end with a composite loss that supervises trajectory generation, rule applicability prediction, and proxy-based compliance shaping:
+\begin{align}
+\mathcal{L}=
+\lambda_{\text{WTA}}\mathcal{L}_{\text{WTA}}&+
+\lambda_{\text{end}}\mathcal{L}_{\text{end}}+
+\lambda_{\text{KL}}\mathcal{L}_{\text{KL}}+
+\lambda_{\text{goal}}\mathcal{L}_{\text{goal}}\nonumber\\
+&\quad+\lambda_{\text{smooth}}\mathcal{L}_{\text{smooth}}+
+\lambda_{\text{conf}}\mathcal{L}_{\text{conf}}+
+\lambda_{\text{app}}\mathcal{L}_{\text{app}}+
+\lambda_{\text{rule}}\mathcal{L}_{\text{rule}}.
+\end{align}
+All eight weights are applied at the same level (see Table~\ref{tab:training_config} for values).  The first six terms constitute the trajectory generation objective; the last two terms supervise rule applicability and (optionally) proxy-based compliance. For readability, we group the trajectory terms as $\mathcal{L}_{\text{traj}}$ in the discussion below.
+
+\textbf{Trajectory loss.}
+The trajectory loss combines winner-takes-all supervision, endpoint matching, KL regularization for the CVAE, goal supervision, smoothness, and confidence
+calibration:
+\begin{align}
+\mathcal{L}_{\text{traj}} =
+\lambda_{\text{WTA}}\mathcal{L}_{\text{WTA}}&+
+\lambda_{\text{end}}\mathcal{L}_{\text{end}}+
+\lambda_{\text{KL}}\mathcal{L}_{\text{KL}}+
+\lambda_{\text{goal}}\mathcal{L}_{\text{goal}}\nonumber\\
+&+\lambda_{\text{smooth}}\mathcal{L}_{\text{smooth}}+
+\lambda_{\text{conf}}\mathcal{L}_{\text{conf}}.\nonumber
+\end{align}
+Winner-takes-all and endpoint losses supervise only the best-matching mode:
+\begin{equation}
+\mathcal{L}_{\text{WTA}}=\min_{k\in[K]}\frac{1}{T}\sum_{t=1}^{T} w_t\,
+\boldsymbol{\lambda}^\top H_\beta\!\left(\boldsymbol{\tau}^{(k)}_t-\boldsymbol{\tau}^{*}_t\right),
+\quad w_t = 1 + \tfrac{t}{T},
+\end{equation}
+where $H_\beta(\cdot)$ denotes element-wise Huber loss with $\beta{=}0.5$, and $\boldsymbol{\lambda}{=}[2,2,0.5,0.5]^\top$ are dimension weights for $(x,y,\theta,v)$ that emphasise positional accuracy over heading and speed.
+\begin{equation}
+\mathcal{L}_{\text{end}}=H_\beta\!\left(\boldsymbol{\tau}^{(k^*)}_T-\boldsymbol{\tau}^*_T\right),
+\quad k^*=\arg\min_{k\in[K]}\text{ADE}^{(k)},
+\end{equation}
+and goal supervision aligns the closest predicted goal with the ground-truth final position:
+\begin{equation}
+\mathcal{L}_{\text{goal}}=H_\beta\!\left(\mathbf{g}_{xy}^{(k^\dagger)}-\boldsymbol{\tau}^*_T\right),
+\quad k^\dagger = \arg\min_{k\in[K]}\left\|\mathbf{g}_{xy}^{(k)}-\boldsymbol{\tau}^*_T\right\|_2.
+\end{equation}
+A smoothness regulariser reduces high-frequency oscillations via third-order finite differences (jerk) on the position components:
+\begin{equation}
+\mathcal{L}_{\text{smooth}}=\frac{1}{T-3}\sum_{t=1}^{T-3}
+\left\|\boldsymbol{\tau}^{xy}_{t+3}-3\boldsymbol{\tau}^{xy}_{t+2}
++3\boldsymbol{\tau}^{xy}_{t+1}-\boldsymbol{\tau}^{xy}_t\right\|_2,
+\end{equation}
+where the superscript $xy$ denotes the position components $(x,y)$ only, and the third-order finite difference penalises jerk (rate of change of acceleration). Finally, confidence calibration uses cross-entropy with the best-ADE mode as the target:
+\begin{equation}
+\mathcal{L}_{\text{conf}}=-\sum_{k=1}^{K} y_k\log(p^{(k)}), \quad y_k=\mathbb{1}\!\left[k=\arg\min_{j}\text{ADE}^{(j)}\right].
+\end{equation}
+
+\textbf{Applicability loss.}
+$\mathcal{L}_{\text{app}}$ is the focal binary cross-entropy defined in Section~\ref{subsec:applicability_head}, with focusing parameter $\gamma{=}2.0$ to handle the class imbalance inherent in rule applicability labels.  This loss is active in both training stages: as the sole objective in Stage~1 (pretraining) and as one of eight terms in Stage~2 (end-to-end).
+
+\textbf{Rule-proxy shaping.}
+$\mathcal{L}_{\text{rule}}$ backpropagates through smooth proxies to encourage the generator to allocate probability mass toward more compliant candidates, without replacing lexicographic selection at inference.  We treat this term as a weak regulariser ($\lambda_{\text{rule}}{=}1.0$) to avoid collapsing multi-modality; the compliance gains reported in Section~\ref{Sec:Accuracy_SectionRule-Compliance_Behavior_and_Efficiency} are therefore primarily attributable to selection-time enforcement rather than to training-time shaping.  Training hyper-parameters are summarised in Section~\ref{Sec:Experiments} (Table~\ref{tab:training_config}).
+
+%-------------------------------------------------------------------------------
+\subsection{Inference Procedure}
+\label{subsec:inference}
+%-------------------------------------------------------------------------------
+
+With the training objective defined, the inference procedure follows naturally as the forward pass without the posterior network or the training losses (Algorithm~\ref{alg:inference}).  The key operational property is that selection is deterministic given $(\mathcal{T},\mathbf{p})$ and the predicted applicability mask~$\hat{\mathbf{a}}$.  This supports regression testing under rule updates and enables localised debugging: the first tier that differentiates candidates is directly observable.
+
+\begin{algorithm}[h]
+\caption{RECTOR Inference}
+\label{alg:inference}
+\begin{algorithmic}[1]
+\State \textbf{Input:} Scenario $s=(\mathbf{x}_{\text{ego}}, \mathbf{X}_{\text{agents}}, \mathcal{M})$, trained parameters $\theta$
+\State \textbf{Output:} Selected trajectory index and confidence $(k^*, p^{(k^*)})$
+\State $\mathbf{e}_{\text{scene}} \leftarrow \text{SceneEncoder}(s)$
+\For{$k=1$ \textbf{to} $K$}
+    \State $\mathbf{g}_{\text{emb}}^{(k)} \leftarrow \text{GoalNet}(\mathbf{e}_{\text{scene}}, \mathbf{q}^{(k)})$
+    \State $\mathbf{z}^{(k)} \sim p(\mathbf{z}\mid \mathbf{e}_{\text{scene}})$ \Comment{Independent sample per mode; see note below}
+    \State $\boldsymbol{\tau}^{(k)} \leftarrow \text{TrajectoryDecoder}(\mathbf{e}_{\text{scene}}, \mathbf{g}_{\text{emb}}^{(k)}, \mathbf{z}^{(k)})$
+    \State $\text{logit}^{(k)} \leftarrow \text{ConfidenceHead}(\mathbf{e}_{\text{scene}}, \mathbf{g}_{\text{emb}}^{(k)})$
+\EndFor
+\State $\mathbf{p}\leftarrow \text{softmax}(\text{logit}^{(1..K)})$
+\State $\tilde{\mathbf{a}}\leftarrow \sigma(\text{ApplicabilityHead}(\mathbf{e}_{\text{scene}}))$
+\State $\hat{\mathbf{a}}\leftarrow \mathbb{1}[\tilde{\mathbf{a}}>\text{thresholds by tier}]$
+\For{$k=1$ \textbf{to} $K$}
+    \For{$r=1$ \textbf{to} $R$}
+        \If{$\hat{a}_r=1$}
+            \State $\bar{V}_{r,k} \leftarrow \text{RuleProxy}_r(\boldsymbol{\tau}^{(k)}, s)$
+        \Else
+            \State $\bar{V}_{r,k} \leftarrow 0$
+        \EndIf
+    \EndFor
+\EndFor
+\For{$k=1$ \textbf{to} $K$}
+    \For{$\ell=0$ \textbf{to} $3$}
+        \State $S_\ell^{(k)} \leftarrow \sum_{r:\,\ell(r)=\ell}\tilde{w}_r\,\hat{a}_r\,\bar{V}_{r,k}$ \Comment{matches Eq.~\eqref{eq:tier_score_full}; $\hat{a}_r$ pre-applied at lines 15--22 so $\hat{a}_r{=}0 \Rightarrow \bar{V}_{r,k}{=}0$}
+    \EndFor
+\EndFor
+\State $k^* \leftarrow \text{LexicographicSelect}(\{\mathbf{S}^{(k)}\}_{k=1}^{K}, \varepsilon)$
+\State \Return $(k^*, p^{(k^*)})$ \Comment{$p^{(k^*)}$ reported for information only; not used in selection}
+\end{algorithmic}
+\end{algorithm}
+
+\noindent
+\textbf{Latent sampling note.}\enspace
+At inference, the latent variable~$\mathbf{z}^{(k)}$ is drawn stochastically from the shared prior $p(\mathbf{z}\mid\mathbf{e}_{\text{scene}})$ for each mode~$k$ via the reparameterization trick.  Mode diversity is produced jointly by the $K{=}6$ learnable goal queries~$\mathbf{q}^{(k)}$, which condition distinct goal embeddings, and by independent latent samples~$\boldsymbol{\epsilon}^{(k)}\sim\mathcal{N}(\mathbf{0},\mathbf{I})$ drawn per mode.  Using the prior mean~$\boldsymbol{\mu}_{\text{prior}}$ for all modes was found to collapse diversity, since the decoder then receives identical latent inputs and produces nearly identical trajectories. Stochastic per-mode sampling is therefore required for effective candidate generation.  For reproducibility purposes, experiments fix the random seed prior to inference (Section~\ref{Sec:Experiments}).
+
+\noindent
+Latency is dominated by trajectory generation, while compliance evaluation remains a minor fraction of total compute (7.3\,ms mean, Table~\ref{tab:efficiency} in Section~\ref{Sec:Accuracy_SectionRule-Compliance_Behavior_and_Efficiency}). This matches the design intent: compliance logic should be auditable and cheap, not a second heavyweight model.  Detailed ablation studies and component impact analysis are presented in Section~\ref{subsec:ablations_main}.
+
+%-------------------------------------------------------------------------------
+\subsection{Architecture Summary}
+\label{subsec:architecture_summary}
+%-------------------------------------------------------------------------------
+
+In summary, RECTOR implements the prioritized rule-aware selection objective with minimal compliance overhead relative to the trajectory generator (Table~\ref{tab:param_breakdown}).  The architecture is intentionally modular: the \textbf{generator} (scene encoder + Transformer--CVAE decoder) targets candidate diversity and geometric fidelity; the \textbf{applicability mechanism} provides the reference gating path studied in this paper, though the learned instantiation is not the preferred Safety/Legal policy on this benchmark; the \textbf{tiered scorer} enforces traffic-rule priorities via deterministic lexicographic comparison; and the \textbf{full evaluator} remains an external audit instrument, enabling verification-oriented reporting beyond proxy coverage (Section~\ref{subsec:proxy_validation}).
+
+This modular design directly supports the paper's central claim: when multi-modal diversity exists, explicit selection is the correct intervention point for improving rule compliance without sacrificing oracle accuracy. Section~\ref{Sec:Rule_Evaluation_And_Data_Pipeline} next specifies the rule catalog and proxy implementations that the scorer consumes, before Section~\ref{Sec:Experiments} defines the experimental protocol.

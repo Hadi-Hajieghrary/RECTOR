@@ -21,6 +21,11 @@ In practical terms, the workspace supports the full lifecycle of the project:
 
 This README is intended to be the master document for that workspace. The sections below describe the scientific method in detail, but they also map the top-level directory structure, development environment, outputs, and validation paths so the file reflects the whole codebase rather than only the core model.
 
+## Papers
+
+- [Camera-ready paper (PDF)](IEEE_T-IV_2026_camera_ready/Main.pdf)
+- [Extended paper (PDF)](IEEE_T-IV_2026_ext/Main.pdf)
+
 <p align="center">
   <img src="assets/gifs/rector_presentation.gif" alt="RECTOR presentation overview" width="90%"/>
 </p>
@@ -87,7 +92,7 @@ data/WOMD/
   -> scripts/simulation_engine/
   -> output/closedloop/
   -> models/RECTOR/output/artifacts/
-  -> reference/IEEE_T-IV_2026/
+  -> IEEE_T-IV_2026_ext
 ```
 
 ## Recommended Reading Order
@@ -763,7 +768,7 @@ All figures are generated at 300 DPI with IEEE-compliant formatting. Source: [`m
 | Ablation study | [`ablation_comparison`](models/RECTOR/output/artifacts/figures/ablation_comparison.png), [`ablation_radar`](models/RECTOR/output/artifacts/figures/ablation_radar.png), [`component_impact`](models/RECTOR/output/artifacts/figures/component_impact.png) | `generate_ablation_study.py` |
 | Error distributions | [`ade_fde_distribution`](models/RECTOR/output/artifacts/figures/ade_fde_distribution.png), [`percentile_analysis`](models/RECTOR/output/artifacts/figures/percentile_analysis.png), [`miss_rate_analysis`](models/RECTOR/output/artifacts/figures/miss_rate_analysis.png), [`ade_fde_heatmap`](models/RECTOR/output/artifacts/figures/ade_fde_heatmap.png) | `generate_distribution_plots.py` |
 | Efficiency | [`latency_breakdown`](models/RECTOR/output/artifacts/figures/latency_breakdown.png), [`parameter_breakdown`](models/RECTOR/output/artifacts/figures/parameter_breakdown.png), [`throughput_comparison`](models/RECTOR/output/artifacts/figures/throughput_comparison.png) | `generate_efficiency_stats.py` |
-| Qualitative | [`qualitative_example_intersection`](models/RECTOR/output/artifacts/figures/qualitative_example_intersection.png), [`qualitative_example_highway`](models/RECTOR/output/artifacts/figures/qualitative_example_highway.png), [`qualitative_example_lane_change`](models/RECTOR/output/artifacts/figures/qualitative_example_lane_change.png), [`scenario_gallery`](models/RECTOR/output/artifacts/figures/scenario_gallery.png), [`selection_comparison`](models/RECTOR/output/artifacts/figures/selection_comparison.png) | `generate_qualitative_visualizations.py` |
+| Qualitative | [`scenario_gallery`](models/RECTOR/output/artifacts/figures/scenario_gallery.png), [`selection_comparison`](models/RECTOR/output/artifacts/figures/selection_comparison.png) | `generate_qualitative_visualizations.py` |
 
 ### LaTeX Tables (10 files)
 

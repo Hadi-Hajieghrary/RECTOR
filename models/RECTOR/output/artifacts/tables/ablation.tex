@@ -1,0 +1,24 @@
+\begin{table}[t]
+\centering
+\caption{Ablation Studies}
+\label{tab:ablations}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Configuration} & \textbf{minADE (m)} & \textbf{minFDE (m)} & \textbf{Miss (\%)} & \textbf{Safety (\%)} \\
+\midrule
+\textbf{Full RECTOR} & \textbf{0.684} & \textbf{1.270} & \textbf{18.6} & \textbf{13.1} \\
+\midrule
+Confidence Only & 2.208 \textcolor{red}{(+1.524)} & 4.330 \textcolor{red}{(+3.06)} & 18.6 & 21.9 \textcolor{red}{(+8.7)} \\
+Weighted Sum & 2.043 \textcolor{red}{(+1.359)} & 3.813 \textcolor{red}{(+2.54)} & 18.6 & 13.1 \\
+w/o Applicability Head & 0.698 \textcolor{red}{(+0.014)} & 1.295 \textcolor{red}{(+0.02)} & 19.5 \textcolor{red}{(+0.9)} & 15.6 \textcolor{red}{(+2.5)} \\
+w/o Goal Conditioning & 0.711 \textcolor{red}{(+0.027)} & 1.334 \textcolor{red}{(+0.06)} & 20.5 \textcolor{red}{(+1.9)} & 13.8 \textcolor{red}{(+0.7)} \\
+GRU-CVAE & 0.732 \textcolor{red}{(+0.048)} & 1.384 \textcolor{red}{(+0.11)} & 22.3 \textcolor{red}{(+3.7)} & 14.5 \textcolor{red}{(+1.4)} \\
+Average Loss (no WTA) & 0.718 \textcolor{red}{(+0.034)} & 1.359 \textcolor{red}{(+0.09)} & 21.4 \textcolor{red}{(+2.8)} & 14.5 \textcolor{red}{(+1.4)} \\
+\bottomrule
+\end{tabular}%
+}
+\vspace{1mm}
+\caption*{\footnotesize Red values indicate degradation from full RECTOR. 
+Safety = Tier 0 violation rate.}
+\end{table}

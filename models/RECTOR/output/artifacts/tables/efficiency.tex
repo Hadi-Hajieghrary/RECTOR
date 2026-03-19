@@ -1,0 +1,31 @@
+\begin{table}[t]
+\centering
+\caption{Computational Efficiency}
+\label{tab:efficiency}
+\begin{tabular}{lc}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+\multicolumn{2}{l}{\textit{Model Size}} \\
+Parameters (total) & 8.83M \\
+Parameters (trainable) & 8.83M \\
+\quad Encoder & 0.51M \\
+\quad Decoder & 5.18M \\
+\quad Scorer/Applicability & 3.33M \\
+\midrule
+\multicolumn{2}{l}{\textit{Inference}} \\
+Latency (mean) & 16.6ms/sample \\
+Latency (p95) & 17.4ms/sample \\
+Throughput & 98.1 samples/s \\
+GPU memory & 8GB \\
+\midrule
+\multicolumn{2}{l}{\textit{Training}} \\
+Training time & 24 hours (A100) \\
+GPU memory & 16GB \\
+\midrule
+\multicolumn{2}{l}{\textit{Validation}} \\
+Samples evaluated & 43,219 \\
+Evaluation time & 440.7s \\
+\bottomrule
+\end{tabular}
+\end{table}

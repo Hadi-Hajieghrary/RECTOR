@@ -1,0 +1,124 @@
+This section describes the reference RECTOR stack used in the experiments. The generator produces the candidate set; the rule-aware components activate scene-relevant rules and rank candidates with deterministic tiered scoring. The learned applicability head is part of the reference instantiation because it was investigated explicitly, but later results show that it is a practically dominated component for Safety and Legal tiers in the evaluated WOMD setting.
+
+%-------------------------------------------------------------------------------
+\subsection{System Overview}
+\label{subsec:system_overview}
+%-------------------------------------------------------------------------------
+
+Given a scenario $s{=}(\mathbf{x}_{\text{ego}},\mathbf{X}_{\text{agents}},\mathcal{M})$, the reference stack encodes scene history and map context into a shared embedding $\mathbf{e}_{\text{scene}}$, decodes $K{=}6$ trajectory hypotheses over $T_f{=}50$ future steps, predicts a rule-applicability mask $\hat{\mathbf{a}}\in\{0,1\}^{R}$, and scores each candidate under the tiered rulebook of Section~\ref{subsec:lexicographic_selection}. Table~\ref{tab:param_breakdown} is included to make explicit where model capacity is spent in this reference instantiation; the selector itself has no trainable parameters.
+
+\begin{table}[h]
+\centering
+\small
+\caption{Parameter Breakdown for the Reference Instantiation (CVAE Generator + RECTOR Selection Layer)}
+\label{tab:param_breakdown}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Component} & \textbf{Parameters} & \textbf{Fraction (\%)} \\
+\midrule
+Scene Encoder & 324,288 & 3.7 \\
+Trajectory Decoder & 5,182,165 & 58.7 \\
+Applicability Head + Scorer & 3,327,289 & 37.6 \\
+\midrule
+\textbf{Total} & \textbf{8,833,742} & \textbf{100.0} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent\small\textbf{Note:} ``Applicability Head + Scorer'' includes the applicability MLP and the tiered scorer (fixed threshold/tolerance constants with zero trainable parameters).  PriorNet and PosteriorNet are submodules of the CVAE trajectory decoder; their parameters are included in the decoder count.  The 8.83\,M total is from the canonical two-stage checkpoint (hash c90d4457e4996d22) used in all experiments.  The scene encoder contains 324{,}288 parameters; the trajectory decoder 5{,}182{,}165; and the applicability head (MLP) together with the parameter-free tiered scorer and differentiable selector 3{,}327{,}289.  This allocation is reported for transparency, not as an argument that the learned applicability head is the preferred deployment choice.
+
+
+%-------------------------------------------------------------------------------
+\subsection{Scene Encoder}
+\label{subsec:scene_encoder}
+%-------------------------------------------------------------------------------
+
+The scene encoder maps ego history, surrounding-agent history, and vectorized map context into a shared embedding $\mathbf{e}_{\text{scene}}\in\mathbb{R}^{D}$ with $D{=}256$. It uses pointwise encoding for agent and map tokens, followed by Transformer fusion:
+\begin{align}
+\mathbf{h}_{\text{ego}} &= \text{Conv1D}(\mathbf{x}_{\text{ego}}, \text{kernel}=3) \in \mathbb{R}^{B\times 1\times D}, \\
+\mathbf{h}_{\text{lane},\ell} &= \max_{p}\ \text{MLP}\big(\mathcal{M}_{\text{lanes}}[\ell,p,:]\big) \in \mathbb{R}^{B\times 1\times D}, \\
+\mathbf{X}_{\text{tok}} &= \text{TransformerEncoder}\big(\mathbf{h}_{\text{ego}} \oplus
+\mathbf{H}_{\text{agents}} \oplus \mathbf{H}_{\text{lanes}}\big) \in \mathbb{R}^{B\times (1+N+L)\times D}, \\
+\mathbf{e}_{\text{scene}} &= \text{QueryAttn}(\mathbf{q}_{\text{ego}}, \mathbf{X}_{\text{tok}}, \mathbf{X}_{\text{tok}}) \in \mathbb{R}^{B\times D},
+\end{align}
+where $N$ is the number of agent tokens, $L$ is the number of lane-polyline tokens, and $\mathbf{q}_{\text{ego}}$ is a learned pooling query. The embedding is shared by the decoder and the applicability head.
+
+%-------------------------------------------------------------------------------
+\subsection{Trajectory Decoder}
+\label{subsec:trajectory_decoder}
+%-------------------------------------------------------------------------------
+
+From the shared scene embedding, the trajectory decoder generates $K{=}6$ candidate trajectories over a 5\,s horizon. The decoder combines mode-specific goal queries, a shared CVAE latent variable, and Transformer decoding:
+\begin{equation}
+\mathbf{g}_{\text{emb}}^{(k)} = \text{GoalNet}(\mathbf{e}_{\text{scene}}, \mathbf{q}^{(k)}), \quad k\in[K].
+\end{equation}
+\noindent A linear head predicts the corresponding endpoint:
+\begin{equation}
+\mathbf{g}_{xy}^{(k)} = \text{Linear}_{D\to 2}\big(\mathbf{g}_{\text{emb}}^{(k)}\big)\in\mathbb{R}^{2}.
+\end{equation}
+\noindent Residual uncertainty is modeled with a shared Gaussian prior and posterior:
+\begin{align}
+p(\mathbf{z}\mid \mathbf{e}_{\text{scene}}) &=
+\mathcal{N}(\boldsymbol{\mu}_{\text{prior}}, \text{diag}(\boldsymbol{\sigma}^2_{\text{prior}})), \\
+q(\mathbf{z}\mid \mathbf{e}_{\text{scene}},\boldsymbol{\tau}^{*}) &=
+\mathcal{N}(\boldsymbol{\mu}_{\text{post}}, \text{diag}(\boldsymbol{\sigma}^2_{\text{post}})),
+\end{align}
+with posterior conditioning on the ground-truth trajectory during training and prior sampling at inference. Each mode is decoded from $(\mathbf{e}_{\text{scene}},\mathbf{g}_{\text{emb}}^{(k)},\mathbf{z}^{(k)})$ into a state sequence $(x,y,\theta,v)$, and a confidence head produces
+\begin{equation}
+p^{(k)}=\frac{\exp(\text{logit}^{(k)})}{\sum_{j=1}^{K}\exp(\text{logit}^{(j)})}.
+\end{equation}
+Higher-order kinematic quantities used by the rule proxies are computed from these decoded trajectories by finite differences.
+
+%-------------------------------------------------------------------------------
+\subsection{Applicability Head}
+\label{subsec:applicability_head}
+%-------------------------------------------------------------------------------
+
+The applicability head should be read as an investigated reference component rather than the recommended default for the highest-priority tiers. It predicts which of the $R{=}28$ cataloged rules are active in the current scene:
+\begin{equation}
+\label{eq:app_head_shorthand}
+\tilde{\mathbf{a}}=\sigma\!\left(\text{MLP}_{\text{app}}(\mathbf{e}_{\text{scene}})\right)\in[0,1]^R,
+\end{equation}
+with $\hat{\mathbf{a}}\in\{0,1\}^R$ obtained by thresholding the logits. During training, applicability is supervised with focal binary cross-entropy on oracle labels. Section~\ref{Sec:Accuracy_SectionRule-Compliance_Behavior_and_Efficiency} shows that always-on activation is preferable for Safety and Legal tiers in the evaluated WOMD setting; the learned head remains mainly useful as an ablation and as a record of predicted active rules, not as a demonstrated performance-improving component.
+
+%-------------------------------------------------------------------------------
+\subsection{Tiered Scorer}
+\label{subsec:tiered_scorer}
+%-------------------------------------------------------------------------------
+
+With the applicability mask $\hat{\mathbf{a}}$, the tiered scorer implements the prioritized ranking formalized in Section~\ref{subsec:lexicographic_selection}. Tier scores are aggregated as
+\begin{equation}
+\label{eq:tier_score_full}
+S_\ell^{(k)}(s)=\sum_{r:\,\ell(r)=\ell}\tilde{w}_r\,\hat{a}_r(s)\cdot \bar{V}_{r,k}(s), \quad \ell\in\{0,1,2,3\},
+\end{equation}
+where $\tilde{w}_r \geq 0$ are normalized within each tier. The exact selector is defined in Section~\ref{subsec:lexicographic_selection}; the implementation also computes an order-preserving scalar pre-score for fast batched ranking:
+\begin{equation}
+\text{Score}^{(k)}=\sum_{\ell=0}^{3} B^{4-\ell}\,S_\ell^{(k)},
+\end{equation}
+with $B{=}1000$. Tolerance sensitivity and proxy--auditor alignment are evaluated in Sections~\ref{subsubsec:epsilon_sensitivity} and~\ref{Sec:Section_VIII_Verification_Invariants_Numerical_Stability_and_Integration_Tests}.
+
+%-------------------------------------------------------------------------------
+\subsection{Training Objective}
+\label{subsec:training_objective}
+%-------------------------------------------------------------------------------
+
+RECTOR is trained in two stages. Stage~1 trains only the applicability head with focal binary cross-entropy ($\gamma{=}2.0$) on oracle applicability labels. Stage~2 fine-tunes the full model end-to-end with a composite loss:
+\begin{align}
+\mathcal{L}=
+\lambda_{\text{WTA}}\mathcal{L}_{\text{WTA}}&+
+\lambda_{\text{end}}\mathcal{L}_{\text{end}}+
+\lambda_{\text{KL}}\mathcal{L}_{\text{KL}}+
+\lambda_{\text{goal}}\mathcal{L}_{\text{goal}}\nonumber\\
+&\quad+\lambda_{\text{smooth}}\mathcal{L}_{\text{smooth}}+
+\lambda_{\text{conf}}\mathcal{L}_{\text{conf}}+
+\lambda_{\text{app}}\mathcal{L}_{\text{app}}+
+\lambda_{\text{rule}}\mathcal{L}_{\text{rule}}.
+\end{align}
+Here $\mathcal{L}_{\text{WTA}}$ is a time-weighted Huber reconstruction loss on the best-matching mode, $\mathcal{L}_{\text{end}}$ supervises the endpoint, $\mathcal{L}_{\text{KL}}$ regularizes the CVAE posterior, $\mathcal{L}_{\text{goal}}$ aligns the closest goal query with the ground truth endpoint, $\mathcal{L}_{\text{smooth}}$ penalizes jerk, $\mathcal{L}_{\text{conf}}$ calibrates confidence, $\mathcal{L}_{\text{app}}$ supervises applicability, and $\mathcal{L}_{\text{rule}}$ provides weak proxy-based shaping. The present paper does not isolate the marginal contribution of $\lambda_{\text{rule}}$, so the training objective should be read as part of the reference stack rather than as separately validated evidence for the main compliance effect.
+
+%-------------------------------------------------------------------------------
+\subsection{Inference Procedure}
+\label{subsec:inference}
+%-------------------------------------------------------------------------------
+
+Inference is the forward pass without the posterior network or training losses: encode the scene, sample one latent per mode, decode $K$ trajectories and confidences, predict applicability, evaluate active-rule proxies, and apply the lexicographic selector. The important implementation detail is that per-mode latent sampling is required to preserve diversity; using the prior mean for all modes collapses the candidate set. The rule-evaluation and selection stage remains a small fraction of total latency (Table~\ref{tab:efficiency}).

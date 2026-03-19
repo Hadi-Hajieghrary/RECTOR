@@ -1,0 +1,133 @@
+\PassOptionsToPackage{table}{xcolor}
+\documentclass[lettersize,journal, twocolumn]{IEEEtran}
+
+\usepackage{amsmath,amsfonts}
+\usepackage{array}
+\usepackage{textcomp}
+\usepackage{stfloats}
+\usepackage{url}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{subfiles}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{fmtcount}
+\usepackage{tcolorbox}
+\usepackage{cite}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{amsthm}
+
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\newtheorem{property}{Property}
+\newtheorem{problem}{Problem}
+
+\newtheorem{invariant}{Invariant}
+\newtheorem*{remark}{Remark}
+
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds, calc, decorations.pathreplacing, shapes.multipart}
+
+% Graceful handling of missing figure files: show placeholder box with filename
+\let\origincludegraphics\includegraphics
+\renewcommand{\includegraphics}[2][]{%
+  \IfFileExists{#2}{%
+    \origincludegraphics[#1]{#2}%
+  }{%
+    \fbox{\parbox{0.8\linewidth}{\centering\small\texttt{[Missing figure: #2]}}}%
+  }%
+}
+
+\hyphenation{op-tical net-works semi-conduc-tor IEEE-Xplore}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\usepackage{balance}
+
+\begin{document}
+
+\title{\textsc{RECTOR}: Rule-Enforced Constrained Trajectory Orchestrator
+for Compliance-Aware Autonomous Driving}
+
+\author{Hadi Hajieghrary$^{1}$, Benedikt Walter$^{2}$, Chaitanya Shinde$^{3}$, and Miguel Hurtado$^{4}$% <-this % stops a space
+\thanks{$^{1}$Hadi Hajieghrary {\tt\small Hadi.Hajieghrary@Torc.ai}, $^{2}$Benedikt Walter {\tt\small Benedikt.Walter@Torc.ai}, $^{3}$Chaitanya Shinde {\tt\small Chaitanya.Shinde@Torc.ai}, and $^{4}$Miguel Hurtado {\tt\small Miguel.Hurtado@Torc.ai} are with TORC Robotics LLC, an independent subsidiary of Daimler Truck AG. This paper represents research activities conducted within TORC Robotics LLC. It does not describe any production system, does not constitute the safety case for any Daimler Truck AG product or development program, and has not been reviewed by Daimler Truck AG for regulatory compliance or product liability purposes. The research was conducted using public benchmark data and does not reflect the proprietary safety architecture of any deployed or in-development TORC Robotics or Daimler Truck product.}%
+ }
+
+\maketitle
+
+\begin{abstract}
+Modern multi-modal motion predictors generate diverse futures, but the executed trajectory is still often chosen by confidence rather than by explicit traffic-rule priorities. We present \textsc{RECTOR} (\textbf{R}ule-\textbf{E}nforced \textbf{C}onstrained \textbf{T}rajectory \textbf{OR}chestrator), a rule-aware selection layer that reranks candidate trajectories under the strict hierarchy Safety~$\succ$~Legal~$\succ$~Road~$\succ$~Comfort. \textsc{RECTOR} combines scene-conditioned rule activation, differentiable proxies for 24 of 28 cataloged rules, and a deterministic lexicographic selector with tier-level decision traces.
+
+On WOMD \texttt{validation\_interactive} (12{,}800 scenarios), rule-aware reranking of a fixed candidate set lifts selected-mode compliance from 76.14\% to 84.97\% (total violations: 23.86\%\,$\to$\,15.03\%) and reduces Safety$+$Legal violations from 21.87\% to 13.15\%, with the gain concentrated in Safety-tier filtering. A weighted-sum baseline matches the same binary compliance outcomes, so the main empirical contribution is rule-aware selection over confidence-only ranking; the lexicographic selector adds a parameter-free, auditable decision rule with formal priority guarantees. Cross-evaluation on 43{,}219 augmented scenarios further shows that a conservative always-on activation policy for Safety and Legal tiers outperforms the learned applicability head in both compliance and selected-trajectory accuracy.
+
+Verification supports the evaluator and implementation stack rather than a deployment claim: semantic invariants pass at 99.2--100\%, post-mitigation NaN/Inf propagation is 0.0\%, proxy--full-evaluator pairwise candidate-ranking concordance reaches 0.948, and mean inference latency is 7.3\,ms per sample. A 55-scenario Waymax log-replay bridge records zero overlap steps over 3{,}338.5\,s, confirming end-to-end execution but not reactive closed-loop safety. These results support explicit rule-prioritized selection as a practical and auditable way to make multi-modal prediction outputs more compliance-oriented without retraining the generator.
+\end{abstract}
+
+\begin{IEEEkeywords}
+autonomous driving, trajectory selection, rule compliance,
+lexicographic optimization, traffic rule enforcement,
+multi-modal prediction, Waymo Open Motion Dataset, safety guarantees,
+differentiable proxies, rule applicability prediction
+\end{IEEEkeywords}
+
+
+\section{Introduction}
+\label{Sec:Introduction}
+\subfile{./Sections/Section_I_Introduction}
+
+\section{Related Work}
+\label{Sec:Related_Works}
+\subfile{./Sections/Section_II_Related_Works}
+
+\section{Problem Formulation}
+\label{Sec:Problem_Formulation}
+\subfile{./Sections/Section_III_Problem_Formulation}
+
+
+\section{RECTOR Architecture}
+\label{Sec:RECTOR}
+\subfile{./Sections/Section_IV_RECTOR}
+
+
+\section{Rule Evaluation and Data Pipeline}
+\label{Sec:Rule_Evaluation_And_Data_Pipeline}
+\subfile{./Sections/Section_V_Rule_Evaluation_and_Data_Pipeline}
+
+\section{Datasets, Metrics, Baselines, and Implementation Details}
+\label{Sec:Experiments}
+\subfile{./Sections/Section_VI_Datasets_Metrics_Baselines_and_Implementation_Details}
+
+
+\section{Accuracy, Rule Compliance, Behavior, and Efficiency}
+\label{Sec:Accuracy_SectionRule-Compliance_Behavior_and_Efficiency}
+\subfile{./Sections/Section_VII_Accuracy_Rule-Compliance_Behavior_and_Efficiency}
+
+\section{Verification, Invariants, Numerical Stability, and Integration Tests}
+\label{Sec:Section_VIII_Verification_Invariants_Numerical_Stability_and_Integration_Tests}
+\subfile{./Sections/Section_VIII_Verification}
+
+\section{Deployment Roadmap and Future Work}
+\label{Sec:Known_Gaps_and_Next_Steps_Toward_Deployment}
+\subfile{./Sections/Section_IX_Known_Gaps_and_Next_Steps_Toward_Deployment}
+
+\section{Conclusion}
+\label{Sec:Conclusion}
+\subfile{./Sections/Section_X_Conclusion}
+
+\bibliographystyle{IEEEtran}
+\bibliography{./References/references.bib}
+
+\end{document}

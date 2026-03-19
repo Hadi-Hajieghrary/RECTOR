@@ -1,0 +1,230 @@
+We formulate trajectory selection as a hierarchical decision problem over a fixed candidate set. The generator provides diverse futures; the selector chooses the single trajectory that is most acceptable under an explicit, prioritized rulebook.
+
+%-------------------------------------------------------------------------------
+\subsection{Notation and Conventions}
+\label{subsec:notation}
+%-------------------------------------------------------------------------------
+
+Table~\ref{tab:notation} summarizes the notation used throughout the paper.
+
+\begin{table}
+\centering
+\small
+\caption{Key Notation and Symbol Definitions}
+\label{tab:notation}
+\begin{tabular}{ll}
+\toprule
+\multicolumn{2}{l}{\textit{Scenarios and Trajectories}} \\
+$s$ & Driving scenario sampled from dataset distribution $\mathcal{D}$ \\
+$\mathbf{x}_{\text{ego}}$ & Ego history (past states over $T_h$ timesteps) \\
+$\mathbf{X}_{\text{agents}}$ & Neighbor-agent histories \\
+$\mathcal{M}$ & Map context (lanes, signals, crosswalks, etc.) \\
+$\tau$ & Ego future trajectory over $T$ timesteps \\
+$\tau_t$ & Ego state at timestep $t$ (e.g. position and heading) \\
+$\mathcal{T}$ & Set of $K$ candidate trajectories \\
+$\tau^{\mathrm{gt}}$ & Ground truth future trajectory \\
+$\Delta t$ & Sampling interval (0.1\,s at 10\,Hz) \\
+\midrule
+\multicolumn{2}{l}{\textit{Confidence and Modes}} \\
+$p^{(k)}$ & Confidence score for candidate $k$ \\
+$K$ & Number of candidate modes (typically 6) \\
+$T_h$ & History length (11 timesteps, 1.1\,s) \\
+$T$, $T_f$ & \shortstack{Prediction horizon (50 timesteps, 5.0\,s);\\ $T_f$ used in architecture descriptions} \\
+$N_{\text{scen}}$ & \shortstack{Number of scenarios in a scenario-level aggregation \\ (12{,}800 in WOMD \texttt{validation\_interactive})} \\
+$N_{\text{eval}}$ & Number of evaluation samples \\
+\midrule
+\multicolumn{2}{l}{\textit{Rules and Compliance}} \\
+$\mathcal{R}$ & Rule catalog; $R = |\mathcal{R}| = 28$ \\
+$r$ & Individual traffic rule \\
+$\ell(r)$ & Tier assignment for rule $r$ in $\{0,1,2,3\}$ \\
+$a_r(s)$ & Oracle applicability indicator used for auditing \\
+$\hat{a}_r(s)$ & Predicted applicability used for selection \\
+$\tilde{a}_r(s)$ & Continuous applicability score before thresholding \\
+$V_r(\tau; s)$ & Raw violation severity of $\tau$ under rule $r$ in scenario $s$ \\
+$\bar{V}_r(\tau; s)$ & Normalized violation severity in $[0,1]$ \\
+$\alpha_r$ & Per-rule normalization constant \\
+\midrule
+\multicolumn{2}{l}{\textit{Tier Scores and Selection}} \\
+$\tilde{w}_r$ & Intra-tier weight for rule $r$; $\sum_{r:\,\ell(r)=\ell}\tilde{w}_r=1$ per tier \\
+$S_\ell(\tau; s)$ & Aggregated tier-$\ell$ score \\
+$\mathbf{S}(\tau; s)$ & Tier score vector $[S_0,S_1,S_2,S_3]$ \\
+$\epsilon_\ell$ & Tier tolerance for robust lexicographic comparison \\
+$\prec_{\text{lex},\epsilon}$ & Shorthand for procedural lexicographic selection \\
+$L$ & Number of tiers ($L=4$) \\
+\midrule
+\multicolumn{2}{l}{\textit{Metrics}} \\
+$\text{minADE}$ & Minimum Average Displacement Error over modes \\
+$\text{minFDE}$ & Minimum Final Displacement Error over modes \\
+$\text{MissRate}$ & Fraction of scenarios with $\text{minFDE} > \delta$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%-------------------------------------------------------------------------------
+\subsection{Trajectory Prediction Setting}
+\label{subsec:prediction_setting}
+%-------------------------------------------------------------------------------
+
+Let $s \sim \mathcal{D}$ denote a driving scenario. A multi-modal predictor with parameters $\theta$ maps each scenario to a finite set of candidate ego trajectories and their confidences:
+\begin{align}
+(\mathcal{T}, \mathbf{p}) = f_\theta(s), \quad
+\mathcal{T} = \{\tau^{(1)},\ldots,\tau^{(K)}\}, \quad
+\mathbf{p} = (p^{(1)}, \ldots, p^{(K)}).
+\end{align}
+The goal is not only to generate diverse candidates, but to select the candidate that is preferable under a prioritized rulebook.
+
+%-------------------------------------------------------------------------------
+\subsection{Standard Geometric Metrics}
+\label{subsec:geometric_metrics}
+%-------------------------------------------------------------------------------
+
+We use standard ADE, FDE, minADE, minFDE, and MissRate metrics to characterize candidate-set coverage:
+\begin{align}
+\text{ADE}(\tau, \tau^{\mathrm{gt}}) &= \frac{1}{T} \sum_{t=1}^T \| \tau_t - \tau^{\mathrm{gt}}_t \|_2, \\
+\text{FDE}(\tau, \tau^{\mathrm{gt}}) &= \| \tau_T - \tau^{\mathrm{gt}}_T \|_2, \\
+\text{minADE}(s) &= \min_{k \in [K]} \text{ADE}(\tau^{(k)}, \tau^{\mathrm{gt}}), \\
+\text{minFDE}(s) &= \min_{k \in [K]} \text{FDE}(\tau^{(k)}, \tau^{\mathrm{gt}}), \\
+\text{MissRate}_\delta &= \mathbb{E}_{s \sim \mathcal{D}} \left[ \mathbb{1}\big[\text{minFDE}(s) > \delta\big] \right].
+\end{align}
+We use $\delta = 2.0\,\mathrm{m}$. These metrics quantify coverage, not the acceptability of the executed mode; the heavy-tailed validation errors discussed in Section~\ref{subsec:trajectory_accuracy} motivate explicit rule-aware selection.
+
+%-------------------------------------------------------------------------------
+\subsection{Traffic Rule Taxonomy}
+\label{subsec:rule_taxonomy}
+%-------------------------------------------------------------------------------
+
+Let $\mathcal{R}$ denote a catalog of $R{=}28$ traffic rules. Each rule $r \in \mathcal{R}$ belongs to one of four priority tiers:
+\begin{equation}
+\text{Safety} \succ \text{Legal} \succ \text{Road} \succ \text{Comfort}.
+\end{equation}
+Two applicability indicators are used throughout the paper: oracle applicability $a_r(s)$ for post-hoc auditing and predicted applicability $\hat{a}_r(s)$ for selection-time ranking. The predicted indicator is obtained by thresholding a continuous score $\tilde{a}_r(s)=\sigma(\mathrm{logit}_r)$ from the applicability head.
+
+Each applicable rule produces a non-negative violation severity $V_r(\tau;s)\ge 0$. To compare heterogeneous rules, we normalize each proxy output to $[0,1]$:
+\begin{equation}
+\label{eq:normalization_contract}
+\bar{V}_r(\tau;s)=\mathrm{clamp}\!\Big(\frac{V_r(\tau;s)}{\alpha_r},\,0,\,1\Big),
+\end{equation}
+where $\alpha_r>0$ is a rule-specific normalization constant. The concrete evaluators appear in Section~\ref{Sec:Rule_Evaluation_And_Data_Pipeline}; here we only require the normalization contract.
+
+%-------------------------------------------------------------------------------
+\subsection{Tier Score Aggregation}
+\label{subsec:tier_aggregation}
+%-------------------------------------------------------------------------------
+
+Tier scores aggregate normalized violations using predicted applicability:
+\begin{equation}
+\label{eq:tier_score}
+S_\ell(\tau;s)=\sum_{r \in \mathcal{R}:\,\ell(r)=\ell} \tilde{w}_r\,\hat{a}_r(s)\,\bar{V}_r(\tau;s),
+\end{equation}
+with $\tilde{w}_r \ge 0$ and $\sum_{r:\,\ell(r)=\ell}\tilde{w}_r = 1$ within each tier. This keeps every tier score in $[0,1]$ regardless of the number of rules per tier. We collect the four scores into
+\begin{equation}
+\mathbf{S}(\tau;s)=\big[S_0(\tau;s),\,S_1(\tau;s),\,S_2(\tau;s),\,S_3(\tau;s)\big].
+\end{equation}
+
+%-------------------------------------------------------------------------------
+\subsection{Lexicographic Selection Criterion}
+\label{subsec:lexicographic_selection}
+%-------------------------------------------------------------------------------
+
+Given candidates $\mathcal{T}=\{\tau^{(1)},\ldots,\tau^{(K)}\}$ with tier-score vectors $\mathbf{S}^{(k)}$ and confidences $p^{(k)}$, RECTOR applies tolerance-based lexicographic pruning:
+\begin{definition}[Tolerance-Based Lexicographic Selection]
+\phantomsection
+\label{def:lex_selection}
+\begin{enumerate}
+\item Initialize the surviving set $\mathcal{C}_0 = \{1,\ldots,K\}$.
+\item For each tier $\ell = 0,1,2,3$, compute $S_\ell^* = \min_{k \in \mathcal{C}_\ell} S_\ell^{(k)}$ and retain
+\[
+\mathcal{C}_{\ell+1} = \{k \in \mathcal{C}_\ell : S_\ell^{(k)} \le S_\ell^* + \varepsilon_\ell\}.
+\]
+\item Among the survivors $\mathcal{C}_4$, select the candidate with minimum residual aggregate score $\sum_{\ell=0}^{3} S_\ell^{(k)}$.
+\item If an exact residual tie remains, select the survivor with highest confidence $p^{(k)}$; if confidence is also tied, return the lowest candidate index.
+\end{enumerate}
+\end{definition}
+
+The relation is procedural rather than order-theoretic because tolerance-based near-ties are not transitive. What matters operationally is that the procedure is deterministic and respects tier priority.
+
+%-------------------------------------------------------------------------------
+\subsection{Formal Guarantees}
+\label{subsec:formal_guarantees}
+%-------------------------------------------------------------------------------
+
+Three short properties are sufficient for the selector used in the rest of the paper.
+
+\begin{proposition}[Order Invariance]
+\label{thm:order_invariance}
+The selector in Section~\ref{subsec:lexicographic_selection} produces the same output regardless of candidate enumeration order.
+\end{proposition}
+\begin{proof}
+Each stage depends only on the set of scores through a minimum and a threshold filter; the residual and confidence tie-breaks are likewise set functions. \qed
+\end{proof}
+
+\begin{proposition}[Infeasibility Fallback]
+\label{thm:infeasibility}
+If all candidates have non-zero Safety-tier score, the selector returns the least-violating candidate under the same lexicographic procedure rather than reverting to confidence-only ranking.
+\end{proposition}
+\begin{proof}
+Tier~0 retains the minimum-Safety candidates within tolerance, and lower tiers only refine that survivor set. \qed
+\end{proof}
+
+\noindent\textbf{Remark.} When the selected candidate has $S_0>0$, the system emits an explicit \texttt{infeasible} flag for downstream handling.
+
+\begin{proposition}[Scalarization Correctness]
+\label{thm:scalarization}
+The scalar score
+\begin{equation}
+\mathrm{Score}^{(k)}=\sum_{\ell=0}^{3} B^{4-\ell} S_\ell^{(k)}
+\end{equation}
+preserves exact lexicographic ordering whenever $\max_{k,\ell} S_\ell^{(k)} < B/(L-1)$.
+\end{proposition}
+\begin{proof}
+The first tier at which two candidates differ dominates the sum whenever the largest possible contribution from all lower tiers is smaller than one unit of the higher-tier weight. Because the normalization contract keeps $S_\ell^{(k)} \in [0,1]$, any $B>3$ suffices for $L=4$. \qed
+\end{proof}
+
+These propositions are the selector-side basis for the paper's main claim: lexicographic ranking cannot trade a higher-priority violation for a lower-priority gain, regardless of how proxy magnitudes are scaled.
+
+%-------------------------------------------------------------------------------
+\subsection{Comparison with Alternative Selection Strategies}
+\label{subsec:strategy_comparison}
+%-------------------------------------------------------------------------------
+
+For comparison, confidence-only selection chooses
+\begin{equation}
+\tau_{\text{conf}}=\arg\max_{\tau \in \mathcal{T}} p(\tau),
+\end{equation}
+while weighted-sum selection chooses
+\begin{equation}
+\tau_{\text{ws}}=\arg\min_{\tau \in \mathcal{T}} \sum_{r \in \mathcal{R}} w_r\,\hat{a}_r(s)\,\bar{V}_r(\tau;s).
+\end{equation}
+All baselines use the same predicted applicability as RECTOR. Table~\ref{tab:selection_strategy_qualitative} summarizes the qualitative differences.
+
+\begin{table*}
+\centering
+\caption{Selection Strategy Comparison (Qualitative)}
+\label{tab:selection_strategy_qualitative}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Strategy} & \textbf{Selection Criterion} & \textbf{Key Limitation} & \textbf{Interpretability} \\
+\midrule
+Confidence Only & $\arg\max p^{(k)}$ & No safety or legality awareness & Low \\
+Weighted Sum & $\arg\min \sum_r w_r a_r \bar{V}_r$ & Cross-tier trade-offs depend on weights & Medium \\
+Lexicographic (RECTOR) & Tiered pruning under $\prec_{\text{lex},\epsilon}$ & Requires tier structure and tolerances & High \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+%-------------------------------------------------------------------------------
+\subsection{Formal Problem Statement}
+\label{subsec:problem_statement}
+%-------------------------------------------------------------------------------
+
+\begin{problem}[Rule-Aware Trajectory Selection]
+\label{prob:selection}
+The deployed system is specified by the tuple
+$\langle f_\theta,\; \mathcal{R},\; \hat{a},\; \bar{V},\; \textsc{Select}\rangle$,
+where $f_\theta$ generates candidates, $\mathcal{R}$ is the tiered rule catalog, $\hat{a}$ is the applicability policy, $\bar{V}$ is the normalized rule-evaluation layer, and $\textsc{Select}$ is the lexicographic selector defined in Section~\ref{subsec:lexicographic_selection}. The objective is
+\begin{equation}
+\hat{\tau}=\textsc{Select}\!\big(\mathcal{T},\;\mathbf{S}(\cdot\,;s),\;\mathbf{p},\;\boldsymbol{\varepsilon}\big).
+\end{equation}
+\end{problem}
+
+This tuple separates generation from selection and makes the two sources of approximation explicit: applicability prediction and proxy evaluation. The architecture implementing this objective appears in Section~\ref{Sec:RECTOR}; the empirical consequences appear in Sections~\ref{Sec:Experiments} and~\ref{Sec:Accuracy_SectionRule-Compliance_Behavior_and_Efficiency}.

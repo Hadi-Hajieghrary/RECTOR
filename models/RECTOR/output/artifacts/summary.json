@@ -1,0 +1,326 @@
+{
+  "timestamp": "2026-03-17T05:52:09.059928",
+  "output_dir": "/workspace/models/RECTOR/output/artifacts",
+  "results": [
+    {
+      "script": "generate_rule_violation_analysis.py",
+      "description": "Rule Violation Analysis (Table VII, Figure 4)",
+      "type": "both",
+      "success": true,
+      "elapsed_seconds": 1.444528,
+      "error": null
+    },
+    {
+      "script": "generate_ablation_study.py",
+      "description": "Ablation Studies (Table IX, Figure 6)",
+      "type": "both",
+      "success": true,
+      "elapsed_seconds": 1.980915,
+      "error": null
+    }
+  ],
+  "files": {
+    "figures": [
+      {
+        "name": "ablation_comparison.pdf",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/ablation_comparison.pdf",
+        "size_kb": 22.7998046875
+      },
+      {
+        "name": "ablation_comparison.png",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/ablation_comparison.png",
+        "size_kb": 192.447265625
+      },
+      {
+        "name": "ablation_radar.pdf",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/ablation_radar.pdf",
+        "size_kb": 21.9736328125
+      },
+      {
+        "name": "ablation_radar.png",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/ablation_radar.png",
+        "size_kb": 529.8720703125
+      },
+      {
+        "name": "ade_fde_distribution.pdf",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/ade_fde_distribution.pdf",
+        "size_kb": 16.3564453125
+      },
+      {
+        "name": "ade_fde_distribution.png",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/ade_fde_distribution.png",
+        "size_kb": 149.09375
+      },
+      {
+        "name": "ade_fde_heatmap.pdf",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/ade_fde_heatmap.pdf",
+        "size_kb": 44.310546875
+      },
+      {
+        "name": "ade_fde_heatmap.png",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/ade_fde_heatmap.png",
+        "size_kb": 98.7392578125
+      },
+      {
+        "name": "applicability_heatmap.pdf",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/applicability_heatmap.pdf",
+        "size_kb": 37.2265625
+      },
+      {
+        "name": "applicability_heatmap.png",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/applicability_heatmap.png",
+        "size_kb": 204.4912109375
+      },
+      {
+        "name": "applicability_tier_f1.pdf",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/applicability_tier_f1.pdf",
+        "size_kb": 20.5986328125
+      },
+      {
+        "name": "applicability_tier_f1.png",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/applicability_tier_f1.png",
+        "size_kb": 52.83984375
+      },
+      {
+        "name": "component_impact.pdf",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/component_impact.pdf",
+        "size_kb": 23.345703125
+      },
+      {
+        "name": "component_impact.png",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/component_impact.png",
+        "size_kb": 171.568359375
+      },
+      {
+        "name": "latency_breakdown.pdf",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/latency_breakdown.pdf",
+        "size_kb": 20.0732421875
+      },
+      {
+        "name": "latency_breakdown.png",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/latency_breakdown.png",
+        "size_kb": 190.541015625
+      },
+      {
+        "name": "learning_rate.pdf",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/learning_rate.pdf",
+        "size_kb": 14.14453125
+      },
+      {
+        "name": "learning_rate.png",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/learning_rate.png",
+        "size_kb": 125.7529296875
+      },
+      {
+        "name": "miss_rate_analysis.pdf",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/miss_rate_analysis.pdf",
+        "size_kb": 21.5869140625
+      },
+      {
+        "name": "miss_rate_analysis.png",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/miss_rate_analysis.png",
+        "size_kb": 209.330078125
+      },
+      {
+        "name": "parameter_breakdown.pdf",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/parameter_breakdown.pdf",
+        "size_kb": 17.814453125
+      },
+      {
+        "name": "parameter_breakdown.png",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/parameter_breakdown.png",
+        "size_kb": 83.4697265625
+      },
+      {
+        "name": "percentile_analysis.pdf",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/percentile_analysis.pdf",
+        "size_kb": 13.849609375
+      },
+      {
+        "name": "percentile_analysis.png",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/percentile_analysis.png",
+        "size_kb": 100.0224609375
+      },
+      {
+        "name": "qualitative_example_highway.pdf",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/qualitative_example_highway.pdf",
+        "size_kb": 29.8046875
+      },
+      {
+        "name": "qualitative_example_highway.png",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/qualitative_example_highway.png",
+        "size_kb": 239.45703125
+      },
+      {
+        "name": "qualitative_example_intersection.pdf",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/qualitative_example_intersection.pdf",
+        "size_kb": 31.7177734375
+      },
+      {
+        "name": "qualitative_example_intersection.png",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/qualitative_example_intersection.png",
+        "size_kb": 427.0546875
+      },
+      {
+        "name": "qualitative_example_lane_change.pdf",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/qualitative_example_lane_change.pdf",
+        "size_kb": 31.9619140625
+      },
+      {
+        "name": "qualitative_example_lane_change.png",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/qualitative_example_lane_change.png",
+        "size_kb": 259.1171875
+      },
+      {
+        "name": "rule_breakdown.pdf",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/rule_breakdown.pdf",
+        "size_kb": 15.6240234375
+      },
+      {
+        "name": "rule_breakdown.png",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/rule_breakdown.png",
+        "size_kb": 165.6279296875
+      },
+      {
+        "name": "scenario_gallery.pdf",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/scenario_gallery.pdf",
+        "size_kb": 22.6171875
+      },
+      {
+        "name": "scenario_gallery.png",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/scenario_gallery.png",
+        "size_kb": 168.783203125
+      },
+      {
+        "name": "selection_comparison.pdf",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/selection_comparison.pdf",
+        "size_kb": 24.037109375
+      },
+      {
+        "name": "selection_comparison.png",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/selection_comparison.png",
+        "size_kb": 146.4599609375
+      },
+      {
+        "name": "stage1_training.pdf",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/stage1_training.pdf",
+        "size_kb": 28.7177734375
+      },
+      {
+        "name": "stage1_training.png",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/stage1_training.png",
+        "size_kb": 448.10546875
+      },
+      {
+        "name": "stage2_training.pdf",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/stage2_training.pdf",
+        "size_kb": 28.5927734375
+      },
+      {
+        "name": "stage2_training.png",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/stage2_training.png",
+        "size_kb": 429.5732421875
+      },
+      {
+        "name": "throughput_comparison.pdf",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/throughput_comparison.pdf",
+        "size_kb": 18.2509765625
+      },
+      {
+        "name": "throughput_comparison.png",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/throughput_comparison.png",
+        "size_kb": 107.5234375
+      },
+      {
+        "name": "tier_violation_comparison.pdf",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/tier_violation_comparison.pdf",
+        "size_kb": 26.1171875
+      },
+      {
+        "name": "tier_violation_comparison.png",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/tier_violation_comparison.png",
+        "size_kb": 161.08203125
+      },
+      {
+        "name": "training_combined.pdf",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/training_combined.pdf",
+        "size_kb": 36.8828125
+      },
+      {
+        "name": "training_combined.png",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/training_combined.png",
+        "size_kb": 385.5849609375
+      },
+      {
+        "name": "violation_reduction.pdf",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/violation_reduction.pdf",
+        "size_kb": 18.1123046875
+      },
+      {
+        "name": "violation_reduction.png",
+        "path": "/workspace/models/RECTOR/output/artifacts/figures/violation_reduction.png",
+        "size_kb": 115.517578125
+      }
+    ],
+    "tables": [
+      {
+        "name": "ablation.tex",
+        "path": "/workspace/models/RECTOR/output/artifacts/tables/ablation.tex",
+        "size_kb": 1.31640625
+      },
+      {
+        "name": "ablation_detailed.tex",
+        "path": "/workspace/models/RECTOR/output/artifacts/tables/ablation_detailed.tex",
+        "size_kb": 1.0478515625
+      },
+      {
+        "name": "applicability_per_rule.tex",
+        "path": "/workspace/models/RECTOR/output/artifacts/tables/applicability_per_rule.tex",
+        "size_kb": 1.501953125
+      },
+      {
+        "name": "detailed_results.tex",
+        "path": "/workspace/models/RECTOR/output/artifacts/tables/detailed_results.tex",
+        "size_kb": 0.818359375
+      },
+      {
+        "name": "efficiency.tex",
+        "path": "/workspace/models/RECTOR/output/artifacts/tables/efficiency.tex",
+        "size_kb": 0.759765625
+      },
+      {
+        "name": "main_results.tex",
+        "path": "/workspace/models/RECTOR/output/artifacts/tables/main_results.tex",
+        "size_kb": 1.130859375
+      },
+      {
+        "name": "param_breakdown.tex",
+        "path": "/workspace/models/RECTOR/output/artifacts/tables/param_breakdown.tex",
+        "size_kb": 0.4013671875
+      },
+      {
+        "name": "rule_catalog.tex",
+        "path": "/workspace/models/RECTOR/output/artifacts/tables/rule_catalog.tex",
+        "size_kb": 1.7099609375
+      },
+      {
+        "name": "selection_strategy.tex",
+        "path": "/workspace/models/RECTOR/output/artifacts/tables/selection_strategy.tex",
+        "size_kb": 0.611328125
+      },
+      {
+        "name": "tier_violations.tex",
+        "path": "/workspace/models/RECTOR/output/artifacts/tables/tier_violations.tex",
+        "size_kb": 0.822265625
+      }
+    ]
+  },
+  "totals": {
+    "scripts_run": 2,
+    "successful": 2,
+    "failed": 0,
+    "total_time_seconds": 3.425443,
+    "figures_generated": 48,
+    "tables_generated": 10
+  }
+}

@@ -1,0 +1,25 @@
+\begin{table}[t]
+\centering
+\caption{Trajectory Prediction and Rule Compliance on WOMD Validation}
+\label{tab:main_results}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Method} & \textbf{minADE} $\downarrow$ & \textbf{minFDE} $\downarrow$ & \textbf{Miss} $\downarrow$ & \textbf{Safety} $\downarrow$ & \textbf{Legal} $\downarrow$ & \textbf{Total} $\downarrow$ \\
+ & (m) & (m) & (\%) & Viol.\% & Viol.\% & Viol.\% \\
+\midrule
+LaneGCN & 0.87 & 1.92 & 28.4 & --- & --- & --- \\
+DenseTNT & 0.73 & 1.55 & 20.1 & --- & --- & --- \\
+M2I & 0.75 & 1.63 & 22.8 & --- & --- & --- \\
+Wayformer & 0.68 & 1.42 & 18.9 & --- & --- & --- \\
+MTR & 0.70 & 1.48 & 19.5 & --- & --- & --- \\
+\midrule
+RECTOR (Conf.) & 2.208 & 4.330 & 18.6 & 21.9 & 0.0 & 23.9 \\
+RECTOR (WS) & 2.043 & 3.813 & 18.6 & 13.1 & 0.0 & 15.0 \\
+\textbf{RECTOR (Lex.)} & \textbf{2.043} & \textbf{3.813} & \textbf{18.6} & \textbf{13.1} & \textbf{0.0} & \textbf{15.0} \\
+\bottomrule
+\end{tabular}
+\vspace{1mm}
+\caption*{\footnotesize Geometric metrics (minADE/FDE/Miss) are oracle best-of-6;
+rule violations are for the \emph{selected} trajectory under each strategy.
+Evaluated on 12,800 scenarios.}
+\end{table}

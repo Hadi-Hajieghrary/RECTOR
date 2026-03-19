@@ -1,0 +1,49 @@
+The preceding sections established the current RECTOR stack and benchmark evidence.  This section turns that evidence into a concrete roadmap: what should be built next, what should be evaluated next, and which artifacts would make the system more useful in broader research and deployment-oriented settings.
+
+The current WOMD benchmark is already largely rule-abiding, so the remaining headroom for absolute violation reduction is limited.  In that setting, the main value of RECTOR is not broad correction of pervasive violations but safer selection among a fixed candidate set, especially in the rare high-risk cases that remain after generation.
+
+%-------------------------------------------------------------------------------
+\subsection{Deployment Priorities}
+\label{subsec:limitations}
+%-------------------------------------------------------------------------------
+
+The most immediate next steps fall into five engineering tracks.
+
+\subsubsection{Expand Rule Coverage}
+The first priority is to close the gap between the training-time proxy layer and the full 28-rule audit layer.  Four rules currently remain audit-only because they require intent modeling, counterfactual reasoning, or multi-agent negotiation.  Extending proxy coverage, or adding conservative abstention mechanisms for those cases, would make the selection layer more complete and reduce the gap between optimization and audit.
+
+\subsubsection{Improve Applicability and Generator Quality}
+The second priority is to improve the quality of the trajectories being ranked and the quality of the rule-activation signal used to rank them.  The conservative Safety/Legal activation study, oracle-applicability cross-check, and selector ablations already identify the main leverage points: better recall on high-priority rules, stronger calibration for moderate-support rules, and generators that place more candidate mass inside the compliant region of trajectory space.  Because the benchmark is already mostly compliant, these gains should be interpreted as reducing the residual tail of unsafe candidates rather than as fixing a broadly non-compliant corpus.
+
+\subsubsection{Extend the Planning Horizon}
+The third priority is to move beyond a single 5-second open-loop decision.  Strategic positioning, longer merges, and lane-preparation behaviors require either hierarchical planning or receding-horizon replanning.  One practical next step is to integrate RECTOR's rule evaluation and lexicographic selection with a pretrained M2I DenseTNT stack so that longer-horizon replanning can be studied directly in the main experimental workflow.
+
+\subsubsection{Run Reactive Closed-Loop Evaluation}
+The fourth priority is to evaluate RECTOR with a reactive closed-loop stack rather than only with open-loop replay and bridge-validation experiments.  The current Waymax integration already exercises the end-to-end execution pathway, so the next step is to replace the mock generator with the trained selector stack and pair it with reactive traffic participants.
+
+\subsubsection{Broaden the Rule Catalog and Test Matrix}
+The fifth priority is broader coverage: more jurisdictions, more map regimes, more weather and lighting conditions, and stronger perturbation testing for signal-state and lane-boundary uncertainty.  The verification results already identify the most sensitive inputs, which makes this expansion plan concrete rather than generic.
+
+%-------------------------------------------------------------------------------
+\subsection{Future Work}
+\label{subsec:future_work}
+%-------------------------------------------------------------------------------
+
+It is useful mainly as an implementation sketch for longer-horizon and planning-loop work.
+
+The roadmap above suggests a natural progression of future work, which we organize into near-term priorities and longer-term research directions.
+
+\subsubsection{Near-Term Priorities}
+
+The most pressing improvements are to expand proxy coverage for rules requiring intent modeling, extend the planning horizon via hierarchical or receding-horizon approaches, evaluate cross-region generalization, integrate prerequisite validity into applicability gating, and run full-scale reactive closed-loop studies with the trained RECTOR stack.
+
+\subsubsection{Longer-Term Research Directions}
+
+Beyond these immediate priorities, five research directions emerge from the current work.  \emph{Interaction validity}: extend the validated Waymax bridge into a full reactive-agent study with the trained RECTOR stack.  \emph{Rule learning}: learn intent and semantic predictors for semantics-heavy constraints and convert them into conservative applicability and severity bounds.  \emph{Adaptive parameterization}: support context-dependent rule thresholds while preserving deterministic priority ordering.  \emph{Jurisdictional parameterization}: develop versioned, auditable rule catalogs with regression suites for multi-region deployment.  \emph{Certification artifacts}: generate active-rule logs, normalized severities, first-differing-tier reports, and prerequisite-validity proofs as structured evidence.
+
+%-------------------------------------------------------------------------------
+\subsection{Open Questions}
+\label{subsec:open_questions}
+%-------------------------------------------------------------------------------
+
+Finally, we identify five open questions raised by the current work but not resolved by it.  First, are 28 rules sufficient for a target operational design domain, and how should exceptions or contrary-to-duty rules be formalized?  Second, what constitutes a formally justified resolution policy when no candidate satisfies the highest-priority tier?  Third, how much of the accuracy--compliance gap is intrinsic to the selection mechanism versus an artifact of current generators?  Fourth, what minimal closed-loop assumptions suffice for safety evidence?  And fifth, how can rule catalogs be updated with traceability and without full retraining?
