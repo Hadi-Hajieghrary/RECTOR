@@ -89,7 +89,8 @@ data/WOMD/datasets/waymo_open_dataset/motion_v_1_3_0/processed/*
 # =============================================================================
 # External repositories (cloned during setup)
 # =============================================================================
-externals/
+externals/*
+!externals/README.md
 
 # =============================================================================
 # Temporary files
@@ -199,7 +200,8 @@ BenchmarkDotNet.Artifacts/
 # .NET Core
 project.lock.json
 project.fragment.lock.json
-artifacts/
+# Note: 'artifacts/' rule removed — this project uses models/RECTOR/output/artifacts/
+# and models/RECTOR/scripts/artifacts/ for ML outputs, which must be tracked.
 
 # ASP.NET Scaffolding
 ScaffoldingReadMe.txt

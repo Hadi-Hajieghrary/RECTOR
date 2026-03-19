@@ -116,8 +116,8 @@ The workspace also expects two external repositories under [externals/](external
 
 | External repository | Purpose |
 |---------------------|---------|
-| [externals/M2I](externals/M2I) | DenseTNT/M2I backbone and utilities |
-| [externals/waymo-open-dataset](externals/waymo-open-dataset) | Waymo proto definitions and data tooling |
+| [externals/M2I](externals/README.md) | DenseTNT/M2I backbone and utilities |
+| [externals/waymo-open-dataset](externals/README.md) | Waymo proto definitions and data tooling |
 
 Many scripts assume the standard workspace paths described in the devcontainer and externals docs. The most important environment roots are:
 
@@ -732,7 +732,7 @@ The safety layer ([`scripts/lib/safety_layer.py`](models/RECTOR/scripts/lib/safe
 
 ## Generated Artifacts
 
-Every quantitative claim traces to machine-readable source files. The artifact generation pipeline transforms these into publication-ready outputs. Master orchestrator: [`generate_all_artifacts.py`](models/RECTOR/scripts/artifacts/generate_all_artifacts.py) — produces 48 figures (PDF + PNG) and 10 LaTeX tables.
+Every quantitative claim traces to machine-readable source files. The artifact generation pipeline transforms these into publication-ready outputs. Master orchestrator: [`generate_all_artifacts.py`](models/RECTOR/scripts/artifacts/README.md) — produces 48 figures (PDF + PNG) and 10 LaTeX tables.
 
 ### Evaluation Data
 
@@ -757,13 +757,13 @@ All figures are generated at 300 DPI with IEEE-compliant formatting. Source: [`m
 
 | Category | Figures | Generator |
 |----------|---------|-----------|
-| Training convergence | [`stage1_training`](models/RECTOR/output/artifacts/figures/stage1_training.png), [`stage2_training`](models/RECTOR/output/artifacts/figures/stage2_training.png), [`training_combined`](models/RECTOR/output/artifacts/figures/training_combined.png), [`learning_rate`](models/RECTOR/output/artifacts/figures/learning_rate.png) | `generate_training_curves.py` |
-| Rule compliance | [`tier_violation_comparison`](models/RECTOR/output/artifacts/figures/tier_violation_comparison.png), [`violation_reduction`](models/RECTOR/output/artifacts/figures/violation_reduction.png), [`rule_breakdown`](models/RECTOR/output/artifacts/figures/rule_breakdown.png) | `generate_rule_violation_analysis.py` |
-| Applicability head | [`applicability_heatmap`](models/RECTOR/output/artifacts/figures/applicability_heatmap.png), [`applicability_tier_f1`](models/RECTOR/output/artifacts/figures/applicability_tier_f1.png) | `generate_applicability_analysis.py` |
-| Ablation study | [`ablation_comparison`](models/RECTOR/output/artifacts/figures/ablation_comparison.png), [`ablation_radar`](models/RECTOR/output/artifacts/figures/ablation_radar.png), [`component_impact`](models/RECTOR/output/artifacts/figures/component_impact.png) | `generate_ablation_study.py` |
-| Error distributions | [`ade_fde_distribution`](models/RECTOR/output/artifacts/figures/ade_fde_distribution.png), [`percentile_analysis`](models/RECTOR/output/artifacts/figures/percentile_analysis.png), [`miss_rate_analysis`](models/RECTOR/output/artifacts/figures/miss_rate_analysis.png), [`ade_fde_heatmap`](models/RECTOR/output/artifacts/figures/ade_fde_heatmap.png) | `generate_distribution_plots.py` |
-| Efficiency | [`latency_breakdown`](models/RECTOR/output/artifacts/figures/latency_breakdown.png), [`parameter_breakdown`](models/RECTOR/output/artifacts/figures/parameter_breakdown.png), [`throughput_comparison`](models/RECTOR/output/artifacts/figures/throughput_comparison.png) | `generate_efficiency_stats.py` |
-| Qualitative | [`qualitative_example_intersection`](models/RECTOR/output/artifacts/figures/qualitative_example_intersection.png), [`qualitative_example_highway`](models/RECTOR/output/artifacts/figures/qualitative_example_highway.png), [`qualitative_example_lane_change`](models/RECTOR/output/artifacts/figures/qualitative_example_lane_change.png), [`scenario_gallery`](models/RECTOR/output/artifacts/figures/scenario_gallery.png), [`selection_comparison`](models/RECTOR/output/artifacts/figures/selection_comparison.png) | `generate_qualitative_visualizations.py` |
+| Training convergence | [`stage1_training`](models/RECTOR/output/artifacts/figures/), [`stage2_training`](models/RECTOR/output/artifacts/figures/), [`training_combined`](models/RECTOR/output/artifacts/figures/), [`learning_rate`](models/RECTOR/output/artifacts/figures/) | `generate_training_curves.py` |
+| Rule compliance | [`tier_violation_comparison`](models/RECTOR/output/artifacts/figures/), [`violation_reduction`](models/RECTOR/output/artifacts/figures/), [`rule_breakdown`](models/RECTOR/output/artifacts/figures/) | `generate_rule_violation_analysis.py` |
+| Applicability head | [`applicability_heatmap`](models/RECTOR/output/artifacts/figures/), [`applicability_tier_f1`](models/RECTOR/output/artifacts/figures/) | `generate_applicability_analysis.py` |
+| Ablation study | [`ablation_comparison`](models/RECTOR/output/artifacts/figures/), [`ablation_radar`](models/RECTOR/output/artifacts/figures/), [`component_impact`](models/RECTOR/output/artifacts/figures/) | `generate_ablation_study.py` |
+| Error distributions | [`ade_fde_distribution`](models/RECTOR/output/artifacts/figures/), [`percentile_analysis`](models/RECTOR/output/artifacts/figures/), [`miss_rate_analysis`](models/RECTOR/output/artifacts/figures/), [`ade_fde_heatmap`](models/RECTOR/output/artifacts/figures/) | `generate_distribution_plots.py` |
+| Efficiency | [`latency_breakdown`](models/RECTOR/output/artifacts/figures/), [`parameter_breakdown`](models/RECTOR/output/artifacts/figures/), [`throughput_comparison`](models/RECTOR/output/artifacts/figures/) | `generate_efficiency_stats.py` |
+| Qualitative | [`qualitative_example_intersection`](models/RECTOR/output/artifacts/figures/), [`qualitative_example_highway`](models/RECTOR/output/artifacts/figures/), [`qualitative_example_lane_change`](models/RECTOR/output/artifacts/figures/), [`scenario_gallery`](models/RECTOR/output/artifacts/figures/), [`selection_comparison`](models/RECTOR/output/artifacts/figures/) | `generate_qualitative_visualizations.py` |
 
 ### LaTeX Tables (10 files)
 
@@ -771,16 +771,16 @@ All tables use `booktabs` style for direct `\input{}` inclusion. Source: [`model
 
 | Table | File | Contents |
 |-------|------|----------|
-| Main results | [`main_results.tex`](models/RECTOR/output/artifacts/tables/main_results.tex) | minADE, minFDE, miss rate, violation rates |
-| Detailed results | [`detailed_results.tex`](models/RECTOR/output/artifacts/tables/detailed_results.tex) | Extended comparison with per-tier breakdown |
-| Tier violations | [`tier_violations.tex`](models/RECTOR/output/artifacts/tables/tier_violations.tex) | Per-tier violation rates with reduction annotations |
-| Selection strategy | [`selection_strategy.tex`](models/RECTOR/output/artifacts/tables/selection_strategy.tex) | Strategy comparison with complexity analysis |
-| Rule catalog | [`rule_catalog.tex`](models/RECTOR/output/artifacts/tables/rule_catalog.tex) | Complete 28-rule taxonomy |
-| Ablation | [`ablation.tex`](models/RECTOR/output/artifacts/tables/ablation.tex) | Component ablation with delta annotations |
-| Ablation (detailed) | [`ablation_detailed.tex`](models/RECTOR/output/artifacts/tables/ablation_detailed.tex) | Full ablation with component descriptions |
-| Per-rule F1 | [`applicability_per_rule.tex`](models/RECTOR/output/artifacts/tables/applicability_per_rule.tex) | Per-rule precision, recall, F1, support |
-| Efficiency | [`efficiency.tex`](models/RECTOR/output/artifacts/tables/efficiency.tex) | Parameters, latency, throughput |
-| Parameters | [`param_breakdown.tex`](models/RECTOR/output/artifacts/tables/param_breakdown.tex) | Per-component parameter counts |
+| Main results | [`main_results.tex`](models/RECTOR/output/artifacts/tables/) | minADE, minFDE, miss rate, violation rates |
+| Detailed results | [`detailed_results.tex`](models/RECTOR/output/artifacts/tables/) | Extended comparison with per-tier breakdown |
+| Tier violations | [`tier_violations.tex`](models/RECTOR/output/artifacts/tables/) | Per-tier violation rates with reduction annotations |
+| Selection strategy | [`selection_strategy.tex`](models/RECTOR/output/artifacts/tables/) | Strategy comparison with complexity analysis |
+| Rule catalog | [`rule_catalog.tex`](models/RECTOR/output/artifacts/tables/) | Complete 28-rule taxonomy |
+| Ablation | [`ablation.tex`](models/RECTOR/output/artifacts/tables/) | Component ablation with delta annotations |
+| Ablation (detailed) | [`ablation_detailed.tex`](models/RECTOR/output/artifacts/tables/) | Full ablation with component descriptions |
+| Per-rule F1 | [`applicability_per_rule.tex`](models/RECTOR/output/artifacts/tables/) | Per-rule precision, recall, F1, support |
+| Efficiency | [`efficiency.tex`](models/RECTOR/output/artifacts/tables/) | Parameters, latency, throughput |
+| Parameters | [`param_breakdown.tex`](models/RECTOR/output/artifacts/tables/) | Per-component parameter counts |
 
 Artifact generation details: [`models/RECTOR/scripts/artifacts/README.md`](models/RECTOR/scripts/artifacts/README.md).
 
