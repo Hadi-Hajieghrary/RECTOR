@@ -1,0 +1,818 @@
+✓ Rule ordering validated: 28 rules, 4 tiers
+  Tier 0 (Safety): 5 rules
+  Tier 1 (Legal): 7 rules
+  Tier 2 (Road): 2 rules
+  Tier 3 (Comfort): 14 rules
+======================================================================
+PROXY vs FULL EVALUATOR CORRELATION — All 24 Proxied Rules
+======================================================================
+
+[1/4] Loading RECTOR model...
+Using M2I encoder (will fine-tune with low LR)
+Loading M2I weights from /workspace/models/pretrained/m2i/models/relation_v2v/model.25.bin
+  Loaded 48 parameter tensors from M2I
+  Frozen M2I params: 223,296
+  Trainable params: 100,992 / 324,288
+Proxy coverage: 24/28 rules
+  Rules without proxies: ['L5.R2', 'L5.R3', 'L5.R4', 'L5.R5']
+
+[2/4] Initializing Waymo RuleExecutor...
+  Registered 28 rules
+
+[3/4] Loading data...
+  Loading scenario protos...
+  Loaded 1000 scenario protos
+
+[4/4] Computing proxy + full evaluator (500 scenarios)...
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+  Batch 5: 160 scenarios, 96 matched (16.9s)
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+  Batch 10: 320 scenarios, 160 matched (25.5s)
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+Error evaluating rule L1.R2: name 'np' is not defined
+/workspace/data/WOMD/waymo_rule_eval/rules/l5_priority_violation.py:103: RuntimeWarning: divide by zero encountered in scalar divide
+  dist_factor = min(1.0, 30.0 / np.min(min_distances))
+  Batch 15: 480 scenarios, 256 matched (42.9s)
+
+  Total: 512 scenarios, 256 matched with full evaluator (43.7s)
+
+======================================================================
+PER-RULE PROXY-FULL CORRELATIONS
+======================================================================
+  Rule       Tier       Description                  Spearman    FP%    FN%     F1 ViolRate
+  ----------------------------------------------------------------------------------------
+  L0.R2      Safety     Longitudinal safe distance      -0.03  65.5%  33.9%  0.33    65.6%
+  L0.R3      Safety     Collision/overlap avoidanc      -0.45  69.1%  64.9%  0.44    44.1%
+  L0.R4      Safety     Crosswalk clearance               nan   0.0% 100.0%  0.00     0.0%
+  L1.R1      Comfort    Longitudinal acceleration         nan   0.0% 100.0%  0.00     0.0%
+  L1.R2      Comfort    Lateral acceleration              nan   0.0%   0.0%  0.00     0.0%
+  L1.R3      Comfort    Combined acceleration            0.35   0.0%  92.2%  0.15     7.8%
+  L1.R4      Comfort    Longitudinal jerk                 nan   0.0% 100.0%  0.00     0.0%
+  L1.R5      Comfort    Lateral jerk                     0.37  10.1%  45.2%  0.69    41.0%
+  L10.R1     Safety     VRU longitudinal distance       -0.03   0.0%  89.5%  0.19    10.5%
+  L10.R2     Safety     VRU lateral clearance             nan   0.0% 100.0%  0.00     0.0%
+  L3.R3      Road       Lane keeping                     0.15 100.0%  32.9%  0.80    67.2%
+  L4.R3      Comfort    Left turn gap acceptance          nan   0.0% 100.0%  0.00     0.0%
+  L5.R1      Legal      Traffic signal compliance         nan   0.0%   0.0%  0.00     0.0%
+  L6.R1      Comfort    Following distance               0.24   2.5%  88.6%  0.20     8.6%
+  L6.R2      Comfort    Lateral gap to neighbors         0.24  57.4%   0.0%  0.15    59.4%
+  L6.R3      Comfort    Passing clearance                 nan   0.0% 100.0%  0.00     0.0%
+  L6.R4      Comfort    VRU lateral buffer                nan   0.0% 100.0%  0.00     0.0%
+  L6.R5      Comfort    VRU longitudinal buffer           nan   0.0% 100.0%  0.00     0.0%
+  L7.R3      Road       Drivable surface                 0.04   0.0%  16.4%  0.91    83.6%
+  L7.R4      Legal      Speed limit compliance           0.81   0.0%  39.0%  0.76    14.1%
+  L8.R1      Legal      Traffic signal stop line          nan   0.0%   0.0%  0.00     0.0%
+  L8.R2      Legal      Stop sign compliance              nan   0.0% 100.0%  0.00     0.0%
+  L8.R3      Legal      Crosswalk yield                   nan   0.0% 100.0%  0.00     0.0%
+  L8.R5      Legal      Wrong-way driving                 nan   0.0% 100.0%  0.00     0.0%
+
+  Mean Spearman rho: 0.168 (range: -0.45--0.81)
+  Mean F1: 0.461
+
+Results saved to: /workspace/output/evaluation/proxy_correlations_all24.json

@@ -1,0 +1,805 @@
+nohup: ignoring input
+✓ Rule ordering validated: 28 rules, 4 tiers
+  Tier 0 (Safety): 5 rules
+  Tier 1 (Legal): 7 rules
+  Tier 2 (Road): 2 rules
+  Tier 3 (Comfort): 14 rules
+RECTOR V2 Training
+========================================
+  Experiment: rector_full
+  Horizon: 5 seconds (50 steps)
+  Decoder: Transformer (4 layers)
+  M2I Encoder: True (freeze=False)
+========================================
+Train files: 500, Val files: 150
+Using M2I encoder (will fine-tune with low LR)
+Loading M2I weights from /workspace/models/pretrained/m2i/models/relation_v2v/model.25.bin
+  Loaded 48 parameter tensors from M2I
+Proxy coverage: 24/28 rules
+  Rules without proxies: ['L5.R2', 'L5.R3', 'L5.R4', 'L5.R5']
+Loading pre-trained applicability head from: /workspace/models/RECTOR/output/app_head_fresh_20260316_094256/best.pt
+  Loaded 60 encoder params, 111 applicability head params
+Total parameters: 8.82M
+Trainable parameters: 8.82M
+
+============================================================
+Starting RECTOR V2 Training
+============================================================
+  Device: cuda
+  Epochs: 1 to 20
+  Batch Size: 64 (effective: 256)
+  Learning Rate: 0.0003
+  Prediction Horizon: 50 steps (5.0 sec)
+  Cache: disabled (TFRecord)
+  Output: /workspace/models/RECTOR/output/rector_full_20260316_123249
+============================================================
+
+
+========================================
+Epoch 1/20
+========================================
+2026-03-16 12:32:52.849973: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 12:32:52.852377: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 12:32:52.852454: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 12:32:52.855903: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 12:32:52.858745: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 12:32:52.868182: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+/opt/venv/lib/python3.10/site-packages/torch/optim/lr_scheduler.py:143: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  warnings.warn("Detected call of `lr_scheduler.step()` before `optimizer.step()`. "
+  Step 100 | Loss: 15.2994 | ADE: 10.88m | FDE: 20.87m | LR: 1.20e-05
+  Step 200 | Loss: 19.1017 | ADE: 12.19m | FDE: 24.03m | LR: 1.20e-05
+  Step 300 | Loss: 14.2588 | ADE: 5.78m | FDE: 11.48m | LR: 1.21e-05
+  Step 400 | Loss: 13.3227 | ADE: 3.27m | FDE: 7.28m | LR: 1.21e-05
+  Step 500 | Loss: 11.6397 | ADE: 2.91m | FDE: 6.49m | LR: 1.22e-05
+  Step 600 | Loss: 11.8542 | ADE: 2.94m | FDE: 5.71m | LR: 1.23e-05
+  Step 700 | Loss: 12.3431 | ADE: 3.60m | FDE: 8.26m | LR: 1.24e-05
+  Step 800 | Loss: 13.8048 | ADE: 3.94m | FDE: 8.66m | LR: 1.25e-05
+  Step 900 | Loss: 12.4281 | ADE: 3.23m | FDE: 6.46m | LR: 1.26e-05
+  Step 1000 | Loss: 10.4276 | ADE: 3.02m | FDE: 6.89m | LR: 1.27e-05
+  Step 1100 | Loss: 14.5685 | ADE: 3.92m | FDE: 8.26m | LR: 1.29e-05
+  Step 1200 | Loss: 10.9816 | ADE: 4.33m | FDE: 9.58m | LR: 1.30e-05
+  Step 1300 | Loss: 7.4347 | ADE: 3.98m | FDE: 8.50m | LR: 1.32e-05
+  Step 1400 | Loss: 11.8101 | ADE: 4.21m | FDE: 9.01m | LR: 1.34e-05
+  Step 1500 | Loss: 8.6712 | ADE: 3.60m | FDE: 6.89m | LR: 1.36e-05
+
+Epoch 1 completed in 1890.6s
+  Avg Train Loss: 12.8050
+
+  Running validation...
+2026-03-16 13:04:23.451700: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 13:04:23.452864: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 13:04:23.452944: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 13:04:23.459902: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 13:04:23.461228: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 13:04:23.468257: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  [VAL] Loss: 9.2272 | ADE: 3.27m | FDE: 6.67m
+  ✓ New best! Loss: 9.2272, ADE: 3.27m
+
+========================================
+Epoch 2/20
+========================================
+2026-03-16 13:04:42.904776: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 13:04:42.913833: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 13:04:42.930653: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 13:04:42.941370: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 13:04:42.944150: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 13:04:43.023486: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  Step 100 | Loss: 8.6996 | ADE: 2.92m | FDE: 6.27m | LR: 1.41e-05
+  Step 200 | Loss: 10.3379 | ADE: 2.47m | FDE: 5.19m | LR: 1.43e-05
+  Step 300 | Loss: 8.0702 | ADE: 3.02m | FDE: 5.61m | LR: 1.46e-05
+  Step 400 | Loss: 7.6203 | ADE: 6.40m | FDE: 12.59m | LR: 1.49e-05
+  Step 500 | Loss: 10.0342 | ADE: 4.77m | FDE: 9.53m | LR: 1.52e-05
+  Step 600 | Loss: 7.9367 | ADE: 1.99m | FDE: 4.22m | LR: 1.55e-05
+  Step 700 | Loss: 6.6829 | ADE: 4.90m | FDE: 9.26m | LR: 1.58e-05
+  Step 800 | Loss: 8.2326 | ADE: 5.74m | FDE: 11.08m | LR: 1.62e-05
+  Step 900 | Loss: 9.7617 | ADE: 2.18m | FDE: 4.78m | LR: 1.65e-05
+  Step 1000 | Loss: 7.5808 | ADE: 3.97m | FDE: 7.40m | LR: 1.69e-05
+  Step 1100 | Loss: 8.3382 | ADE: 5.31m | FDE: 10.70m | LR: 1.73e-05
+  Step 1200 | Loss: 6.8497 | ADE: 1.86m | FDE: 4.27m | LR: 1.77e-05
+  Step 1300 | Loss: 6.4140 | ADE: 2.17m | FDE: 5.26m | LR: 1.81e-05
+  Step 1400 | Loss: 6.9900 | ADE: 3.70m | FDE: 6.69m | LR: 1.85e-05
+  Step 1500 | Loss: 6.5282 | ADE: 3.78m | FDE: 8.00m | LR: 1.89e-05
+
+Epoch 2 completed in 1864.0s
+  Avg Train Loss: 8.2267
+
+  Running validation...
+2026-03-16 13:35:46.618879: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 13:35:46.621308: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 13:35:46.624550: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 13:35:46.624675: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 13:35:46.626904: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 13:35:46.634371: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  [VAL] Loss: 7.9468 | ADE: 2.01m | FDE: 5.36m
+  ✓ New best! Loss: 7.9468, ADE: 2.01m
+
+========================================
+Epoch 3/20
+========================================
+2026-03-16 13:36:07.904053: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 13:36:07.907448: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 13:36:07.911134: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 13:36:07.913225: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 13:36:07.921877: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 13:36:07.922031: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  Step 100 | Loss: 7.7157 | ADE: 2.28m | FDE: 5.74m | LR: 1.98e-05
+  Step 200 | Loss: 6.3662 | ADE: 3.68m | FDE: 6.32m | LR: 2.03e-05
+  Step 300 | Loss: 5.6292 | ADE: 3.43m | FDE: 5.62m | LR: 2.08e-05
+  Step 400 | Loss: 6.0620 | ADE: 2.34m | FDE: 6.40m | LR: 2.13e-05
+  Step 500 | Loss: 7.8926 | ADE: 1.90m | FDE: 5.33m | LR: 2.18e-05
+  Step 600 | Loss: 6.2737 | ADE: 3.36m | FDE: 5.44m | LR: 2.23e-05
+  Step 700 | Loss: 5.6675 | ADE: 6.99m | FDE: 12.20m | LR: 2.29e-05
+  Step 800 | Loss: 6.8947 | ADE: 1.75m | FDE: 4.23m | LR: 2.34e-05
+  Step 900 | Loss: 4.7266 | ADE: 1.82m | FDE: 5.32m | LR: 2.40e-05
+  Step 1000 | Loss: 4.7309 | ADE: 4.36m | FDE: 7.44m | LR: 2.46e-05
+  Step 1100 | Loss: 7.1092 | ADE: 2.72m | FDE: 6.38m | LR: 2.52e-05
+  Step 1200 | Loss: 6.7337 | ADE: 2.32m | FDE: 5.49m | LR: 2.58e-05
+  Step 1300 | Loss: 6.0317 | ADE: 6.08m | FDE: 8.51m | LR: 2.64e-05
+  Step 1400 | Loss: 4.9583 | ADE: 2.24m | FDE: 4.20m | LR: 2.71e-05
+  Step 1500 | Loss: 5.0914 | ADE: 1.76m | FDE: 4.88m | LR: 2.77e-05
+
+Epoch 3 completed in 1890.9s
+  Avg Train Loss: 6.1968
+
+  Running validation...
+2026-03-16 14:07:38.646464: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 14:07:38.653422: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 14:07:38.655298: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 14:07:38.655349: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 14:07:38.656536: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 14:07:38.658064: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  [VAL] Loss: 7.6003 | ADE: 2.29m | FDE: 7.17m
+  ✓ New best! Loss: 7.6003, ADE: 2.29m
+
+========================================
+Epoch 4/20
+========================================
+2026-03-16 14:07:59.968824: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 14:07:59.969247: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 14:07:59.971090: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 14:07:59.971694: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 14:07:59.980541: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 14:07:59.983222: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  Step 100 | Loss: 5.4099 | ADE: 4.08m | FDE: 5.15m | LR: 2.90e-05
+  Step 200 | Loss: 4.1668 | ADE: 2.58m | FDE: 5.56m | LR: 2.97e-05
+  Step 300 | Loss: 7.3474 | ADE: 2.31m | FDE: 6.49m | LR: 3.04e-05
+  Step 400 | Loss: 5.2436 | ADE: 2.24m | FDE: 6.82m | LR: 3.12e-05
+  Step 500 | Loss: 5.6994 | ADE: 4.12m | FDE: 7.54m | LR: 3.19e-05
+  Step 600 | Loss: 4.6062 | ADE: 2.85m | FDE: 4.09m | LR: 3.26e-05
+  Step 700 | Loss: 4.9170 | ADE: 1.93m | FDE: 4.93m | LR: 3.34e-05
+  Step 800 | Loss: 7.6104 | ADE: 1.98m | FDE: 6.66m | LR: 3.41e-05
+  Step 900 | Loss: 5.5930 | ADE: 2.21m | FDE: 5.42m | LR: 3.49e-05
+  Step 1000 | Loss: 5.0661 | ADE: 3.62m | FDE: 6.68m | LR: 3.57e-05
+  Step 1100 | Loss: 4.4308 | ADE: 2.72m | FDE: 4.98m | LR: 3.65e-05
+  Step 1200 | Loss: 4.9399 | ADE: 2.38m | FDE: 5.42m | LR: 3.73e-05
+  Step 1300 | Loss: 7.9010 | ADE: 2.00m | FDE: 5.76m | LR: 3.81e-05
+  Step 1400 | Loss: 5.5311 | ADE: 2.07m | FDE: 6.00m | LR: 3.90e-05
+  Step 1500 | Loss: 4.9373 | ADE: 2.32m | FDE: 4.19m | LR: 3.98e-05
+
+Epoch 4 completed in 1882.7s
+  Avg Train Loss: 5.6496
+
+  Running validation...
+2026-03-16 14:39:22.708856: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 14:39:22.708863: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 14:39:22.708878: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 14:39:22.708971: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 14:39:22.712945: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 14:39:22.728238: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  [VAL] Loss: 5.9770 | ADE: 3.21m | FDE: 5.38m
+  ✓ New best! Loss: 5.9770, ADE: 3.21m
+
+========================================
+Epoch 5/20
+========================================
+2026-03-16 14:39:41.150746: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 14:39:41.158166: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 14:39:41.158874: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 14:39:41.161850: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 14:39:41.163549: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 14:39:41.168458: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  Step 100 | Loss: 5.9570 | ADE: 5.54m | FDE: 9.57m | LR: 4.15e-05
+  Step 200 | Loss: 7.0532 | ADE: 3.20m | FDE: 5.29m | LR: 4.24e-05
+  Step 300 | Loss: 5.3569 | ADE: 2.08m | FDE: 5.16m | LR: 4.33e-05
+  Step 400 | Loss: 7.1334 | ADE: 2.24m | FDE: 8.77m | LR: 4.42e-05
+  Step 500 | Loss: 4.7226 | ADE: 2.07m | FDE: 5.69m | LR: 4.51e-05
+  Step 600 | Loss: 4.6605 | ADE: 2.30m | FDE: 5.84m | LR: 4.61e-05
+  Step 700 | Loss: 5.3122 | ADE: 2.44m | FDE: 4.63m | LR: 4.70e-05
+  Step 800 | Loss: 5.1082 | ADE: 2.25m | FDE: 4.67m | LR: 4.80e-05
+  Step 900 | Loss: 6.2326 | ADE: 2.51m | FDE: 7.12m | LR: 4.89e-05
+  Step 1000 | Loss: 5.6581 | ADE: 2.04m | FDE: 4.52m | LR: 4.99e-05
+  Step 1100 | Loss: 7.1054 | ADE: 2.76m | FDE: 7.26m | LR: 5.09e-05
+  Step 1200 | Loss: 5.6925 | ADE: 2.51m | FDE: 6.30m | LR: 5.19e-05
+  Step 1300 | Loss: 4.8068 | ADE: 3.11m | FDE: 5.46m | LR: 5.29e-05
+  Step 1400 | Loss: 4.2137 | ADE: 3.06m | FDE: 5.79m | LR: 5.39e-05
+  Step 1500 | Loss: 4.3849 | ADE: 2.19m | FDE: 5.67m | LR: 5.49e-05
+
+Epoch 5 completed in 1853.8s
+  Avg Train Loss: 5.4046
+
+  Running validation...
+2026-03-16 15:10:35.022478: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 15:10:35.024793: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 15:10:35.024799: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 15:10:35.026859: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 15:10:35.027210: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 15:10:35.028624: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  [VAL] Loss: 5.7566 | ADE: 3.19m | FDE: 6.09m
+  ✓ New best! Loss: 5.7566, ADE: 3.19m
+
+========================================
+Epoch 6/20
+========================================
+2026-03-16 15:10:56.062277: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 15:10:56.063231: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 15:10:56.065482: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 15:10:56.065483: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 15:10:56.065891: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 15:10:56.071751: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  Step 100 | Loss: 4.3611 | ADE: 2.14m | FDE: 4.01m | LR: 5.70e-05
+  Step 200 | Loss: 4.9279 | ADE: 4.43m | FDE: 8.24m | LR: 5.80e-05
+  Step 300 | Loss: 4.1366 | ADE: 3.14m | FDE: 4.72m | LR: 5.91e-05
+  Step 400 | Loss: 3.9524 | ADE: 2.92m | FDE: 5.78m | LR: 6.02e-05
+  Step 500 | Loss: 3.9647 | ADE: 2.03m | FDE: 3.14m | LR: 6.13e-05
+  Step 600 | Loss: 7.4323 | ADE: 5.11m | FDE: 9.11m | LR: 6.23e-05
+  Step 700 | Loss: 6.5290 | ADE: 3.33m | FDE: 6.61m | LR: 6.35e-05
+  Step 800 | Loss: 6.3954 | ADE: 3.35m | FDE: 9.55m | LR: 6.46e-05
+  Step 900 | Loss: 6.0163 | ADE: 3.79m | FDE: 7.06m | LR: 6.57e-05
+  Step 1000 | Loss: 5.1925 | ADE: 3.86m | FDE: 7.64m | LR: 6.68e-05
+  Step 1100 | Loss: 6.5720 | ADE: 3.86m | FDE: 6.03m | LR: 6.80e-05
+  Step 1200 | Loss: 7.1435 | ADE: 7.86m | FDE: 14.09m | LR: 6.91e-05
+  Step 1300 | Loss: 4.7490 | ADE: 3.51m | FDE: 7.97m | LR: 7.03e-05
+  Step 1400 | Loss: 6.1801 | ADE: 8.53m | FDE: 15.28m | LR: 7.14e-05
+  Step 1500 | Loss: 4.2866 | ADE: 3.85m | FDE: 7.04m | LR: 7.26e-05
+
+Epoch 6 completed in 1904.1s
+  Avg Train Loss: 5.6442
+
+  Running validation...
+2026-03-16 15:42:40.159032: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 15:42:40.160896: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 15:42:40.161648: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 15:42:40.171806: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 15:42:40.173177: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 15:42:40.178787: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  [VAL] Loss: 6.7305 | ADE: 8.83m | FDE: 14.66m
+  No improvement (1/15)
+
+========================================
+Epoch 7/20
+========================================
+2026-03-16 15:43:00.984080: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 15:43:00.985135: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 15:43:00.985741: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 15:43:00.986151: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 15:43:00.990188: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 15:43:00.991580: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  Step 100 | Loss: 5.4889 | ADE: 3.03m | FDE: 4.40m | LR: 7.49e-05
+  Step 200 | Loss: 4.0269 | ADE: 2.95m | FDE: 5.65m | LR: 7.61e-05
+  Step 300 | Loss: 6.3861 | ADE: 6.32m | FDE: 11.81m | LR: 7.74e-05
+  Step 400 | Loss: 6.2558 | ADE: 4.35m | FDE: 7.27m | LR: 7.86e-05
+  Step 500 | Loss: 4.9064 | ADE: 3.14m | FDE: 7.10m | LR: 7.98e-05
+  Step 600 | Loss: 5.7434 | ADE: 2.35m | FDE: 4.45m | LR: 8.10e-05
+  Step 700 | Loss: 4.7711 | ADE: 4.98m | FDE: 10.37m | LR: 8.23e-05
+  Step 800 | Loss: 4.0215 | ADE: 2.47m | FDE: 4.27m | LR: 8.35e-05
+  Step 900 | Loss: 5.0425 | ADE: 3.32m | FDE: 7.45m | LR: 8.48e-05
+  Step 1000 | Loss: 3.3690 | ADE: 1.87m | FDE: 3.20m | LR: 8.60e-05
+  Step 1100 | Loss: 3.5630 | ADE: 2.59m | FDE: 4.21m | LR: 8.73e-05
+  Step 1200 | Loss: 3.8734 | ADE: 2.92m | FDE: 4.76m | LR: 8.86e-05
+  Step 1300 | Loss: 3.4098 | ADE: 3.06m | FDE: 5.90m | LR: 8.99e-05
+  Step 1400 | Loss: 3.5633 | ADE: 3.03m | FDE: 4.63m | LR: 9.11e-05
+  Step 1500 | Loss: 3.7194 | ADE: 3.52m | FDE: 5.63m | LR: 9.24e-05
+
+Epoch 7 completed in 2069.0s
+  Avg Train Loss: 4.6553
+
+  Running validation...
+2026-03-16 16:17:29.990557: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 16:17:29.994752: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 16:17:30.000932: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 16:17:30.002219: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 16:17:30.004017: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 16:17:30.004431: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  [VAL] Loss: 3.3801 | ADE: 3.21m | FDE: 4.33m
+  ✓ New best! Loss: 3.3801, ADE: 3.21m
+
+========================================
+Epoch 8/20
+========================================
+2026-03-16 16:17:51.107948: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 16:17:51.110908: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 16:17:51.111441: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 16:17:51.113982: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 16:17:51.123813: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 16:17:51.128776: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  Step 100 | Loss: 2.9373 | ADE: 2.03m | FDE: 2.64m | LR: 9.50e-05
+  Step 200 | Loss: 2.8819 | ADE: 2.00m | FDE: 3.66m | LR: 9.63e-05
+  Step 300 | Loss: 2.7739 | ADE: 1.95m | FDE: 3.51m | LR: 9.76e-05
+  Step 400 | Loss: 2.8966 | ADE: 1.72m | FDE: 3.43m | LR: 9.90e-05
+  Step 500 | Loss: 2.6614 | ADE: 1.39m | FDE: 2.50m | LR: 1.00e-04
+  Step 600 | Loss: 2.7165 | ADE: 1.28m | FDE: 2.57m | LR: 1.02e-04
+  Step 700 | Loss: 2.7843 | ADE: 1.45m | FDE: 3.19m | LR: 1.03e-04
+  Step 800 | Loss: 2.8646 | ADE: 1.48m | FDE: 3.65m | LR: 1.04e-04
+  Step 900 | Loss: 3.1564 | ADE: 1.95m | FDE: 4.55m | LR: 1.06e-04
+  Step 1000 | Loss: 2.7584 | ADE: 1.51m | FDE: 3.23m | LR: 1.07e-04
+  Step 1100 | Loss: 2.8036 | ADE: 1.60m | FDE: 3.31m | LR: 1.08e-04
+  Step 1200 | Loss: 2.6698 | ADE: 1.24m | FDE: 2.34m | LR: 1.10e-04
+  Step 1300 | Loss: 2.7421 | ADE: 1.72m | FDE: 3.70m | LR: 1.11e-04
+  Step 1400 | Loss: 2.8719 | ADE: 1.53m | FDE: 3.16m | LR: 1.13e-04
+  Step 1500 | Loss: 2.7242 | ADE: 1.23m | FDE: 2.38m | LR: 1.14e-04
+
+Epoch 8 completed in 2036.0s
+  Avg Train Loss: 2.8651
+
+  Running validation...
+2026-03-16 16:51:47.090171: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 16:51:47.102901: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 16:51:47.111757: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 16:51:47.116858: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 16:51:47.118034: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 16:51:47.119895: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  [VAL] Loss: 2.8616 | ADE: 1.76m | FDE: 3.56m
+  ✓ New best! Loss: 2.8616, ADE: 1.76m
+
+========================================
+Epoch 9/20
+========================================
+2026-03-16 16:52:13.005544: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 16:52:13.012053: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 16:52:13.013301: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 16:52:13.015024: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 16:52:13.015953: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 16:52:13.021487: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  Step 100 | Loss: 2.9870 | ADE: 1.38m | FDE: 2.82m | LR: 1.17e-04
+  Step 200 | Loss: 2.8481 | ADE: 1.42m | FDE: 2.95m | LR: 1.18e-04
+  Step 300 | Loss: 2.5797 | ADE: 1.23m | FDE: 2.76m | LR: 1.19e-04
+  Step 400 | Loss: 2.6814 | ADE: 1.38m | FDE: 3.07m | LR: 1.21e-04
+  Step 500 | Loss: 2.6013 | ADE: 1.15m | FDE: 2.77m | LR: 1.22e-04
+  Step 600 | Loss: 2.4817 | ADE: 1.15m | FDE: 2.41m | LR: 1.24e-04
+  Step 700 | Loss: 2.6828 | ADE: 1.29m | FDE: 2.97m | LR: 1.25e-04
+  Step 800 | Loss: 2.6607 | ADE: 1.40m | FDE: 2.66m | LR: 1.26e-04
+  Step 900 | Loss: 2.6741 | ADE: 1.52m | FDE: 3.02m | LR: 1.28e-04
+  Step 1000 | Loss: 2.5593 | ADE: 1.14m | FDE: 2.18m | LR: 1.29e-04
+  Step 1100 | Loss: 2.6877 | ADE: 1.69m | FDE: 3.33m | LR: 1.31e-04
+  Step 1200 | Loss: 2.8006 | ADE: 1.58m | FDE: 3.46m | LR: 1.32e-04
+  Step 1300 | Loss: 2.7621 | ADE: 1.41m | FDE: 2.96m | LR: 1.34e-04
+  Step 1400 | Loss: 2.5692 | ADE: 1.35m | FDE: 3.16m | LR: 1.35e-04
+  Step 1500 | Loss: 2.7413 | ADE: 1.55m | FDE: 3.45m | LR: 1.36e-04
+
+Epoch 9 completed in 1951.2s
+  Avg Train Loss: 2.7168
+
+  Running validation...
+2026-03-16 17:24:44.242109: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 17:24:44.246013: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 17:24:44.246538: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 17:24:44.246627: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 17:24:44.244885: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 17:24:44.258762: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  [VAL] Loss: 2.6392 | ADE: 1.57m | FDE: 3.31m
+  ✓ New best! Loss: 2.6392, ADE: 1.57m
+
+========================================
+Epoch 10/20
+========================================
+2026-03-16 17:25:05.268700: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 17:25:05.268793: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 17:25:05.269175: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 17:25:05.269875: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 17:25:05.278798: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 17:25:05.283691: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  Step 100 | Loss: 2.5162 | ADE: 1.07m | FDE: 2.35m | LR: 1.39e-04
+  Step 200 | Loss: 2.6980 | ADE: 1.39m | FDE: 3.00m | LR: 1.41e-04
+  Step 300 | Loss: 2.6963 | ADE: 1.20m | FDE: 2.40m | LR: 1.42e-04
+  Step 400 | Loss: 2.6883 | ADE: 1.47m | FDE: 3.02m | LR: 1.44e-04
+  Step 500 | Loss: 2.6609 | ADE: 1.51m | FDE: 3.14m | LR: 1.45e-04
+  Step 600 | Loss: 2.6479 | ADE: 1.49m | FDE: 3.16m | LR: 1.46e-04
+  Step 700 | Loss: 2.4721 | ADE: 1.19m | FDE: 2.60m | LR: 1.48e-04
+  Step 800 | Loss: 2.6615 | ADE: 1.70m | FDE: 3.98m | LR: 1.49e-04
+  Step 900 | Loss: 2.7383 | ADE: 1.61m | FDE: 3.01m | LR: 1.51e-04
+  Step 1000 | Loss: 2.5929 | ADE: 1.49m | FDE: 2.85m | LR: 1.52e-04
+  Step 1100 | Loss: 2.7350 | ADE: 1.68m | FDE: 3.60m | LR: 1.54e-04
+  Step 1200 | Loss: 2.5584 | ADE: 1.37m | FDE: 2.60m | LR: 1.55e-04
+  Step 1300 | Loss: 2.6271 | ADE: 1.43m | FDE: 2.81m | LR: 1.57e-04
+  Step 1400 | Loss: 2.7351 | ADE: 1.47m | FDE: 2.87m | LR: 1.58e-04
+  Step 1500 | Loss: 2.3987 | ADE: 1.19m | FDE: 1.83m | LR: 1.60e-04
+
+Epoch 10 completed in 1419.7s
+  Avg Train Loss: 2.6751
+
+  Running validation...
+2026-03-16 17:48:45.110832: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 17:48:45.118449: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 17:48:45.132144: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 17:48:45.158136: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 17:48:45.170207: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 17:48:45.184352: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  [VAL] Loss: 2.7455 | ADE: 1.68m | FDE: 3.61m
+  No improvement (1/15)
+
+========================================
+Epoch 11/20
+========================================
+2026-03-16 17:49:06.267471: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 17:49:06.269663: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 17:49:06.270557: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 17:49:06.272435: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 17:49:06.274665: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 17:49:06.277445: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  Step 100 | Loss: 2.6791 | ADE: 1.58m | FDE: 3.44m | LR: 1.62e-04
+  Step 200 | Loss: 2.5983 | ADE: 1.46m | FDE: 2.90m | LR: 1.64e-04
+  Step 300 | Loss: 2.7824 | ADE: 1.80m | FDE: 3.54m | LR: 1.65e-04
+  Step 400 | Loss: 2.4969 | ADE: 1.30m | FDE: 2.62m | LR: 1.67e-04
+  Step 500 | Loss: 2.6978 | ADE: 1.79m | FDE: 3.54m | LR: 1.68e-04
+  Step 600 | Loss: 2.4548 | ADE: 1.15m | FDE: 2.36m | LR: 1.70e-04
+  Step 700 | Loss: 2.7943 | ADE: 2.04m | FDE: 3.66m | LR: 1.71e-04
+  Step 800 | Loss: 2.6650 | ADE: 1.70m | FDE: 3.57m | LR: 1.72e-04
+  Step 900 | Loss: 2.4939 | ADE: 1.40m | FDE: 2.65m | LR: 1.74e-04
+  Step 1000 | Loss: 2.7271 | ADE: 1.61m | FDE: 3.64m | LR: 1.75e-04
+  Step 1100 | Loss: 2.6301 | ADE: 1.67m | FDE: 4.01m | LR: 1.77e-04
+  Step 1200 | Loss: 2.5592 | ADE: 1.48m | FDE: 2.77m | LR: 1.78e-04
+  Step 1300 | Loss: 2.4653 | ADE: 1.36m | FDE: 2.44m | LR: 1.80e-04
+  Step 1400 | Loss: 2.4728 | ADE: 1.41m | FDE: 2.68m | LR: 1.81e-04
+  Step 1500 | Loss: 2.5682 | ADE: 1.03m | FDE: 2.06m | LR: 1.82e-04
+
+Epoch 11 completed in 1419.1s
+  Avg Train Loss: 2.6529
+
+  Running validation...
+2026-03-16 18:12:45.183854: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 18:12:45.183854: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 18:12:45.193716: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 18:12:45.200259: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 18:12:45.205684: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 18:12:45.212736: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  [VAL] Loss: 2.6983 | ADE: 1.59m | FDE: 3.13m
+  No improvement (2/15)
+
+========================================
+Epoch 12/20
+========================================
+2026-03-16 18:13:06.201600: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 18:13:06.202440: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 18:13:06.203513: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 18:13:06.211371: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 18:13:06.213368: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 18:13:06.222744: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  Step 100 | Loss: 2.9338 | ADE: 1.81m | FDE: 3.86m | LR: 1.85e-04
+  Step 200 | Loss: 2.7242 | ADE: 1.94m | FDE: 4.34m | LR: 1.87e-04
+  Step 300 | Loss: 2.7396 | ADE: 1.17m | FDE: 2.39m | LR: 1.88e-04
+  Step 400 | Loss: 2.8767 | ADE: 1.82m | FDE: 3.96m | LR: 1.89e-04
+  Step 500 | Loss: 2.6558 | ADE: 1.82m | FDE: 3.79m | LR: 1.91e-04
+  Step 600 | Loss: 3.1210 | ADE: 2.64m | FDE: 5.81m | LR: 1.92e-04
+  Step 700 | Loss: 2.5399 | ADE: 1.56m | FDE: 2.62m | LR: 1.94e-04
+  Step 800 | Loss: 2.9057 | ADE: 2.08m | FDE: 3.51m | LR: 1.95e-04
+  Step 900 | Loss: 2.5571 | ADE: 1.29m | FDE: 2.50m | LR: 1.96e-04
+  Step 1000 | Loss: 2.4947 | ADE: 1.29m | FDE: 2.65m | LR: 1.98e-04
+  Step 1100 | Loss: 2.5894 | ADE: 1.46m | FDE: 3.54m | LR: 1.99e-04
+  Step 1200 | Loss: 3.0501 | ADE: 1.52m | FDE: 4.49m | LR: 2.01e-04
+  Step 1300 | Loss: 2.7503 | ADE: 1.61m | FDE: 3.54m | LR: 2.02e-04
+  Step 1400 | Loss: 2.6689 | ADE: 1.45m | FDE: 2.47m | LR: 2.03e-04
+  Step 1500 | Loss: 2.9365 | ADE: 2.03m | FDE: 3.40m | LR: 2.05e-04
+
+Epoch 12 completed in 1410.6s
+  Avg Train Loss: 2.7787
+
+  Running validation...
+2026-03-16 18:36:36.649608: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 18:36:36.651221: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 18:36:36.655409: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 18:36:36.656443: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 18:36:36.658212: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 18:36:36.659982: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  [VAL] Loss: 2.7513 | ADE: 1.78m | FDE: 4.48m
+  No improvement (3/15)
+
+========================================
+Epoch 13/20
+========================================
+2026-03-16 18:36:57.500744: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 18:36:57.502070: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 18:36:57.503221: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 18:36:57.505289: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 18:36:57.506646: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 18:36:57.507233: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  Step 100 | Loss: 2.7985 | ADE: 2.07m | FDE: 5.62m | LR: 2.07e-04
+  Step 200 | Loss: 2.8547 | ADE: 1.56m | FDE: 3.15m | LR: 2.09e-04
+  Step 300 | Loss: 2.9320 | ADE: 1.58m | FDE: 3.09m | LR: 2.10e-04
+  Step 400 | Loss: 3.1144 | ADE: 2.03m | FDE: 5.04m | LR: 2.11e-04
+  Step 500 | Loss: 2.8804 | ADE: 1.62m | FDE: 2.99m | LR: 2.13e-04
+  Step 600 | Loss: 2.6804 | ADE: 1.84m | FDE: 3.67m | LR: 2.14e-04
+  Step 700 | Loss: 2.6467 | ADE: 2.18m | FDE: 3.62m | LR: 2.15e-04
+  Step 800 | Loss: 2.5541 | ADE: 1.50m | FDE: 3.08m | LR: 2.17e-04
+  Step 900 | Loss: 2.5988 | ADE: 1.68m | FDE: 3.60m | LR: 2.18e-04
+  Step 1000 | Loss: 2.9237 | ADE: 1.89m | FDE: 4.68m | LR: 2.19e-04
+  Step 1100 | Loss: 2.6396 | ADE: 2.15m | FDE: 5.55m | LR: 2.21e-04
+  Step 1200 | Loss: 2.5807 | ADE: 1.73m | FDE: 3.36m | LR: 2.22e-04
+  Step 1300 | Loss: 2.6928 | ADE: 1.49m | FDE: 3.53m | LR: 2.23e-04
+  Step 1400 | Loss: 2.7604 | ADE: 1.87m | FDE: 2.54m | LR: 2.24e-04
+  Step 1500 | Loss: 2.6645 | ADE: 1.58m | FDE: 4.10m | LR: 2.26e-04
+
+Epoch 13 completed in 1462.7s
+  Avg Train Loss: 2.7740
+
+  Running validation...
+2026-03-16 19:01:20.207764: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:01:20.210464: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:01:20.210511: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:01:20.213384: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:01:20.214004: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:01:20.215090: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  [VAL] Loss: 2.9848 | ADE: 1.82m | FDE: 4.31m
+  No improvement (4/15)
+
+========================================
+Epoch 14/20
+========================================
+2026-03-16 19:01:40.954969: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:01:40.957773: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:01:40.958234: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:01:40.961963: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:01:40.964759: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:01:40.972458: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  Step 100 | Loss: 2.8026 | ADE: 1.80m | FDE: 3.34m | LR: 2.28e-04
+  Step 200 | Loss: 2.6070 | ADE: 1.23m | FDE: 2.44m | LR: 2.29e-04
+  Step 300 | Loss: 2.7438 | ADE: 1.92m | FDE: 3.54m | LR: 2.31e-04
+  Step 400 | Loss: 2.5009 | ADE: 1.09m | FDE: 1.94m | LR: 2.32e-04
+  Step 500 | Loss: 2.5463 | ADE: 1.48m | FDE: 4.30m | LR: 2.33e-04
+  Step 600 | Loss: 2.9549 | ADE: 2.01m | FDE: 4.31m | LR: 2.34e-04
+  Step 700 | Loss: 2.7239 | ADE: 1.65m | FDE: 3.15m | LR: 2.36e-04
+  Step 800 | Loss: 2.5513 | ADE: 1.09m | FDE: 2.06m | LR: 2.37e-04
+  Step 900 | Loss: 2.7117 | ADE: 1.92m | FDE: 3.65m | LR: 2.38e-04
+  Step 1000 | Loss: 2.7645 | ADE: 1.64m | FDE: 2.49m | LR: 2.39e-04
+  Step 1100 | Loss: 2.7495 | ADE: 1.25m | FDE: 2.78m | LR: 2.40e-04
+  Step 1200 | Loss: 2.6656 | ADE: 1.55m | FDE: 3.03m | LR: 2.42e-04
+  Step 1300 | Loss: 3.2581 | ADE: 2.12m | FDE: 5.18m | LR: 2.43e-04
+  Step 1400 | Loss: 2.7825 | ADE: 1.40m | FDE: 2.86m | LR: 2.44e-04
+  Step 1500 | Loss: 2.7770 | ADE: 1.53m | FDE: 2.84m | LR: 2.45e-04
+
+Epoch 14 completed in 1408.5s
+  Avg Train Loss: 2.6992
+
+  Running validation...
+2026-03-16 19:25:09.442208: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:25:09.452267: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:25:09.453163: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:25:09.452267: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:25:09.458470: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:25:09.469151: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  [VAL] Loss: 2.6682 | ADE: 1.61m | FDE: 3.39m
+  No improvement (5/15)
+
+========================================
+Epoch 15/20
+========================================
+2026-03-16 19:25:30.499057: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:25:30.500408: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:25:30.501946: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:25:30.502781: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:25:30.511319: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:25:30.514639: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  Step 100 | Loss: 2.4841 | ADE: 1.21m | FDE: 1.33m | LR: 2.47e-04
+  Step 200 | Loss: 2.6107 | ADE: 1.58m | FDE: 3.44m | LR: 2.48e-04
+  Step 300 | Loss: 3.0152 | ADE: 1.42m | FDE: 3.58m | LR: 2.49e-04
+  Step 400 | Loss: 2.9728 | ADE: 1.78m | FDE: 4.21m | LR: 2.51e-04
+  Step 500 | Loss: 2.4553 | ADE: 1.15m | FDE: 2.14m | LR: 2.52e-04
+  Step 600 | Loss: 2.4925 | ADE: 1.39m | FDE: 2.75m | LR: 2.53e-04
+  Step 700 | Loss: 2.6291 | ADE: 1.24m | FDE: 3.11m | LR: 2.54e-04
+  Step 800 | Loss: 2.4567 | ADE: 1.21m | FDE: 1.87m | LR: 2.55e-04
+  Step 900 | Loss: 2.4809 | ADE: 1.14m | FDE: 2.44m | LR: 2.56e-04
+  Step 1000 | Loss: 2.7262 | ADE: 1.30m | FDE: 2.49m | LR: 2.57e-04
+  Step 1100 | Loss: 2.5993 | ADE: 1.31m | FDE: 2.58m | LR: 2.58e-04
+  Step 1200 | Loss: 2.5117 | ADE: 1.21m | FDE: 2.23m | LR: 2.59e-04
+  Step 1300 | Loss: 2.7332 | ADE: 1.53m | FDE: 2.59m | LR: 2.60e-04
+  Step 1400 | Loss: 2.5509 | ADE: 1.56m | FDE: 2.94m | LR: 2.61e-04
+  Step 1500 | Loss: 2.4196 | ADE: 0.94m | FDE: 1.84m | LR: 2.62e-04
+
+Epoch 15 completed in 1455.7s
+  Avg Train Loss: 2.6097
+
+  Running validation...
+2026-03-16 19:49:46.042101: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:49:46.047605: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:49:46.060447: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:49:46.062215: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:49:46.062928: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:49:46.064214: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  [VAL] Loss: 2.5969 | ADE: 1.13m | FDE: 2.36m
+  ✓ New best! Loss: 2.5969, ADE: 1.13m
+
+========================================
+Epoch 16/20
+========================================
+2026-03-16 19:50:07.238431: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:50:07.247394: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:50:07.247436: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:50:07.252722: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:50:07.254067: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 19:50:07.264607: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  Step 100 | Loss: 2.7399 | ADE: 1.99m | FDE: 2.59m | LR: 2.64e-04
+  Step 200 | Loss: 2.6252 | ADE: 1.60m | FDE: 2.68m | LR: 2.65e-04
+  Step 300 | Loss: 2.5166 | ADE: 0.90m | FDE: 1.37m | LR: 2.66e-04
+  Step 400 | Loss: 2.5977 | ADE: 1.35m | FDE: 2.54m | LR: 2.67e-04
+  Step 500 | Loss: 2.3488 | ADE: 0.93m | FDE: 1.74m | LR: 2.68e-04
+  Step 600 | Loss: 2.3868 | ADE: 0.94m | FDE: 1.57m | LR: 2.69e-04
+  Step 700 | Loss: 2.3431 | ADE: 1.04m | FDE: 1.61m | LR: 2.69e-04
+  Step 800 | Loss: 2.4605 | ADE: 1.00m | FDE: 1.80m | LR: 2.70e-04
+  Step 900 | Loss: 2.5966 | ADE: 1.09m | FDE: 2.12m | LR: 2.71e-04
+  Step 1000 | Loss: 2.4310 | ADE: 1.01m | FDE: 1.82m | LR: 2.72e-04
+  Step 1100 | Loss: 2.5140 | ADE: 1.13m | FDE: 1.92m | LR: 2.73e-04
+  Step 1200 | Loss: 2.4115 | ADE: 1.04m | FDE: 1.60m | LR: 2.74e-04
+  Step 1300 | Loss: 2.4553 | ADE: 1.18m | FDE: 1.95m | LR: 2.75e-04
+  Step 1400 | Loss: 2.4167 | ADE: 1.05m | FDE: 2.02m | LR: 2.75e-04
+  Step 1500 | Loss: 2.4435 | ADE: 1.08m | FDE: 1.80m | LR: 2.76e-04
+
+Epoch 16 completed in 1409.7s
+  Avg Train Loss: 2.4966
+
+  Running validation...
+2026-03-16 20:13:36.960349: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 20:13:36.966445: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 20:13:36.971969: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 20:13:36.976292: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 20:13:36.977907: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 20:13:36.983113: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  [VAL] Loss: 2.5337 | ADE: 1.40m | FDE: 2.35m
+  ✓ New best! Loss: 2.5337, ADE: 1.40m
+
+========================================
+Epoch 17/20
+========================================
+2026-03-16 20:13:53.748520: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 20:13:53.753216: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 20:13:53.757776: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 20:13:53.758863: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 20:13:53.761798: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 20:13:53.808395: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  Step 100 | Loss: 2.4404 | ADE: 1.12m | FDE: 1.72m | LR: 2.78e-04
+  Step 200 | Loss: 2.3426 | ADE: 1.00m | FDE: 1.83m | LR: 2.78e-04
+  Step 300 | Loss: 2.5353 | ADE: 1.19m | FDE: 2.11m | LR: 2.79e-04
+  Step 400 | Loss: 2.4518 | ADE: 1.20m | FDE: 1.85m | LR: 2.80e-04
+  Step 500 | Loss: 2.4569 | ADE: 0.99m | FDE: 1.71m | LR: 2.81e-04
+  Step 600 | Loss: 2.8326 | ADE: 1.37m | FDE: 2.58m | LR: 2.81e-04
+  Step 700 | Loss: 2.5132 | ADE: 1.14m | FDE: 1.55m | LR: 2.82e-04
+  Step 800 | Loss: 2.3233 | ADE: 0.97m | FDE: 1.73m | LR: 2.83e-04
+  Step 900 | Loss: 2.3285 | ADE: 0.83m | FDE: 1.53m | LR: 2.83e-04
+  Step 1000 | Loss: 2.4132 | ADE: 1.14m | FDE: 2.29m | LR: 2.84e-04
+  Step 1100 | Loss: 2.4204 | ADE: 1.05m | FDE: 1.79m | LR: 2.85e-04
+  Step 1200 | Loss: 2.5679 | ADE: 0.99m | FDE: 1.54m | LR: 2.85e-04
+  Step 1300 | Loss: 2.4251 | ADE: 1.08m | FDE: 2.09m | LR: 2.86e-04
+  Step 1400 | Loss: 2.6283 | ADE: 1.48m | FDE: 2.87m | LR: 2.87e-04
+  Step 1500 | Loss: 2.4794 | ADE: 1.09m | FDE: 2.24m | LR: 2.87e-04
+
+Epoch 17 completed in 1462.9s
+  Avg Train Loss: 2.4703
+
+  Running validation...
+2026-03-16 20:38:16.624442: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 20:38:16.630603: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 20:38:16.632235: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 20:38:16.635343: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 20:38:16.641489: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 20:38:16.647433: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  [VAL] Loss: 2.4404 | ADE: 1.08m | FDE: 1.72m
+  ✓ New best! Loss: 2.4404, ADE: 1.08m
+
+========================================
+Epoch 18/20
+========================================
+2026-03-16 20:38:37.877235: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 20:38:37.877480: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 20:38:37.878182: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 20:38:37.879653: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 20:38:37.882308: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 20:38:37.911763: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  Step 100 | Loss: 2.4789 | ADE: 1.19m | FDE: 2.17m | LR: 2.88e-04
+  Step 200 | Loss: 2.3445 | ADE: 0.89m | FDE: 1.66m | LR: 2.89e-04
+  Step 300 | Loss: 2.4282 | ADE: 1.22m | FDE: 2.18m | LR: 2.90e-04
+  Step 400 | Loss: 2.5512 | ADE: 1.27m | FDE: 2.54m | LR: 2.90e-04
+  Step 500 | Loss: 2.3634 | ADE: 1.20m | FDE: 2.01m | LR: 2.91e-04
+  Step 600 | Loss: 2.2694 | ADE: 0.87m | FDE: 1.25m | LR: 2.91e-04
+  Step 700 | Loss: 2.3982 | ADE: 0.93m | FDE: 1.70m | LR: 2.92e-04
+  Step 800 | Loss: 2.4561 | ADE: 0.92m | FDE: 1.58m | LR: 2.92e-04
+  Step 900 | Loss: 2.4536 | ADE: 0.97m | FDE: 1.60m | LR: 2.93e-04
+  Step 1000 | Loss: 2.4085 | ADE: 1.14m | FDE: 2.23m | LR: 2.93e-04
+  Step 1100 | Loss: 2.4307 | ADE: 0.93m | FDE: 1.53m | LR: 2.93e-04
+  Step 1200 | Loss: 2.3809 | ADE: 1.21m | FDE: 2.39m | LR: 2.94e-04
+  Step 1300 | Loss: 2.4182 | ADE: 1.25m | FDE: 1.95m | LR: 2.94e-04
+  Step 1400 | Loss: 2.5701 | ADE: 1.49m | FDE: 2.45m | LR: 2.95e-04
+  Step 1500 | Loss: 2.3739 | ADE: 1.07m | FDE: 1.53m | LR: 2.95e-04
+
+Epoch 18 completed in 1408.4s
+  Avg Train Loss: 2.4388
+
+  Running validation...
+2026-03-16 21:02:06.311718: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 21:02:06.312569: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 21:02:06.315000: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 21:02:06.317514: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 21:02:06.319558: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 21:02:06.323922: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  [VAL] Loss: 2.4842 | ADE: 1.05m | FDE: 1.88m
+  No improvement (1/15)
+
+========================================
+Epoch 19/20
+========================================
+2026-03-16 21:02:22.355882: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 21:02:22.355882: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 21:02:22.363289: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 21:02:22.364943: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 21:02:22.365780: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 21:02:22.374837: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  Step 100 | Loss: 2.3257 | ADE: 0.76m | FDE: 1.51m | LR: 2.96e-04
+  Step 200 | Loss: 2.3952 | ADE: 0.93m | FDE: 1.68m | LR: 2.96e-04
+  Step 300 | Loss: 2.5623 | ADE: 1.63m | FDE: 2.18m | LR: 2.96e-04
+  Step 400 | Loss: 2.3434 | ADE: 0.94m | FDE: 1.69m | LR: 2.97e-04
+  Step 500 | Loss: 2.4386 | ADE: 1.22m | FDE: 2.13m | LR: 2.97e-04
+  Step 600 | Loss: 2.4431 | ADE: 0.99m | FDE: 1.76m | LR: 2.97e-04
+  Step 700 | Loss: 2.3689 | ADE: 0.96m | FDE: 1.55m | LR: 2.98e-04
+  Step 800 | Loss: 2.3552 | ADE: 0.96m | FDE: 2.30m | LR: 2.98e-04
+  Step 900 | Loss: 2.4015 | ADE: 1.17m | FDE: 2.13m | LR: 2.98e-04
+  Step 1000 | Loss: 2.3439 | ADE: 1.03m | FDE: 1.89m | LR: 2.98e-04
+  Step 1100 | Loss: 2.3572 | ADE: 1.03m | FDE: 1.66m | LR: 2.99e-04
+  Step 1200 | Loss: 2.4626 | ADE: 1.23m | FDE: 2.07m | LR: 2.99e-04
+  Step 1300 | Loss: 2.2703 | ADE: 0.90m | FDE: 1.69m | LR: 2.99e-04
+  Step 1400 | Loss: 2.4977 | ADE: 1.10m | FDE: 1.96m | LR: 2.99e-04
+  Step 1500 | Loss: 2.3561 | ADE: 1.00m | FDE: 1.65m | LR: 2.99e-04
+
+Epoch 19 completed in 1462.8s
+  Avg Train Loss: 2.4288
+
+  Running validation...
+2026-03-16 21:26:45.196684: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 21:26:45.205911: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 21:26:45.212109: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 21:26:45.212177: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 21:26:45.212549: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 21:26:45.213404: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  [VAL] Loss: 2.3487 | ADE: 0.89m | FDE: 1.56m
+  ✓ New best! Loss: 2.3487, ADE: 0.89m
+
+========================================
+Epoch 20/20
+========================================
+2026-03-16 21:27:06.393604: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 21:27:06.394814: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 21:27:06.396891: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 21:27:06.399037: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 21:27:06.399526: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 21:27:06.411531: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  Step 100 | Loss: 2.4572 | ADE: 0.98m | FDE: 1.66m | LR: 3.00e-04
+  Step 200 | Loss: 2.5132 | ADE: 1.21m | FDE: 2.31m | LR: 3.00e-04
+  Step 300 | Loss: 2.3356 | ADE: 0.90m | FDE: 1.63m | LR: 3.00e-04
+  Step 400 | Loss: 2.3259 | ADE: 0.86m | FDE: 1.87m | LR: 3.00e-04
+  Step 500 | Loss: 2.3338 | ADE: 0.86m | FDE: 1.50m | LR: 3.00e-04
+  Step 600 | Loss: 2.3381 | ADE: 1.01m | FDE: 1.84m | LR: 3.00e-04
+  Step 700 | Loss: 2.4613 | ADE: 1.16m | FDE: 1.96m | LR: 3.00e-04
+  Step 800 | Loss: 2.4135 | ADE: 1.11m | FDE: 2.01m | LR: 3.00e-04
+  Step 900 | Loss: 2.4773 | ADE: 1.07m | FDE: 1.68m | LR: 3.00e-04
+  Step 1000 | Loss: 2.4675 | ADE: 1.06m | FDE: 1.75m | LR: 3.00e-04
+  Step 1100 | Loss: 2.3868 | ADE: 0.96m | FDE: 1.76m | LR: 3.00e-04
+  Step 1200 | Loss: 2.3167 | ADE: 0.94m | FDE: 1.50m | LR: 3.00e-04
+  Step 1300 | Loss: 2.4251 | ADE: 1.06m | FDE: 1.71m | LR: 3.00e-04
+  Step 1400 | Loss: 2.5389 | ADE: 1.33m | FDE: 2.30m | LR: 3.00e-04
+  Step 1500 | Loss: 2.3629 | ADE: 0.92m | FDE: 1.93m | LR: 3.00e-04
+
+Epoch 20 completed in 1473.3s
+  Avg Train Loss: 2.4063
+
+  Running validation...
+2026-03-16 21:51:39.739451: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 21:51:39.741916: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 21:51:39.743985: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 21:51:39.750428: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 21:51:39.755062: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-16 21:51:39.777837: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  [VAL] Loss: 2.4070 | ADE: 0.88m | FDE: 1.52m
+  No improvement (1/15)
+
+============================================================
+Training Complete!
+  Best Loss: 2.3487
+  Best ADE: 0.89m
+  Checkpoints: /workspace/models/RECTOR/output/rector_full_20260316_123249
+============================================================

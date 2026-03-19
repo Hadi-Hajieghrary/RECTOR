@@ -1,0 +1,4063 @@
+{
+  "metadata": {
+    "timestamp": "2026-03-19T03:54:57.291176",
+    "sample_count": 12800,
+    "grid_size": 250,
+    "optimize_metric": "SL_Viol_pct",
+    "cache_time_s": 88.72329473495483,
+    "sweep_time_s": 92.84158968925476,
+    "include_misspecification": true,
+    "safety_weights_used": [
+      1,
+      5,
+      10,
+      20,
+      50,
+      100,
+      500,
+      1000,
+      2000,
+      5000
+    ]
+  },
+  "best_config": {
+    "selADE_mean": 2.043223777661333,
+    "selFDE_mean": 3.813224128133734,
+    "Total_Viol_pct": 15.031249999999998,
+    "SL_Viol_pct": 13.148437499999998,
+    "Safety_Viol_pct": 13.148437499999998,
+    "Legal_Viol_pct": 0.0,
+    "Road_Viol_pct": 0.0,
+    "Comfort_Viol_pct": 2.0390625,
+    "weights": {
+      "safety": 5,
+      "legal": 10,
+      "road": 1,
+      "comfort": 1.0
+    }
+  },
+  "default_config": {
+    "selADE_mean": 2.043361963295611,
+    "selFDE_mean": 3.8134644772025057,
+    "Total_Viol_pct": 15.031249999999998,
+    "SL_Viol_pct": 13.148437499999998,
+    "Safety_Viol_pct": 13.148437499999998,
+    "Legal_Viol_pct": 0.0,
+    "Road_Viol_pct": 0.0,
+    "Comfort_Viol_pct": 2.0703125,
+    "weights": {
+      "safety": 1000,
+      "legal": 100,
+      "road": 10,
+      "comfort": 1.0
+    }
+  },
+  "lexicographic_baseline": {
+    "selADE_mean": 2.142556873235153,
+    "selFDE_mean": 4.1508742221235115,
+    "Total_Viol_pct": 15.031249999999998,
+    "SL_Viol_pct": 13.148437499999998
+  },
+  "all_results": [
+    {
+      "selADE_mean": 2.043418242363259,
+      "selFDE_mean": 3.813594712955528,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.15625,
+      "Safety_Viol_pct": 13.15625,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.03125,
+      "weights": {
+        "safety": 1,
+        "legal": 10,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043418242363259,
+      "selFDE_mean": 3.813594712955528,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.15625,
+      "Safety_Viol_pct": 13.15625,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.03125,
+      "weights": {
+        "safety": 1,
+        "legal": 10,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043418242363259,
+      "selFDE_mean": 3.813594712955528,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.15625,
+      "Safety_Viol_pct": 13.15625,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.03125,
+      "weights": {
+        "safety": 1,
+        "legal": 10,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043418242363259,
+      "selFDE_mean": 3.813594712955528,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.15625,
+      "Safety_Viol_pct": 13.15625,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.03125,
+      "weights": {
+        "safety": 1,
+        "legal": 10,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043418242363259,
+      "selFDE_mean": 3.813594712955528,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.15625,
+      "Safety_Viol_pct": 13.15625,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.03125,
+      "weights": {
+        "safety": 1,
+        "legal": 10,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043418242363259,
+      "selFDE_mean": 3.813594712955528,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.15625,
+      "Safety_Viol_pct": 13.15625,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.03125,
+      "weights": {
+        "safety": 1,
+        "legal": 50,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043418242363259,
+      "selFDE_mean": 3.813594712955528,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.15625,
+      "Safety_Viol_pct": 13.15625,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.03125,
+      "weights": {
+        "safety": 1,
+        "legal": 50,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043418242363259,
+      "selFDE_mean": 3.813594712955528,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.15625,
+      "Safety_Viol_pct": 13.15625,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.03125,
+      "weights": {
+        "safety": 1,
+        "legal": 50,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043418242363259,
+      "selFDE_mean": 3.813594712955528,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.15625,
+      "Safety_Viol_pct": 13.15625,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.03125,
+      "weights": {
+        "safety": 1,
+        "legal": 50,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043418242363259,
+      "selFDE_mean": 3.813594712955528,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.15625,
+      "Safety_Viol_pct": 13.15625,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.03125,
+      "weights": {
+        "safety": 1,
+        "legal": 50,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043418242363259,
+      "selFDE_mean": 3.813594712955528,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.15625,
+      "Safety_Viol_pct": 13.15625,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.03125,
+      "weights": {
+        "safety": 1,
+        "legal": 100,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043418242363259,
+      "selFDE_mean": 3.813594712955528,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.15625,
+      "Safety_Viol_pct": 13.15625,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.03125,
+      "weights": {
+        "safety": 1,
+        "legal": 100,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043418242363259,
+      "selFDE_mean": 3.813594712955528,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.15625,
+      "Safety_Viol_pct": 13.15625,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.03125,
+      "weights": {
+        "safety": 1,
+        "legal": 100,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043418242363259,
+      "selFDE_mean": 3.813594712955528,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.15625,
+      "Safety_Viol_pct": 13.15625,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.03125,
+      "weights": {
+        "safety": 1,
+        "legal": 100,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043418242363259,
+      "selFDE_mean": 3.813594712955528,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.15625,
+      "Safety_Viol_pct": 13.15625,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.03125,
+      "weights": {
+        "safety": 1,
+        "legal": 100,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043418242363259,
+      "selFDE_mean": 3.813594712955528,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.15625,
+      "Safety_Viol_pct": 13.15625,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.03125,
+      "weights": {
+        "safety": 1,
+        "legal": 200,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043418242363259,
+      "selFDE_mean": 3.813594712955528,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.15625,
+      "Safety_Viol_pct": 13.15625,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.03125,
+      "weights": {
+        "safety": 1,
+        "legal": 200,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043418242363259,
+      "selFDE_mean": 3.813594712955528,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.15625,
+      "Safety_Viol_pct": 13.15625,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.03125,
+      "weights": {
+        "safety": 1,
+        "legal": 200,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043418242363259,
+      "selFDE_mean": 3.813594712955528,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.15625,
+      "Safety_Viol_pct": 13.15625,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.03125,
+      "weights": {
+        "safety": 1,
+        "legal": 200,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043418242363259,
+      "selFDE_mean": 3.813594712955528,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.15625,
+      "Safety_Viol_pct": 13.15625,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.03125,
+      "weights": {
+        "safety": 1,
+        "legal": 200,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043418242363259,
+      "selFDE_mean": 3.813594712955528,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.15625,
+      "Safety_Viol_pct": 13.15625,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.03125,
+      "weights": {
+        "safety": 1,
+        "legal": 500,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043418242363259,
+      "selFDE_mean": 3.813594712955528,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.15625,
+      "Safety_Viol_pct": 13.15625,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.03125,
+      "weights": {
+        "safety": 1,
+        "legal": 500,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043418242363259,
+      "selFDE_mean": 3.813594712955528,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.15625,
+      "Safety_Viol_pct": 13.15625,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.03125,
+      "weights": {
+        "safety": 1,
+        "legal": 500,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043418242363259,
+      "selFDE_mean": 3.813594712955528,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.15625,
+      "Safety_Viol_pct": 13.15625,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.03125,
+      "weights": {
+        "safety": 1,
+        "legal": 500,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043418242363259,
+      "selFDE_mean": 3.813594712955528,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.15625,
+      "Safety_Viol_pct": 13.15625,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.03125,
+      "weights": {
+        "safety": 1,
+        "legal": 500,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043223777661333,
+      "selFDE_mean": 3.813224128133734,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 5,
+        "legal": 10,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043223777661333,
+      "selFDE_mean": 3.813224128133734,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 5,
+        "legal": 10,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043223777661333,
+      "selFDE_mean": 3.813224128133734,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 5,
+        "legal": 10,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043223777661333,
+      "selFDE_mean": 3.813224128133734,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 5,
+        "legal": 10,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043223777661333,
+      "selFDE_mean": 3.813224128133734,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 5,
+        "legal": 10,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043223777661333,
+      "selFDE_mean": 3.813224128133734,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 5,
+        "legal": 50,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043223777661333,
+      "selFDE_mean": 3.813224128133734,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 5,
+        "legal": 50,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043223777661333,
+      "selFDE_mean": 3.813224128133734,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 5,
+        "legal": 50,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043223777661333,
+      "selFDE_mean": 3.813224128133734,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 5,
+        "legal": 50,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043223777661333,
+      "selFDE_mean": 3.813224128133734,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 5,
+        "legal": 50,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043223777661333,
+      "selFDE_mean": 3.813224128133734,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 5,
+        "legal": 100,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043223777661333,
+      "selFDE_mean": 3.813224128133734,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 5,
+        "legal": 100,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043223777661333,
+      "selFDE_mean": 3.813224128133734,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 5,
+        "legal": 100,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043223777661333,
+      "selFDE_mean": 3.813224128133734,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 5,
+        "legal": 100,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043223777661333,
+      "selFDE_mean": 3.813224128133734,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 5,
+        "legal": 100,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043223777661333,
+      "selFDE_mean": 3.813224128133734,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 5,
+        "legal": 200,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043223777661333,
+      "selFDE_mean": 3.813224128133734,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 5,
+        "legal": 200,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043223777661333,
+      "selFDE_mean": 3.813224128133734,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 5,
+        "legal": 200,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043223777661333,
+      "selFDE_mean": 3.813224128133734,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 5,
+        "legal": 200,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043223777661333,
+      "selFDE_mean": 3.813224128133734,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 5,
+        "legal": 200,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043223777661333,
+      "selFDE_mean": 3.813224128133734,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 5,
+        "legal": 500,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043223777661333,
+      "selFDE_mean": 3.813224128133734,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 5,
+        "legal": 500,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043223777661333,
+      "selFDE_mean": 3.813224128133734,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 5,
+        "legal": 500,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043223777661333,
+      "selFDE_mean": 3.813224128133734,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 5,
+        "legal": 500,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043223777661333,
+      "selFDE_mean": 3.813224128133734,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 5,
+        "legal": 500,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 10,
+        "legal": 10,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 10,
+        "legal": 10,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 10,
+        "legal": 10,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 10,
+        "legal": 10,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 10,
+        "legal": 10,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 10,
+        "legal": 50,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 10,
+        "legal": 50,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 10,
+        "legal": 50,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 10,
+        "legal": 50,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 10,
+        "legal": 50,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 10,
+        "legal": 100,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 10,
+        "legal": 100,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 10,
+        "legal": 100,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 10,
+        "legal": 100,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 10,
+        "legal": 100,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 10,
+        "legal": 200,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 10,
+        "legal": 200,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 10,
+        "legal": 200,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 10,
+        "legal": 200,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 10,
+        "legal": 200,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 10,
+        "legal": 500,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 10,
+        "legal": 500,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 10,
+        "legal": 500,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 10,
+        "legal": 500,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 10,
+        "legal": 500,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 20,
+        "legal": 10,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 20,
+        "legal": 10,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 20,
+        "legal": 10,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 20,
+        "legal": 10,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 20,
+        "legal": 10,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 20,
+        "legal": 50,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 20,
+        "legal": 50,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 20,
+        "legal": 50,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 20,
+        "legal": 50,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 20,
+        "legal": 50,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 20,
+        "legal": 100,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 20,
+        "legal": 100,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 20,
+        "legal": 100,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 20,
+        "legal": 100,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 20,
+        "legal": 100,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 20,
+        "legal": 200,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 20,
+        "legal": 200,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 20,
+        "legal": 200,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 20,
+        "legal": 200,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 20,
+        "legal": 200,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 20,
+        "legal": 500,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 20,
+        "legal": 500,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 20,
+        "legal": 500,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 20,
+        "legal": 500,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043402445729589,
+      "selFDE_mean": 3.813396147308522,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 20,
+        "legal": 500,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043420978997601,
+      "selFDE_mean": 3.813462099340395,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 50,
+        "legal": 10,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043420978997601,
+      "selFDE_mean": 3.813462099340395,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 50,
+        "legal": 10,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043420978997601,
+      "selFDE_mean": 3.813462099340395,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 50,
+        "legal": 10,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043420978997601,
+      "selFDE_mean": 3.813462099340395,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 50,
+        "legal": 10,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043420978997601,
+      "selFDE_mean": 3.813462099340395,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 50,
+        "legal": 10,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043420978997601,
+      "selFDE_mean": 3.813462099340395,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 50,
+        "legal": 50,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043420978997601,
+      "selFDE_mean": 3.813462099340395,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 50,
+        "legal": 50,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043420978997601,
+      "selFDE_mean": 3.813462099340395,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 50,
+        "legal": 50,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043420978997601,
+      "selFDE_mean": 3.813462099340395,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 50,
+        "legal": 50,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043420978997601,
+      "selFDE_mean": 3.813462099340395,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 50,
+        "legal": 50,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043420978997601,
+      "selFDE_mean": 3.813462099340395,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 50,
+        "legal": 100,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043420978997601,
+      "selFDE_mean": 3.813462099340395,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 50,
+        "legal": 100,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043420978997601,
+      "selFDE_mean": 3.813462099340395,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 50,
+        "legal": 100,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043420978997601,
+      "selFDE_mean": 3.813462099340395,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 50,
+        "legal": 100,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043420978997601,
+      "selFDE_mean": 3.813462099340395,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 50,
+        "legal": 100,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043420978997601,
+      "selFDE_mean": 3.813462099340395,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 50,
+        "legal": 200,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043420978997601,
+      "selFDE_mean": 3.813462099340395,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 50,
+        "legal": 200,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043420978997601,
+      "selFDE_mean": 3.813462099340395,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 50,
+        "legal": 200,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043420978997601,
+      "selFDE_mean": 3.813462099340395,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 50,
+        "legal": 200,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043420978997601,
+      "selFDE_mean": 3.813462099340395,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 50,
+        "legal": 200,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043420978997601,
+      "selFDE_mean": 3.813462099340395,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 50,
+        "legal": 500,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043420978997601,
+      "selFDE_mean": 3.813462099340395,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 50,
+        "legal": 500,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043420978997601,
+      "selFDE_mean": 3.813462099340395,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 50,
+        "legal": 500,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043420978997601,
+      "selFDE_mean": 3.813462099340395,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 50,
+        "legal": 500,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043420978997601,
+      "selFDE_mean": 3.813462099340395,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0390625,
+      "weights": {
+        "safety": 50,
+        "legal": 500,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.04352984887897,
+      "selFDE_mean": 3.8136301711277336,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 100,
+        "legal": 10,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.04352984887897,
+      "selFDE_mean": 3.8136301711277336,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 100,
+        "legal": 10,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.04352984887897,
+      "selFDE_mean": 3.8136301711277336,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 100,
+        "legal": 10,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.04352984887897,
+      "selFDE_mean": 3.8136301711277336,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 100,
+        "legal": 10,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.04352984887897,
+      "selFDE_mean": 3.8136301711277336,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 100,
+        "legal": 10,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.04352984887897,
+      "selFDE_mean": 3.8136301711277336,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 100,
+        "legal": 50,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.04352984887897,
+      "selFDE_mean": 3.8136301711277336,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 100,
+        "legal": 50,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.04352984887897,
+      "selFDE_mean": 3.8136301711277336,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 100,
+        "legal": 50,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.04352984887897,
+      "selFDE_mean": 3.8136301711277336,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 100,
+        "legal": 50,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.04352984887897,
+      "selFDE_mean": 3.8136301711277336,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 100,
+        "legal": 50,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.04352984887897,
+      "selFDE_mean": 3.8136301711277336,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 100,
+        "legal": 100,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.04352984887897,
+      "selFDE_mean": 3.8136301711277336,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 100,
+        "legal": 100,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.04352984887897,
+      "selFDE_mean": 3.8136301711277336,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 100,
+        "legal": 100,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.04352984887897,
+      "selFDE_mean": 3.8136301711277336,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 100,
+        "legal": 100,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.04352984887897,
+      "selFDE_mean": 3.8136301711277336,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 100,
+        "legal": 100,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.04352984887897,
+      "selFDE_mean": 3.8136301711277336,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 100,
+        "legal": 200,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.04352984887897,
+      "selFDE_mean": 3.8136301711277336,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 100,
+        "legal": 200,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.04352984887897,
+      "selFDE_mean": 3.8136301711277336,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 100,
+        "legal": 200,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.04352984887897,
+      "selFDE_mean": 3.8136301711277336,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 100,
+        "legal": 200,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.04352984887897,
+      "selFDE_mean": 3.8136301711277336,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 100,
+        "legal": 200,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.04352984887897,
+      "selFDE_mean": 3.8136301711277336,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 100,
+        "legal": 500,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.04352984887897,
+      "selFDE_mean": 3.8136301711277336,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 100,
+        "legal": 500,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.04352984887897,
+      "selFDE_mean": 3.8136301711277336,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 100,
+        "legal": 500,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.04352984887897,
+      "selFDE_mean": 3.8136301711277336,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 100,
+        "legal": 500,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.04352984887897,
+      "selFDE_mean": 3.8136301711277336,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 100,
+        "legal": 500,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043610889223637,
+      "selFDE_mean": 3.8137211643211777,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 500,
+        "legal": 10,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043610889223637,
+      "selFDE_mean": 3.8137211643211777,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 500,
+        "legal": 10,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043610889223637,
+      "selFDE_mean": 3.8137211643211777,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 500,
+        "legal": 10,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043610889223637,
+      "selFDE_mean": 3.8137211643211777,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 500,
+        "legal": 10,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043610889223637,
+      "selFDE_mean": 3.8137211643211777,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 500,
+        "legal": 10,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043610889223637,
+      "selFDE_mean": 3.8137211643211777,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 500,
+        "legal": 50,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043610889223637,
+      "selFDE_mean": 3.8137211643211777,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 500,
+        "legal": 50,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043610889223637,
+      "selFDE_mean": 3.8137211643211777,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 500,
+        "legal": 50,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043610889223637,
+      "selFDE_mean": 3.8137211643211777,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 500,
+        "legal": 50,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043610889223637,
+      "selFDE_mean": 3.8137211643211777,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 500,
+        "legal": 50,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043610889223637,
+      "selFDE_mean": 3.8137211643211777,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 500,
+        "legal": 100,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043610889223637,
+      "selFDE_mean": 3.8137211643211777,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 500,
+        "legal": 100,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043610889223637,
+      "selFDE_mean": 3.8137211643211777,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 500,
+        "legal": 100,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043610889223637,
+      "selFDE_mean": 3.8137211643211777,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 500,
+        "legal": 100,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043610889223637,
+      "selFDE_mean": 3.8137211643211777,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 500,
+        "legal": 100,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043610889223637,
+      "selFDE_mean": 3.8137211643211777,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 500,
+        "legal": 200,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043610889223637,
+      "selFDE_mean": 3.8137211643211777,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 500,
+        "legal": 200,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043610889223637,
+      "selFDE_mean": 3.8137211643211777,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 500,
+        "legal": 200,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043610889223637,
+      "selFDE_mean": 3.8137211643211777,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 500,
+        "legal": 200,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043610889223637,
+      "selFDE_mean": 3.8137211643211777,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 500,
+        "legal": 200,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043610889223637,
+      "selFDE_mean": 3.8137211643211777,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 500,
+        "legal": 500,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043610889223637,
+      "selFDE_mean": 3.8137211643211777,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 500,
+        "legal": 500,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043610889223637,
+      "selFDE_mean": 3.8137211643211777,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 500,
+        "legal": 500,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043610889223637,
+      "selFDE_mean": 3.8137211643211777,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 500,
+        "legal": 500,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043610889223637,
+      "selFDE_mean": 3.8137211643211777,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0546875,
+      "weights": {
+        "safety": 500,
+        "legal": 500,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043361963295611,
+      "selFDE_mean": 3.8134644772025057,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 1000,
+        "legal": 10,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043361963295611,
+      "selFDE_mean": 3.8134644772025057,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 1000,
+        "legal": 10,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043361963295611,
+      "selFDE_mean": 3.8134644772025057,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 1000,
+        "legal": 10,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043361963295611,
+      "selFDE_mean": 3.8134644772025057,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 1000,
+        "legal": 10,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043361963295611,
+      "selFDE_mean": 3.8134644772025057,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 1000,
+        "legal": 10,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043361963295611,
+      "selFDE_mean": 3.8134644772025057,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 1000,
+        "legal": 50,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043361963295611,
+      "selFDE_mean": 3.8134644772025057,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 1000,
+        "legal": 50,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043361963295611,
+      "selFDE_mean": 3.8134644772025057,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 1000,
+        "legal": 50,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043361963295611,
+      "selFDE_mean": 3.8134644772025057,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 1000,
+        "legal": 50,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043361963295611,
+      "selFDE_mean": 3.8134644772025057,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 1000,
+        "legal": 50,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043361963295611,
+      "selFDE_mean": 3.8134644772025057,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 1000,
+        "legal": 100,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043361963295611,
+      "selFDE_mean": 3.8134644772025057,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 1000,
+        "legal": 100,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043361963295611,
+      "selFDE_mean": 3.8134644772025057,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 1000,
+        "legal": 100,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043361963295611,
+      "selFDE_mean": 3.8134644772025057,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 1000,
+        "legal": 100,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043361963295611,
+      "selFDE_mean": 3.8134644772025057,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 1000,
+        "legal": 100,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043361963295611,
+      "selFDE_mean": 3.8134644772025057,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 1000,
+        "legal": 200,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043361963295611,
+      "selFDE_mean": 3.8134644772025057,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 1000,
+        "legal": 200,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043361963295611,
+      "selFDE_mean": 3.8134644772025057,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 1000,
+        "legal": 200,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043361963295611,
+      "selFDE_mean": 3.8134644772025057,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 1000,
+        "legal": 200,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043361963295611,
+      "selFDE_mean": 3.8134644772025057,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 1000,
+        "legal": 200,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043361963295611,
+      "selFDE_mean": 3.8134644772025057,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 1000,
+        "legal": 500,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043361963295611,
+      "selFDE_mean": 3.8134644772025057,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 1000,
+        "legal": 500,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043361963295611,
+      "selFDE_mean": 3.8134644772025057,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 1000,
+        "legal": 500,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043361963295611,
+      "selFDE_mean": 3.8134644772025057,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 1000,
+        "legal": 500,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043361963295611,
+      "selFDE_mean": 3.8134644772025057,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 1000,
+        "legal": 500,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 2000,
+        "legal": 10,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 2000,
+        "legal": 10,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 2000,
+        "legal": 10,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 2000,
+        "legal": 10,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 2000,
+        "legal": 10,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 2000,
+        "legal": 50,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 2000,
+        "legal": 50,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 2000,
+        "legal": 50,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 2000,
+        "legal": 50,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 2000,
+        "legal": 50,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 2000,
+        "legal": 100,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 2000,
+        "legal": 100,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 2000,
+        "legal": 100,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 2000,
+        "legal": 100,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 2000,
+        "legal": 100,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 2000,
+        "legal": 200,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 2000,
+        "legal": 200,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 2000,
+        "legal": 200,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 2000,
+        "legal": 200,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 2000,
+        "legal": 200,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 2000,
+        "legal": 500,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 2000,
+        "legal": 500,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 2000,
+        "legal": 500,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 2000,
+        "legal": 500,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 2000,
+        "legal": 500,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 5000,
+        "legal": 10,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 5000,
+        "legal": 10,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 5000,
+        "legal": 10,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 5000,
+        "legal": 10,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 5000,
+        "legal": 10,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 5000,
+        "legal": 50,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 5000,
+        "legal": 50,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 5000,
+        "legal": 50,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 5000,
+        "legal": 50,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 5000,
+        "legal": 50,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 5000,
+        "legal": 100,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 5000,
+        "legal": 100,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 5000,
+        "legal": 100,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 5000,
+        "legal": 100,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 5000,
+        "legal": 100,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 5000,
+        "legal": 200,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 5000,
+        "legal": 200,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 5000,
+        "legal": 200,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 5000,
+        "legal": 200,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 5000,
+        "legal": 200,
+        "road": 50,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 5000,
+        "legal": 500,
+        "road": 1,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 5000,
+        "legal": 500,
+        "road": 5,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 5000,
+        "legal": 500,
+        "road": 10,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 5000,
+        "legal": 500,
+        "road": 20,
+        "comfort": 1.0
+      }
+    },
+    {
+      "selADE_mean": 2.043369447068544,
+      "selFDE_mean": 3.8134602003736653,
+      "Total_Viol_pct": 15.031249999999998,
+      "SL_Viol_pct": 13.148437499999998,
+      "Safety_Viol_pct": 13.148437499999998,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 2.0703125,
+      "weights": {
+        "safety": 5000,
+        "legal": 500,
+        "road": 50,
+        "comfort": 1.0
+      }
+    }
+  ]
+}

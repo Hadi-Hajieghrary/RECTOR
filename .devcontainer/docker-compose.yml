@@ -1,0 +1,86 @@
+services:
+  rector-dev:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+      args:
+        USERNAME: developer
+        USER_UID: 1000
+        USER_GID: 1000
+
+    image: rector-dev:latest
+
+    # GPU configuration (modern Docker Compose syntax)
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
+
+    # Shared memory for PyTorch dataloaders and JAX XLA compilation
+    shm_size: "8gb"
+
+    # Volume mounts
+    # All project directories are on host filesystem for persistence and easy access
+    volumes:
+      # Mount entire workspace
+      - ..:/workspace:cached
+
+      # Python virtual environment (named volume - persists across restarts AND rebuilds, use `docker volume rm rector-venv` to reset)
+      - rector-venv:/opt/venv
+
+    # =========================================================================
+    # Environment variables
+    # NOTE: All env vars are defined here (docker-compose.yml) so they are
+    # available to BOTH `devcontainer` sessions AND `docker exec` sessions.
+    # devcontainer.json containerEnv only adds devcontainer-specific overrides.
+    # =========================================================================
+    environment:
+      # GPU / NVIDIA
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+      - CUDA_VISIBLE_DEVICES=0
+      # Python
+      - PYTHONUNBUFFERED=1
+      - PYTHONIOENCODING=utf-8
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONPATH=/workspace:/workspace/externals/M2I/src
+      # JAX / XLA (Waymax simulation engine)
+      # Prevent JAX from pre-allocating all GPU memory (share with PyTorch)
+      - XLA_PYTHON_CLIENT_PREALLOCATE=false
+      # Limit JAX GPU memory to 35% — PyTorch gets the remainder
+      - XLA_PYTHON_CLIENT_MEM_FRACTION=0.35
+      # Allow TF (CPU-only, used for data loading) to grow memory on demand
+      - TF_FORCE_GPU_ALLOW_GROWTH=true
+      # Disable TF GPU visibility entirely (TF is CPU-only in this project)
+      - TF_CPP_MIN_LOG_LEVEL=2
+      - CUDA_DEVICE_ORDER=PCI_BUS_ID
+      # Data paths
+      - WAYMO_DATA_ROOT=/workspace/data/WOMD/datasets/waymo_open_dataset/motion_v_1_3_0
+      - WAYMO_RAW_ROOT=/workspace/data/WOMD/datasets/waymo_open_dataset/motion_v_1_3_0/raw
+      - WAYMO_PROCESSED_ROOT=/workspace/data/WOMD/datasets/waymo_open_dataset/motion_v_1_3_0/processed
+      - WAYMO_MOVIES_ROOT=/workspace/data/WOMD/movies
+      # Closed-loop experiment paths
+      - SIMULATION_ENGINE_OUTPUT=/workspace/output/closedloop
+      - SIMULATION_ENGINE_FIGURES=/workspace/output/closedloop/figures
+      - SIMULATION_ENGINE_VIDEOS=/workspace/output/closedloop/videos
+      - SIMULATION_ENGINE_TRACES=/workspace/output/closedloop/traces
+      # Cache paths (on host filesystem)
+      - TORCH_HOME=/workspace/.cache/torch
+      - HF_HOME=/workspace/.cache/huggingface
+      - JAX_CACHE_DIR=/workspace/.cache/jax
+      # TORCH_CUDA_ARCH_LIST is auto-detected by PyTorch at runtime.
+      # Override via host env var if needed: export TORCH_CUDA_ARCH_LIST="8.6"
+      - TORCH_CUDA_ARCH_LIST=${TORCH_CUDA_ARCH_LIST:-}
+
+    working_dir: /workspace
+
+    # Keep container running
+    command: sleep infinity
+
+# Named volumes
+volumes:
+  rector-venv:
+    driver: local

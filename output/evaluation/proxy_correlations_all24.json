@@ -1,0 +1,280 @@
+{
+  "metadata": {
+    "sample_count": 512,
+    "matched_count": 256,
+    "elapsed_seconds": 43.670424699783325,
+    "checkpoint": "/workspace/models/RECTOR/models/best.pt"
+  },
+  "per_rule": {
+    "L0.R2": {
+      "tier": "Safety",
+      "tier_idx": 0,
+      "description": "Longitudinal safe distance",
+      "spearman_rho": -0.029405767815664285,
+      "fpr_pct": 65.5,
+      "fnr_pct": 33.92857142857143,
+      "f1": 0.33035714285714285,
+      "violation_rate_pct": 65.625,
+      "n_matched": 256
+    },
+    "L0.R3": {
+      "tier": "Safety",
+      "tier_idx": 0,
+      "description": "Collision/overlap avoidance",
+      "spearman_rho": -0.4543332422307857,
+      "fpr_pct": 69.11764705882354,
+      "fnr_pct": 64.8936170212766,
+      "f1": 0.43853820598006643,
+      "violation_rate_pct": 44.140625,
+      "n_matched": 256
+    },
+    "L0.R4": {
+      "tier": "Safety",
+      "tier_idx": 0,
+      "description": "Crosswalk clearance",
+      "spearman_rho": null,
+      "fpr_pct": 0.0,
+      "fnr_pct": 100.0,
+      "f1": 0.0,
+      "violation_rate_pct": 0.0,
+      "n_matched": 256
+    },
+    "L1.R1": {
+      "tier": "Comfort",
+      "tier_idx": 3,
+      "description": "Longitudinal acceleration",
+      "spearman_rho": null,
+      "fpr_pct": 0.0,
+      "fnr_pct": 100.0,
+      "f1": 0.0,
+      "violation_rate_pct": 0.0,
+      "n_matched": 256
+    },
+    "L1.R2": {
+      "tier": "Comfort",
+      "tier_idx": 3,
+      "description": "Lateral acceleration",
+      "spearman_rho": null,
+      "fpr_pct": 0.0,
+      "fnr_pct": 0.0,
+      "f1": 0.0,
+      "violation_rate_pct": 0.0,
+      "n_matched": 256
+    },
+    "L1.R3": {
+      "tier": "Comfort",
+      "tier_idx": 3,
+      "description": "Combined acceleration",
+      "spearman_rho": 0.34873269775751514,
+      "fpr_pct": 0.0,
+      "fnr_pct": 92.15686274509804,
+      "f1": 0.14545454545454545,
+      "violation_rate_pct": 7.8125,
+      "n_matched": 256
+    },
+    "L1.R4": {
+      "tier": "Comfort",
+      "tier_idx": 3,
+      "description": "Longitudinal jerk",
+      "spearman_rho": null,
+      "fpr_pct": 0.0,
+      "fnr_pct": 100.0,
+      "f1": 0.0,
+      "violation_rate_pct": 0.0,
+      "n_matched": 256
+    },
+    "L1.R5": {
+      "tier": "Comfort",
+      "tier_idx": 3,
+      "description": "Lateral jerk",
+      "spearman_rho": 0.37056211092232294,
+      "fpr_pct": 10.126582278481013,
+      "fnr_pct": 45.19774011299435,
+      "f1": 0.6879432624113475,
+      "violation_rate_pct": 41.015625,
+      "n_matched": 256
+    },
+    "L10.R1": {
+      "tier": "Safety",
+      "tier_idx": 0,
+      "description": "VRU longitudinal distance",
+      "spearman_rho": -0.034063505810216804,
+      "fpr_pct": 0.0,
+      "fnr_pct": 89.453125,
+      "f1": 0.19081272084805653,
+      "violation_rate_pct": 10.546875,
+      "n_matched": 256
+    },
+    "L10.R2": {
+      "tier": "Safety",
+      "tier_idx": 0,
+      "description": "VRU lateral clearance",
+      "spearman_rho": null,
+      "fpr_pct": 0.0,
+      "fnr_pct": 100.0,
+      "f1": 0.0,
+      "violation_rate_pct": 0.0,
+      "n_matched": 256
+    },
+    "L3.R3": {
+      "tier": "Road",
+      "tier_idx": 2,
+      "description": "Lane keeping",
+      "spearman_rho": 0.14632474889178626,
+      "fpr_pct": 100.0,
+      "fnr_pct": 32.94117647058823,
+      "f1": 0.8009367681498829,
+      "violation_rate_pct": 67.1875,
+      "n_matched": 256
+    },
+    "L4.R3": {
+      "tier": "Comfort",
+      "tier_idx": 3,
+      "description": "Left turn gap acceptance",
+      "spearman_rho": null,
+      "fpr_pct": 0.0,
+      "fnr_pct": 100.0,
+      "f1": 0.0,
+      "violation_rate_pct": 0.0,
+      "n_matched": 256
+    },
+    "L5.R1": {
+      "tier": "Legal",
+      "tier_idx": 1,
+      "description": "Traffic signal compliance",
+      "spearman_rho": null,
+      "fpr_pct": 0.0,
+      "fnr_pct": 0.0,
+      "f1": 0.0,
+      "violation_rate_pct": 0.0,
+      "n_matched": 256
+    },
+    "L6.R1": {
+      "tier": "Comfort",
+      "tier_idx": 3,
+      "description": "Following distance",
+      "spearman_rho": 0.2364778251065761,
+      "fpr_pct": 2.5,
+      "fnr_pct": 88.63636363636364,
+      "f1": 0.202020202020202,
+      "violation_rate_pct": 8.59375,
+      "n_matched": 256
+    },
+    "L6.R2": {
+      "tier": "Comfort",
+      "tier_idx": 3,
+      "description": "Lateral gap to neighbors",
+      "spearman_rho": 0.24285865442201335,
+      "fpr_pct": 57.377049180327866,
+      "fnr_pct": 0.0,
+      "f1": 0.14634146341463414,
+      "violation_rate_pct": 59.375,
+      "n_matched": 256
+    },
+    "L6.R3": {
+      "tier": "Comfort",
+      "tier_idx": 3,
+      "description": "Passing clearance",
+      "spearman_rho": null,
+      "fpr_pct": 0.0,
+      "fnr_pct": 100.0,
+      "f1": 0.0,
+      "violation_rate_pct": 0.0,
+      "n_matched": 256
+    },
+    "L6.R4": {
+      "tier": "Comfort",
+      "tier_idx": 3,
+      "description": "VRU lateral buffer",
+      "spearman_rho": null,
+      "fpr_pct": 0.0,
+      "fnr_pct": 100.0,
+      "f1": 0.0,
+      "violation_rate_pct": 0.0,
+      "n_matched": 256
+    },
+    "L6.R5": {
+      "tier": "Comfort",
+      "tier_idx": 3,
+      "description": "VRU longitudinal buffer",
+      "spearman_rho": null,
+      "fpr_pct": 0.0,
+      "fnr_pct": 100.0,
+      "f1": 0.0,
+      "violation_rate_pct": 0.0,
+      "n_matched": 256
+    },
+    "L7.R3": {
+      "tier": "Road",
+      "tier_idx": 2,
+      "description": "Drivable surface",
+      "spearman_rho": 0.042094812006495855,
+      "fpr_pct": 0.0,
+      "fnr_pct": 16.40625,
+      "f1": 0.9106382978723404,
+      "violation_rate_pct": 83.59375,
+      "n_matched": 256
+    },
+    "L7.R4": {
+      "tier": "Legal",
+      "tier_idx": 1,
+      "description": "Speed limit compliance",
+      "spearman_rho": 0.8070595341966852,
+      "fpr_pct": 0.0,
+      "fnr_pct": 38.983050847457626,
+      "f1": 0.7578947368421053,
+      "violation_rate_pct": 14.0625,
+      "n_matched": 256
+    },
+    "L8.R1": {
+      "tier": "Legal",
+      "tier_idx": 1,
+      "description": "Traffic signal stop line",
+      "spearman_rho": null,
+      "fpr_pct": 0.0,
+      "fnr_pct": 0.0,
+      "f1": 0.0,
+      "violation_rate_pct": 0.0,
+      "n_matched": 256
+    },
+    "L8.R2": {
+      "tier": "Legal",
+      "tier_idx": 1,
+      "description": "Stop sign compliance",
+      "spearman_rho": null,
+      "fpr_pct": 0.0,
+      "fnr_pct": 100.0,
+      "f1": 0.0,
+      "violation_rate_pct": 0.0,
+      "n_matched": 256
+    },
+    "L8.R3": {
+      "tier": "Legal",
+      "tier_idx": 1,
+      "description": "Crosswalk yield",
+      "spearman_rho": null,
+      "fpr_pct": 0.0,
+      "fnr_pct": 100.0,
+      "f1": 0.0,
+      "violation_rate_pct": 0.0,
+      "n_matched": 256
+    },
+    "L8.R5": {
+      "tier": "Legal",
+      "tier_idx": 1,
+      "description": "Wrong-way driving",
+      "spearman_rho": null,
+      "fpr_pct": 0.0,
+      "fnr_pct": 100.0,
+      "f1": 0.0,
+      "violation_rate_pct": 0.0,
+      "n_matched": 256
+    }
+  },
+  "summary": {
+    "mean_spearman_rho": 0.16763078674467283,
+    "min_spearman_rho": -0.4543332422307857,
+    "max_spearman_rho": 0.8070595341966852,
+    "mean_f1": 0.46109373458503233
+  }
+}

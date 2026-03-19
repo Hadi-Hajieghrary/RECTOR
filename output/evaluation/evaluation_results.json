@@ -1,0 +1,13 @@
+{
+  "checkpoint": "/workspace/models/RECTOR/models/best.pt",
+  "epoch": 20,
+  "checkpoint_best_ade": 0.6656132715940476,
+  "batches_evaluated": 339,
+  "samples_evaluated": 43219,
+  "minADE_mean": 0.6865650559596959,
+  "minADE_std": 0.06433939713931977,
+  "minFDE_mean": 1.2725382795376061,
+  "minFDE_std": 0.15839943750188812,
+  "miss_rate": 18.36229436127629,
+  "elapsed_time": 440.7124226093292
+}

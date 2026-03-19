@@ -1,0 +1,264 @@
+{
+  "metadata": {
+    "checkpoint": "/workspace/models/RECTOR/models/best.pt",
+    "checkpoint_hash": "c90d4457e4996d22",
+    "eval_mode": "rector",
+    "womd_version": "1.3.0",
+    "val_dir": "/workspace/data/WOMD/datasets/waymo_open_dataset/motion_v_1_3_0/processed/augmented/scenario/validation_interactive",
+    "num_val_shards": 150,
+    "sample_count": 64,
+    "seed": 42,
+    "epsilon": 0.001,
+    "timestamp": "2026-03-18T17:57:19.736346",
+    "elapsed_seconds": 3.9805359840393066,
+    "num_rules": 28,
+    "proxy_rules": 24,
+    "rules_without_proxies": [
+      "L5.R2",
+      "L5.R3",
+      "L5.R4",
+      "L5.R5"
+    ],
+    "oracle_label_samples": 64,
+    "fallback_oracle_samples": 0,
+    "has_true_oracle_applicability": true
+  },
+  "geometric_metrics": {
+    "minADE_mean": 0.7373595253448002,
+    "minADE_std": 0.8061467513635067,
+    "minFDE_mean": 1.350471236393787,
+    "minFDE_std": 1.998992795148813,
+    "miss_rate_pct": 18.75
+  },
+  "selection_strategies": {
+    "confidence": {
+      "n_scenarios": 64,
+      "selADE_mean": 2.83006932400167,
+      "selFDE_mean": 5.945001131854951,
+      "Total_Viol_pct": 18.75,
+      "SL_Viol_pct": 15.625,
+      "Safety_Viol_pct": 15.625,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 3.125,
+      "infeasible_selected_pct": 0.0,
+      "tier_sum_pct": 18.75
+    },
+    "weighted_sum": {
+      "n_scenarios": 64,
+      "selADE_mean": 2.0701492785010487,
+      "selFDE_mean": 3.995541297714226,
+      "Total_Viol_pct": 6.25,
+      "SL_Viol_pct": 6.25,
+      "Safety_Viol_pct": 6.25,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 0.0,
+      "infeasible_selected_pct": 0.0,
+      "tier_sum_pct": 6.25
+    },
+    "lexicographic": {
+      "n_scenarios": 64,
+      "selADE_mean": 2.6469569557812065,
+      "selFDE_mean": 5.414874546229839,
+      "Total_Viol_pct": 6.25,
+      "SL_Viol_pct": 6.25,
+      "Safety_Viol_pct": 6.25,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 0.0,
+      "infeasible_selected_pct": 6.25,
+      "tier_sum_pct": 6.25
+    }
+  },
+  "selection_strategies_protB": {
+    "confidence": {
+      "protocol": "full-28, oracle applicability",
+      "n_scenarios": 64,
+      "selADE_mean": 2.83006932400167,
+      "selFDE_mean": 5.945001131854951,
+      "Total_Viol_pct": 43.75,
+      "SL_Viol_pct": 29.6875,
+      "Safety_Viol_pct": 29.6875,
+      "Legal_Viol_pct": 1.5625,
+      "Road_Viol_pct": 1.5625,
+      "Comfort_Viol_pct": 15.625,
+      "infeasible_selected_pct": 0.0
+    },
+    "weighted_sum": {
+      "protocol": "full-28, oracle applicability",
+      "n_scenarios": 64,
+      "selADE_mean": 2.1975275410804898,
+      "selFDE_mean": 4.32676310907118,
+      "Total_Viol_pct": 40.625,
+      "SL_Viol_pct": 28.125,
+      "Safety_Viol_pct": 28.125,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 1.5625,
+      "Comfort_Viol_pct": 12.5,
+      "infeasible_selected_pct": 0.0
+    },
+    "lexicographic": {
+      "protocol": "full-28, oracle applicability",
+      "n_scenarios": 64,
+      "selADE_mean": 2.888567342888564,
+      "selFDE_mean": 6.050230611814186,
+      "Total_Viol_pct": 40.625,
+      "SL_Viol_pct": 28.125,
+      "Safety_Viol_pct": 28.125,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 1.5625,
+      "Comfort_Viol_pct": 12.5,
+      "infeasible_selected_pct": 28.125
+    }
+  },
+  "selection_strategies_cross_eval": {
+    "confidence": {
+      "protocol": "select with mode-specific applicability, evaluate under oracle (full-28)",
+      "n_scenarios": 64,
+      "selADE_mean": 2.83006932400167,
+      "selFDE_mean": 5.945001131854951,
+      "Total_Viol_pct": 43.75,
+      "SL_Viol_pct": 29.6875,
+      "Safety_Viol_pct": 29.6875,
+      "Legal_Viol_pct": 1.5625,
+      "Road_Viol_pct": 1.5625,
+      "Comfort_Viol_pct": 15.625,
+      "infeasible_selected_pct": 0.0
+    },
+    "weighted_sum": {
+      "protocol": "select with mode-specific applicability, evaluate under oracle (full-28)",
+      "n_scenarios": 64,
+      "selADE_mean": 2.0701492785010487,
+      "selFDE_mean": 3.995541297714226,
+      "Total_Viol_pct": 43.75,
+      "SL_Viol_pct": 29.6875,
+      "Safety_Viol_pct": 29.6875,
+      "Legal_Viol_pct": 1.5625,
+      "Road_Viol_pct": 1.5625,
+      "Comfort_Viol_pct": 14.0625,
+      "infeasible_selected_pct": 0.0
+    },
+    "lexicographic": {
+      "protocol": "select with mode-specific applicability, evaluate under oracle (full-28)",
+      "n_scenarios": 64,
+      "selADE_mean": 2.6469569557812065,
+      "selFDE_mean": 5.414874546229839,
+      "Total_Viol_pct": 42.1875,
+      "SL_Viol_pct": 28.125,
+      "Safety_Viol_pct": 28.125,
+      "Legal_Viol_pct": 1.5625,
+      "Road_Viol_pct": 1.5625,
+      "Comfort_Viol_pct": 14.0625,
+      "infeasible_selected_pct": 6.25
+    }
+  },
+  "protocol_results": {
+    "proxy-24_predicted": {
+      "rule_set": "proxy-24",
+      "applicability_source": "predicted",
+      "n_scenarios": 64,
+      "Total_Viol_pct": 6.25,
+      "SL_Viol_pct": 6.25,
+      "Safety_Viol_pct": 6.25,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 0.0,
+      "infeasible_selected_pct": 6.25
+    },
+    "proxy-24_oracle": {
+      "rule_set": "proxy-24",
+      "applicability_source": "oracle",
+      "n_scenarios": 64,
+      "Total_Viol_pct": 40.625,
+      "SL_Viol_pct": 28.125,
+      "Safety_Viol_pct": 28.125,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 1.5625,
+      "Comfort_Viol_pct": 12.5,
+      "infeasible_selected_pct": 28.125
+    },
+    "full-28_predicted": {
+      "rule_set": "full-28",
+      "applicability_source": "predicted",
+      "n_scenarios": 64,
+      "Total_Viol_pct": 6.25,
+      "SL_Viol_pct": 6.25,
+      "Safety_Viol_pct": 6.25,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 0.0,
+      "Comfort_Viol_pct": 0.0,
+      "infeasible_selected_pct": 6.25
+    },
+    "full-28_oracle": {
+      "rule_set": "full-28",
+      "applicability_source": "oracle",
+      "n_scenarios": 64,
+      "Total_Viol_pct": 40.625,
+      "SL_Viol_pct": 28.125,
+      "Safety_Viol_pct": 28.125,
+      "Legal_Viol_pct": 0.0,
+      "Road_Viol_pct": 1.5625,
+      "Comfort_Viol_pct": 12.5,
+      "infeasible_selected_pct": 28.125
+    }
+  },
+  "statistical_tests": {
+    "lexicographic_vs_confidence": {
+      "n_scenarios": 64,
+      "mcnemar_safety": {
+        "b_only": 0,
+        "c_only": 6,
+        "n_discordant": 6,
+        "chi2_cc": null,
+        "p_value": 0.03125,
+        "method": "exact_binomial"
+      },
+      "mcnemar_total": {
+        "b_only": 0,
+        "c_only": 8,
+        "n_discordant": 8,
+        "chi2_cc": null,
+        "p_value": 0.0078125,
+        "method": "exact_binomial"
+      },
+      "wilcoxon_selADE": {
+        "n_nonzero": 11,
+        "w_plus": 18.0,
+        "w_minus": 48.0,
+        "z": 1.3034530674289346,
+        "p_value": 0.19242012928419117,
+        "method": "normal_approx_tie_corrected"
+      },
+      "mean_selADE_delta_m": -0.1831123682204634
+    },
+    "lexicographic_vs_weighted_sum": {
+      "n_scenarios": 64,
+      "mcnemar_safety": {
+        "b_only": 0,
+        "c_only": 0,
+        "n_discordant": 0,
+        "chi2_cc": 0.0,
+        "p_value": 1.0,
+        "method": "degenerate"
+      },
+      "mcnemar_total": {
+        "b_only": 0,
+        "c_only": 0,
+        "n_discordant": 0,
+        "chi2_cc": 0.0,
+        "p_value": 1.0,
+        "method": "degenerate"
+      },
+      "wilcoxon_selADE": {
+        "n_nonzero": 45,
+        "w_plus": 642.0,
+        "w_minus": 393.0,
+        "z": 1.4006605869177644,
+        "p_value": 0.16131559391593703,
+        "method": "normal_approx_tie_corrected"
+      },
+      "mean_selADE_delta_m": 0.5768076772801578
+    }
+  }
+}

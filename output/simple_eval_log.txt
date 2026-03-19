@@ -1,0 +1,63 @@
+✓ Rule ordering validated: 28 rules, 4 tiers
+  Tier 0 (Safety): 5 rules
+  Tier 1 (Legal): 7 rules
+  Tier 2 (Road): 2 rules
+  Tier 3 (Comfort): 14 rules
+============================================================
+RECTOR V2 Evaluation
+============================================================
+
+Loading model...
+Using M2I encoder (will fine-tune with low LR)
+Loading M2I weights from /workspace/models/pretrained/m2i/models/relation_v2v/model.25.bin
+  Loaded 48 parameter tensors from M2I
+  Frozen M2I params: 223,296
+  Trainable params: 100,992 / 324,288
+Proxy coverage: 24/28 rules
+  Rules without proxies: ['L5.R2', 'L5.R3', 'L5.R4', 'L5.R5']
+  Loaded checkpoint from epoch 20 (best ADE: 0.6656132715940476)
+
+Loading validation data...
+  Found 150 files
+
+Running evaluation...
+2026-03-17 05:39:27.266246: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-17 05:39:27.266253: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-17 05:39:27.266273: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-17 05:39:27.268444: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  Batch 20: 2560 samples, ADE=0.661m, FDE=1.208m, (29.3s)
+  Batch 40: 5120 samples, ADE=0.672m, FDE=1.238m, (53.6s)
+  Batch 60: 7680 samples, ADE=0.675m, FDE=1.250m, (78.1s)
+  Batch 80: 10240 samples, ADE=0.676m, FDE=1.250m, (102.8s)
+  Batch 100: 12800 samples, ADE=0.684m, FDE=1.267m, (127.8s)
+  Batch 120: 15360 samples, ADE=0.685m, FDE=1.268m, (153.5s)
+  Batch 140: 17920 samples, ADE=0.686m, FDE=1.274m, (179.6s)
+  Batch 160: 20480 samples, ADE=0.687m, FDE=1.275m, (205.7s)
+  Batch 180: 23040 samples, ADE=0.689m, FDE=1.280m, (232.2s)
+  Batch 200: 25600 samples, ADE=0.687m, FDE=1.273m, (259.6s)
+  Batch 220: 28160 samples, ADE=0.687m, FDE=1.277m, (286.0s)
+  Batch 240: 30720 samples, ADE=0.687m, FDE=1.274m, (311.5s)
+  Batch 260: 33280 samples, ADE=0.687m, FDE=1.274m, (337.9s)
+  Batch 280: 35840 samples, ADE=0.685m, FDE=1.271m, (364.0s)
+  Batch 300: 38400 samples, ADE=0.685m, FDE=1.271m, (389.7s)
+  Batch 320: 40960 samples, ADE=0.686m, FDE=1.273m, (416.1s)
+
+============================================================
+EVALUATION RESULTS
+============================================================
+
+  Checkpoint: /workspace/models/RECTOR/models/best.pt
+  Training epoch: 20
+  Checkpoint best ADE: 0.6656132715940476
+
+  Batches evaluated: 339
+  Samples evaluated: 43219
+  Time elapsed: 440.7s
+
+  --- Metrics (using EXACT training code) ---
+  minADE: 0.687m ± 0.064m
+  minFDE: 1.273m ± 0.158m
+  Miss Rate (@2.0m): 18.36%
+============================================================
+
+Results saved to: /workspace/output/evaluation/evaluation_results.json

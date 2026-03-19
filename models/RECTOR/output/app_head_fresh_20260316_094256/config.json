@@ -1,0 +1,22 @@
+{
+  "train_dir": "/workspace/data/WOMD/datasets/waymo_open_dataset/motion_v_1_3_0/processed/augmented/scenario/training_interactive",
+  "val_dir": "/workspace/data/WOMD/datasets/waymo_open_dataset/motion_v_1_3_0/processed/augmented/scenario/validation_interactive",
+  "output_dir": "/workspace/models/RECTOR/output",
+  "experiment_name": "app_head_fresh",
+  "cache_dir": null,
+  "embed_dim": 256,
+  "m2i_checkpoint": "/workspace/models/pretrained/m2i/models/relation_v2v/model.25.bin",
+  "freeze_m2i": true,
+  "epochs": 20,
+  "batch_size": 128,
+  "learning_rate": 0.0003,
+  "weight_decay": 0.0001,
+  "grad_clip": 1.0,
+  "num_workers": 8,
+  "val_batches": 30,
+  "log_every": 50,
+  "patience": 10,
+  "resume": null,
+  "grad_accum_steps": 1,
+  "compile": false
+}

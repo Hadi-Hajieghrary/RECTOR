@@ -1,0 +1,239 @@
+{
+  "validation": {
+    "n_scenarios": 1280,
+    "stats": {
+      "n_agents": {
+        "mean": 34.6515625,
+        "std": 25.782118877404038,
+        "median": 29.0,
+        "p25": 16.75,
+        "p75": 45.0,
+        "min": 1.0,
+        "max": 211.0
+      },
+      "n_moving_agents": {
+        "mean": 12.07421875,
+        "std": 8.55852778386262,
+        "median": 10.0,
+        "p25": 6.0,
+        "p75": 16.0,
+        "min": 0.0,
+        "max": 66.0
+      },
+      "n_nearby_agents": {
+        "mean": 5.44921875,
+        "std": 4.863022081447753,
+        "median": 4.0,
+        "p25": 2.0,
+        "p75": 8.0,
+        "min": 0.0,
+        "max": 38.0
+      },
+      "ego_speed_mps": {
+        "mean": 5.350202022613835,
+        "std": 5.862039745952685,
+        "median": 3.4156609455916978,
+        "p25": 0.013746671848992984,
+        "p75": 9.111743775683001,
+        "min": 3.4392495106617534e-05,
+        "max": 26.808372626764672
+      },
+      "ego_displacement": {
+        "mean": 0.0,
+        "std": 0.0,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "ego_heading_change_rad": {
+        "mean": 0.022260700256980608,
+        "std": 0.0691494147187263,
+        "median": 0.002425074577331543,
+        "p25": 0.00048363208770751953,
+        "p75": 0.008632928133010864,
+        "min": 0.0,
+        "max": 0.8360148370265961
+      },
+      "n_lanes": {
+        "mean": 213.74296875,
+        "std": 152.85964363979957,
+        "median": 166.5,
+        "p25": 102.0,
+        "p75": 283.0,
+        "min": 2.0,
+        "max": 1032.0
+      },
+      "speed_regime": {
+        "stopped_pct": 32.34375,
+        "low_pct": 26.328125000000004,
+        "medium_pct": 18.984375,
+        "high_pct": 12.421875,
+        "very_high_pct": 9.921875
+      },
+      "agent_count_regime": {
+        "1_3_pct": 1.5625,
+        "4_6_pct": 3.75,
+        "7_10_pct": 6.640625,
+        "10plus_pct": 88.046875
+      },
+      "maneuver_proxy": {
+        "straight_pct": 94.0625,
+        "gentle_turn_pct": 5.78125,
+        "sharp_turn_pct": 0.15625
+      }
+    }
+  },
+  "test": {
+    "n_scenarios": 1280,
+    "stats": {
+      "n_agents": {
+        "mean": 34.615625,
+        "std": 26.031784770917554,
+        "median": 28.0,
+        "p25": 16.0,
+        "p75": 46.0,
+        "min": 1.0,
+        "max": 201.0
+      },
+      "n_moving_agents": {
+        "mean": 12.153125,
+        "std": 8.483531265597776,
+        "median": 10.0,
+        "p25": 6.0,
+        "p75": 17.0,
+        "min": 0.0,
+        "max": 79.0
+      },
+      "n_nearby_agents": {
+        "mean": 5.5265625,
+        "std": 4.95298969649582,
+        "median": 4.0,
+        "p25": 2.0,
+        "p75": 8.0,
+        "min": 0.0,
+        "max": 37.0
+      },
+      "ego_speed_mps": {
+        "mean": 5.067306733631897,
+        "std": 5.865983717767417,
+        "median": 3.0281916467028696,
+        "p25": 0.001920473147560915,
+        "p75": 8.607644709950076,
+        "min": 3.0463306813370828e-05,
+        "max": 30.99875711168114
+      },
+      "ego_displacement": {
+        "mean": 0.0,
+        "std": 0.0,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "ego_heading_change_rad": {
+        "mean": 0.02175912738895354,
+        "std": 0.07250617916061891,
+        "median": 0.0022160949010867625,
+        "p25": 0.0003838539123535156,
+        "p75": 0.007125794887542725,
+        "min": 0.0,
+        "max": 0.5788790732622147
+      },
+      "n_lanes": {
+        "mean": 211.790625,
+        "std": 151.78037661242436,
+        "median": 169.5,
+        "p25": 96.0,
+        "p75": 289.25,
+        "min": 5.0,
+        "max": 898.0
+      },
+      "speed_regime": {
+        "stopped_pct": 35.078125,
+        "low_pct": 27.187499999999996,
+        "medium_pct": 17.03125,
+        "high_pct": 12.265625,
+        "very_high_pct": 8.4375
+      },
+      "agent_count_regime": {
+        "1_3_pct": 2.1875,
+        "4_6_pct": 3.359375,
+        "7_10_pct": 8.046875,
+        "10plus_pct": 86.40625
+      },
+      "maneuver_proxy": {
+        "straight_pct": 94.453125,
+        "gentle_turn_pct": 5.0,
+        "sharp_turn_pct": 0.546875
+      }
+    }
+  },
+  "ks_tests": {
+    "n_agents": {
+      "ks_statistic": 0.01875,
+      "p_value": 0.9781197102496053,
+      "val_mean": 34.6515625,
+      "test_mean": 34.615625,
+      "val_std": 25.782118877404038,
+      "test_std": 26.031784770917554,
+      "shift_direction": "test_lower"
+    },
+    "n_moving_agents": {
+      "ks_statistic": 0.01875,
+      "p_value": 0.9781197102496053,
+      "val_mean": 12.07421875,
+      "test_mean": 12.153125,
+      "val_std": 8.55852778386262,
+      "test_std": 8.483531265597776,
+      "shift_direction": "test_higher"
+    },
+    "n_nearby_agents": {
+      "ks_statistic": 0.015625,
+      "p_value": 0.9976577168921514,
+      "val_mean": 5.44921875,
+      "test_mean": 5.5265625,
+      "val_std": 4.863022081447753,
+      "test_std": 4.95298969649582,
+      "shift_direction": "test_higher"
+    },
+    "ego_speed_mps": {
+      "ks_statistic": 0.03828125,
+      "p_value": 0.305456820617584,
+      "val_mean": 5.350202022613835,
+      "test_mean": 5.067306733631897,
+      "val_std": 5.862039745952685,
+      "test_std": 5.865983717767417,
+      "shift_direction": "test_lower"
+    },
+    "ego_displacement": {
+      "ks_statistic": 0.0,
+      "p_value": 1.0,
+      "val_mean": 0.0,
+      "test_mean": 0.0,
+      "val_std": 0.0,
+      "test_std": 0.0,
+      "shift_direction": "test_lower"
+    },
+    "ego_heading_change_rad": {
+      "ks_statistic": 0.0515625,
+      "p_value": 0.06652398133728497,
+      "val_mean": 0.022260700256980608,
+      "test_mean": 0.02175912738895354,
+      "val_std": 0.0691494147187263,
+      "test_std": 0.07250617916061891,
+      "shift_direction": "test_lower"
+    },
+    "n_lanes": {
+      "ks_statistic": 0.03515625,
+      "p_value": 0.4076747202209557,
+      "val_mean": 213.74296875,
+      "test_mean": 211.790625,
+      "val_std": 152.85964363979957,
+      "test_std": 151.78037661242436,
+      "shift_direction": "test_lower"
+    }
+  }
+}

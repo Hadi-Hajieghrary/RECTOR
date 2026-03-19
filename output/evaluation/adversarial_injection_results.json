@@ -1,0 +1,82 @@
+{
+  "metadata": {
+    "timestamp": "2026-03-19T04:11:45.787110",
+    "injection_types": [
+      "collision_course",
+      "clearance_violation",
+      "vru_incursion"
+    ],
+    "replace_mode": 5
+  },
+  "per_injection": {
+    "collision_course": {
+      "confidence": {
+        "adversarial_selection_rate_pct": 100.0,
+        "Safety_Viol_pct": 59.640625,
+        "Total_Viol_pct": 61.1484375,
+        "selADE_mean": 14.245538319782353,
+        "n_scenarios": 12800
+      },
+      "weighted_sum": {
+        "adversarial_selection_rate_pct": 3.6328125000000004,
+        "Safety_Viol_pct": 13.375,
+        "Total_Viol_pct": 15.2578125,
+        "selADE_mean": 2.3527668447158065,
+        "n_scenarios": 12800
+      },
+      "lexicographic": {
+        "adversarial_selection_rate_pct": 3.6328125000000004,
+        "Safety_Viol_pct": 13.375,
+        "Total_Viol_pct": 15.2578125,
+        "selADE_mean": 2.353225280136685,
+        "n_scenarios": 12800
+      }
+    },
+    "clearance_violation": {
+      "confidence": {
+        "adversarial_selection_rate_pct": 100.0,
+        "Safety_Viol_pct": 34.734375,
+        "Total_Viol_pct": 36.609375,
+        "selADE_mean": 2.6342330351565035,
+        "n_scenarios": 12800
+      },
+      "weighted_sum": {
+        "adversarial_selection_rate_pct": 4.078125,
+        "Safety_Viol_pct": 14.015625000000002,
+        "Total_Viol_pct": 15.8359375,
+        "selADE_mean": 2.051349090761796,
+        "n_scenarios": 12800
+      },
+      "lexicographic": {
+        "adversarial_selection_rate_pct": 4.0703125,
+        "Safety_Viol_pct": 14.015625000000002,
+        "Total_Viol_pct": 15.8359375,
+        "selADE_mean": 2.050851472450595,
+        "n_scenarios": 12800
+      }
+    },
+    "vru_incursion": {
+      "confidence": {
+        "adversarial_selection_rate_pct": 100.0,
+        "Safety_Viol_pct": 26.187500000000004,
+        "Total_Viol_pct": 29.046875,
+        "selADE_mean": 5.759453187965555,
+        "n_scenarios": 12800
+      },
+      "weighted_sum": {
+        "adversarial_selection_rate_pct": 5.6953125,
+        "Safety_Viol_pct": 12.3046875,
+        "Total_Viol_pct": 14.2265625,
+        "selADE_mean": 2.1996009319272707,
+        "n_scenarios": 12800
+      },
+      "lexicographic": {
+        "adversarial_selection_rate_pct": 5.6875,
+        "Safety_Viol_pct": 12.3046875,
+        "Total_Viol_pct": 14.2265625,
+        "selADE_mean": 2.199804677939683,
+        "n_scenarios": 12800
+      }
+    }
+  }
+}

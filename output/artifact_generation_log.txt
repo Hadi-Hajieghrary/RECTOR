@@ -1,0 +1,501 @@
+============================================================
+RECTOR Paper Artifact Generation
+============================================================
+Timestamp: 2026-03-17T05:48:24.131894
+Python: 3.10.12
+Output directory: /workspace/models/RECTOR/output/artifacts
+
+============================================================
+Running: Main Results Table (Table VI)
+Script: generate_main_results_table.py
+============================================================
+Looking for results...
+  Source: canonical
+
+============================================================
+RECTOR Evaluation Results
+============================================================
+Samples evaluated: 12,800
+minADE: 0.6841 ± 0.7535
+minFDE: 1.2696 ± 1.8152
+Miss Rate: 18.56%
+
+Selection strategies found: ['confidence', 'weighted_sum', 'lexicographic']
+
+============================================================
+Main Results Table:
+============================================================
+\begin{table}[t]
+\centering
+\caption{Trajectory Prediction and Rule Compliance on WOMD Validation}
+\label{tab:main_results}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Method} & \textbf{minADE} $\downarrow$ & \textbf{minFDE} $\downarrow$ & \textbf{Miss} $\downarrow$ & \textbf{Safety} $\downarrow$ & \textbf{Legal} $\downarrow$ & \textbf{Total} $\downarrow$ \\
+ & (m) & (m) & (\%) & Viol.\% & Viol.\% & Viol.\% \\
+\midrule
+LaneGCN & 0.87 & 1.92 & 28.4 & --- & --- & --- \\
+DenseTNT & 0.73 & 1.55 & 20.1 & --- & --- & --- \\
+M2I & 0.75 & 1.63 & 22.8 & --- & --- & --- \\
+Wayformer & 0.68 & 1.42 & 18.9 & --- & --- & --- \\
+MTR & 0.70 & 1.48 & 19.5 & --- & --- & --- \\
+\midrule
+RECTOR (Conf.) & 2.208 & 4.330 & 18.6 & 21.9 & 0.0 & 23.9 \\
+RECTOR (WS) & 2.043 & 3.813 & 18.6 & 13.1 & 0.0 & 15.0 \\
+\textbf{RECTOR (Lex.)} & \textbf{2.043} & \textbf{3.813} & \textbf{18.6} & \textbf{13.1} & \textbf{0.0} & \textbf{15.0} \\
+\bottomrule
+\end{tabular}
+\vspace{1mm}
+\caption*{\footnotesize Geometric metrics (minADE/FDE/Miss) are oracle best-of-6;
+rule violations are for the \emph{selected} trajectory under each strategy.
+Evaluated on 12,800 scenarios.}
+\end{table}
+
+Saved to: /workspace/models/RECTOR/output/artifacts/tables/main_results.tex
+
+============================================================
+Detailed Results Table:
+============================================================
+\begin{table}[t]
+\centering
+\caption{Selection Strategy Comparison (Protocol A: proxy-24, predicted applicability)}
+\label{tab:detailed_results}
+\begin{tabular}{lcccccccc}
+\toprule
+\textbf{Strategy} & \textbf{selADE} & \textbf{selFDE} & \textbf{Safety} & \textbf{Legal} & \textbf{Road} & \textbf{Comfort} & \textbf{S+L} & \textbf{Total} \\
+ & (m) & (m) & \% & \% & \% & \% & \% & \% \\
+\midrule
+Confidence & 2.208 & 4.330 & 21.9 & 0.0 & 0.0 & 2.9 & 21.9 & 23.9 \\
+Weighted Sum & 2.043 & 3.813 & 13.1 & 0.0 & 0.0 & 2.1 & 13.1 & 15.0 \\
+\textbf{Lexicographic} & \textbf{2.043} & \textbf{3.813} & \textbf{13.1} & \textbf{0.0} & \textbf{0.0} & \textbf{2.1} & \textbf{13.1} & \textbf{15.0} \\
+\bottomrule
+\end{tabular}
+\vspace{1mm}
+\caption*{\footnotesize S+L = Safety $\cup$ Legal tier violations.
+Evaluated on 12,800 scenarios.}
+\end{table}
+
+Saved to: /workspace/models/RECTOR/output/artifacts/tables/detailed_results.tex
+
+✓ Completed in 0.0s
+
+============================================================
+Running: Distribution Plots (Figure 3)
+Script: generate_distribution_plots.py
+============================================================
+Loading metrics from /workspace/output/evaluation/per_scenario_metrics.csv
+Loaded 12,800 scenarios
+
+============================================================
+Statistics Summary
+============================================================
+Total scenarios: 12,800
+
+minADE:
+  Mean: 0.6841 ± 0.7535
+  Median: 0.4574
+  Range: [0.0436, 10.8807]
+  Percentiles: p25=0.183, p75=0.869, p95=2.162
+
+minFDE:
+  Mean: 1.2696 ± 1.8153
+  Median: 0.6902
+  Range: [0.0014, 31.9874]
+  Percentiles: p25=0.162, p75=1.530, p95=4.748
+
+Miss Rate: 18.56%
+ADE-FDE Correlation: 0.9057
+
+============================================================
+Generating Distribution Plots
+============================================================
+Saved: /workspace/models/RECTOR/output/artifacts/figures/ade_fde_distribution.pdf
+Saved: /workspace/models/RECTOR/output/artifacts/figures/ade_fde_distribution.png
+Saved: /workspace/models/RECTOR/output/artifacts/figures/percentile_analysis.pdf
+Saved: /workspace/models/RECTOR/output/artifacts/figures/percentile_analysis.png
+Saved: /workspace/models/RECTOR/output/artifacts/figures/miss_rate_analysis.pdf
+Saved: /workspace/models/RECTOR/output/artifacts/figures/miss_rate_analysis.png
+Saved: /workspace/models/RECTOR/output/artifacts/figures/ade_fde_heatmap.pdf
+Saved: /workspace/models/RECTOR/output/artifacts/figures/ade_fde_heatmap.png
+
+All plots saved to: /workspace/models/RECTOR/output/artifacts/figures
+
+✓ Completed in 2.9s
+
+============================================================
+Running: Rule Violation Analysis (Table VII, Figure 4)
+Script: generate_rule_violation_analysis.py
+============================================================
+Warning: Could not import rule_constants. Using placeholder tier definitions.
+
+============================================================
+Rule Violation Analysis
+============================================================
+
+Tier Definitions:
+  Tier 0 (Safety): 5 rules
+  Tier 1 (Legal): 7 rules
+  Tier 2 (Road): 2 rules
+  Tier 3 (Comfort): 14 rules
+  Total: 28 rules
+  Loaded REAL violation data from /workspace/output/evaluation/canonical_results.json
+  Strategies: ['Confidence Only', 'Weighted Sum', 'RECTOR (Lexicographic)']
+  Samples: 12800
+
+Violation Rates by Strategy:
+  Confidence Only: 77.0% total
+  Weighted Sum: 49.3% total
+  RECTOR (Lexicographic): 49.3% total
+
+============================================================
+Generating Figures
+============================================================
+Saved: /workspace/models/RECTOR/output/artifacts/figures/tier_violation_comparison.pdf
+Saved: /workspace/models/RECTOR/output/artifacts/figures/tier_violation_comparison.png
+
+ERROR (exit code 1):
+Traceback (most recent call last):
+  File "/workspace/models/RECTOR/scripts/artifacts/generate_rule_violation_analysis.py", line 504, in <module>
+    main()
+  File "/workspace/models/RECTOR/scripts/artifacts/generate_rule_violation_analysis.py", line 469, in main
+    plot_violation_reduction(strategies, FIGURES_DIR)
+  File "/workspace/models/RECTOR/scripts/artifacts/generate_rule_violation_analysis.py", line 168, in plot_violation_reduction
+    reduction = [(b - r) / b * 100 for b, r in zip(baseline, rector)]
+  File "/workspace/models/RECTOR/scripts/artifacts/generate_rule_violation_analysis.py", line 168, in <listcomp>
+    reduction = [(b - r) / b * 100 for b, r in zip(baseline, rector)]
+ZeroDivisionError: float division by zero
+
+
+============================================================
+Running: Efficiency Statistics (Table X)
+Script: generate_efficiency_stats.py
+============================================================
+
+============================================================
+Computational Efficiency Analysis
+============================================================
+✓ Rule ordering validated: 28 rules, 4 tiers
+  Tier 0 (Safety): 5 rules
+  Tier 1 (Legal): 7 rules
+  Tier 2 (Road): 2 rules
+  Tier 3 (Comfort): 14 rules
+Using M2I encoder (will fine-tune with low LR)
+  Frozen M2I params: 223,296
+  Trainable params: 100,992 / 324,288
+Proxy coverage: 24/28 rules
+  Rules without proxies: ['L5.R2', 'L5.R3', 'L5.R4', 'L5.R5']
+
+Model Size:
+  Total parameters: 8.83M
+  Trainable parameters: 8.83M
+
+Inference Performance:
+  Latency: 16.6 ± 0.5 ms
+  P95 Latency: 17.4 ms
+  Throughput: 98.1 samples/s
+
+Validation Stats:
+  Samples: 43,219
+  Time: 440.7s
+
+============================================================
+Generating Figures
+============================================================
+Saved: /workspace/models/RECTOR/output/artifacts/figures/latency_breakdown.pdf
+Saved: /workspace/models/RECTOR/output/artifacts/figures/latency_breakdown.png
+Saved: /workspace/models/RECTOR/output/artifacts/figures/parameter_breakdown.pdf
+Saved: /workspace/models/RECTOR/output/artifacts/figures/parameter_breakdown.png
+Saved: /workspace/models/RECTOR/output/artifacts/figures/throughput_comparison.pdf
+Saved: /workspace/models/RECTOR/output/artifacts/figures/throughput_comparison.png
+
+============================================================
+Generating LaTeX Tables
+============================================================
+Saved: /workspace/models/RECTOR/output/artifacts/tables/efficiency.tex
+Saved: /workspace/models/RECTOR/output/artifacts/tables/param_breakdown.tex
+
+============================================================
+LaTeX Table Preview (Efficiency)
+============================================================
+\begin{table}[t]
+\centering
+\caption{Computational Efficiency}
+\label{tab:efficiency}
+\begin{tabular}{lc}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+\multicolumn{2}{l}{\textit{Model Size}} \\
+Parameters (total) & 8.83M \\
+Parameters (trainable) & 8.83M \\
+\quad Encoder & 0.51M \\
+\quad Decoder & 5.18M \\
+\quad Scorer/Applicability & 3.33M \\
+\midrule
+\multicolumn{2}{l}{\textit{Inference}} \\
+Latency (mean) & 16.6ms/sample \\
+Latency (p95) & 17.4ms/sample \\
+Throughput & 98.1 samples/s \\
+GPU memory & 8GB \\
+\midrule
+\multicolumn{2}{l}{\textit{Training}} \\
+Training time & 24 hours (A100) \\
+GPU memory & 16GB \\
+\midrule
+\multicolumn{2}{l}{\textit{Validation}} \\
+Samples evaluated & 43,219 \\
+Evaluation time & 440.7s \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+✓ Completed in 5.9s
+
+============================================================
+Running: Ablation Studies (Table IX, Figure 6)
+Script: generate_ablation_study.py
+============================================================
+
+============================================================
+Ablation Study Analysis
+============================================================
+  Loaded REAL data from /workspace/output/evaluation/canonical_results.json
+
+Ablation Configurations: 7
+
+ERROR (exit code 1):
+Traceback (most recent call last):
+  File "/workspace/models/RECTOR/scripts/artifacts/generate_ablation_study.py", line 504, in <module>
+    main()
+  File "/workspace/models/RECTOR/scripts/artifacts/generate_ablation_study.py", line 454, in main
+    full = ablations['Full RECTOR']
+KeyError: 'Full RECTOR'
+
+
+============================================================
+Running: Applicability Head Analysis (Figure 7)
+Script: generate_applicability_analysis.py
+============================================================
+============================================================
+Applicability Head Analysis
+============================================================
+
+Loading from: /workspace/output/evaluation/canonical_results.json
+  Found metrics for 28 rules
+
+[1/3] Generating per-rule heatmap...
+  Saved: /workspace/models/RECTOR/output/artifacts/figures/applicability_heatmap.pdf
+  Saved: /workspace/models/RECTOR/output/artifacts/figures/applicability_heatmap.png
+
+[2/3] Generating tier F1 chart...
+  Saved: /workspace/models/RECTOR/output/artifacts/figures/applicability_tier_f1.pdf
+  Saved: /workspace/models/RECTOR/output/artifacts/figures/applicability_tier_f1.png
+
+[3/3] Generating LaTeX table...
+  Saved: /workspace/models/RECTOR/output/artifacts/tables/applicability_per_rule.tex
+\begin{table}[t]
+\centering
+\caption{Applicability Head Per-Rule Performance}
+\label{tab:applicability_per_rule}
+\begin{tabular}{llcccc}
+\toprule
+\textbf{Tier} & \textbf{Rule} & \textbf{Prec.} & \textbf{Recall} & \textbf{F1} & \textbf{Support} \\
+\midrule
+Safety & L0.R2 & 0.673 & 0.089 & 0.157 & 2,311 \\
+ & L0.R3 & 0.682 & 0.358 & 0.470 & 4,666 \\
+ & L0.R4 & 0.653 & 0.299 & 0.411 & 2,924 \\
+ & L10.R1 & 0.487 & 0.842 & 0.617 & 5,508 \\
+ & L10.R2 & 0.000 & 0.000 & 0.000 & 0 \\
+\midrule
+Legal & L5.R1 & 0.000 & 0.000 & 0.000 & 0 \\
+ & L5.R2 & 0.000 & 0.000 & 0.000 & 0 \\
+ & L7.R4 & 0.000 & 0.000 & 0.000 & 970 \\
+ & L8.R1 & 0.839 & 0.925 & 0.880 & 9,628 \\
+ & L8.R2 & 1.000 & 1.000 & 1.000 & 12,800 \\
+ & L8.R3 & 1.000 & 1.000 & 1.000 & 12,800 \\
+ & L8.R5 & 0.853 & 0.941 & 0.894 & 10,066 \\
+\midrule
+Road & L3.R3 & 0.000 & 0.000 & 0.000 & 0 \\
+ & L7.R3 & 0.000 & 0.000 & 0.000 & 228 \\
+\midrule
+Comfort & L1.R1 & 0.650 & 0.846 & 0.735 & 7,372 \\
+ & L1.R2 & 0.631 & 0.688 & 0.658 & 6,685 \\
+ & L1.R3 & 0.000 & 0.000 & 0.000 & 0 \\
+ & L1.R4 & 0.000 & 0.000 & 0.000 & 0 \\
+ & L1.R5 & 0.000 & 0.000 & 0.000 & 0 \\
+ & L4.R3 & 0.999 & 1.000 & 1.000 & 12,793 \\
+ & L5.R3 & 0.000 & 0.000 & 0.000 & 0 \\
+ & L5.R4 & 0.000 & 0.000 & 0.000 & 0 \\
+ & L5.R5 & 1.000 & 1.000 & 1.000 & 12,800 \\
+ & L6.R1 & 0.000 & 0.000 & 0.000 & 0 \\
+ & L6.R2 & 0.662 & 0.213 & 0.323 & 3,513 \\
+ & L6.R3 & 0.000 & 0.000 & 0.000 & 580 \\
+ & L6.R4 & 1.000 & 1.000 & 1.000 & 12,800 \\
+ & L6.R5 & 1.000 & 1.000 & 1.000 & 12,800 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+============================================================
+Applicability analysis complete!
+============================================================
+
+✓ Completed in 1.4s
+
+============================================================
+Running: Qualitative Examples (Figure 5)
+Script: generate_qualitative_visualizations.py
+============================================================
+
+============================================================
+Qualitative Visualization Generation
+============================================================
+
+Generating 3 scenario visualizations...
+Saved: /workspace/models/RECTOR/output/artifacts/figures/qualitative_example_intersection.pdf
+Saved: /workspace/models/RECTOR/output/artifacts/figures/qualitative_example_intersection.png
+Saved: /workspace/models/RECTOR/output/artifacts/figures/qualitative_example_highway.pdf
+Saved: /workspace/models/RECTOR/output/artifacts/figures/qualitative_example_highway.png
+Saved: /workspace/models/RECTOR/output/artifacts/figures/qualitative_example_lane_change.pdf
+Saved: /workspace/models/RECTOR/output/artifacts/figures/qualitative_example_lane_change.png
+
+Generating scenario gallery...
+Saved: /workspace/models/RECTOR/output/artifacts/figures/scenario_gallery.pdf
+Saved: /workspace/models/RECTOR/output/artifacts/figures/scenario_gallery.png
+
+Generating selection comparison...
+Saved: /workspace/models/RECTOR/output/artifacts/figures/selection_comparison.pdf
+Saved: /workspace/models/RECTOR/output/artifacts/figures/selection_comparison.png
+
+============================================================
+Visualization Generation Complete
+============================================================
+Output directory: /workspace/models/RECTOR/output/artifacts/figures
+
+Generated files:
+  - ade_fde_distribution.pdf
+  - ade_fde_heatmap.pdf
+  - applicability_heatmap.pdf
+  - applicability_tier_f1.pdf
+  - latency_breakdown.pdf
+  - learning_rate.pdf
+  - miss_rate_analysis.pdf
+  - parameter_breakdown.pdf
+  - percentile_analysis.pdf
+  - qualitative_example_highway.pdf
+  - qualitative_example_intersection.pdf
+  - qualitative_example_lane_change.pdf
+  - scenario_gallery.pdf
+  - selection_comparison.pdf
+  - stage1_training.pdf
+  - stage2_training.pdf
+  - throughput_comparison.pdf
+  - tier_violation_comparison.pdf
+  - training_combined.pdf
+
+✓ Completed in 3.4s
+
+============================================================
+Running: Training Curves (Figure 6)
+Script: generate_training_curves.py
+============================================================
+
+============================================================
+Training Curve Generation (from log files)
+============================================================
+
+Parsing Stage 1 log: /workspace/output/app_head_fresh_log.txt
+  Epochs: 20
+  Best val loss: 0.2772 (epoch 17)
+  Best val F1: 0.818 (epoch 12)
+Saved: /workspace/models/RECTOR/output/artifacts/figures/stage1_training.pdf
+Saved: /workspace/models/RECTOR/output/artifacts/figures/stage1_training.png
+
+Parsing Stage 2 log: /workspace/output/rector_full_log.txt
+  Epochs: 20
+  Best val loss: 2.3487 (epoch 19)
+  Best val ADE: 0.88m (epoch 20)
+  Best val FDE: 1.52m (epoch 20)
+Saved: /workspace/models/RECTOR/output/artifacts/figures/stage2_training.pdf
+Saved: /workspace/models/RECTOR/output/artifacts/figures/stage2_training.png
+
+Generating combined plots...
+Saved: /workspace/models/RECTOR/output/artifacts/figures/training_combined.pdf
+Saved: /workspace/models/RECTOR/output/artifacts/figures/training_combined.png
+Saved: /workspace/models/RECTOR/output/artifacts/figures/learning_rate.pdf
+Saved: /workspace/models/RECTOR/output/artifacts/figures/learning_rate.png
+
+All training curve plots saved to: /workspace/models/RECTOR/output/artifacts/figures
+
+✓ Completed in 4.4s
+
+============================================================
+GENERATION SUMMARY
+============================================================
+Scripts run: 8
+Successful: 6
+Failed: 2
+Total time: 19.9s
+
+Generated Figures (38):
+  - ade_fde_distribution.pdf (16.4 KB)
+  - ade_fde_distribution.png (149.1 KB)
+  - ade_fde_heatmap.pdf (44.3 KB)
+  - ade_fde_heatmap.png (98.7 KB)
+  - applicability_heatmap.pdf (37.2 KB)
+  - applicability_heatmap.png (204.5 KB)
+  - applicability_tier_f1.pdf (20.6 KB)
+  - applicability_tier_f1.png (52.8 KB)
+  - latency_breakdown.pdf (20.1 KB)
+  - latency_breakdown.png (190.5 KB)
+  - learning_rate.pdf (14.1 KB)
+  - learning_rate.png (125.8 KB)
+  - miss_rate_analysis.pdf (21.6 KB)
+  - miss_rate_analysis.png (209.3 KB)
+  - parameter_breakdown.pdf (17.8 KB)
+  - parameter_breakdown.png (83.5 KB)
+  - percentile_analysis.pdf (13.8 KB)
+  - percentile_analysis.png (100.0 KB)
+  - qualitative_example_highway.pdf (29.8 KB)
+  - qualitative_example_highway.png (239.5 KB)
+  - qualitative_example_intersection.pdf (31.7 KB)
+  - qualitative_example_intersection.png (427.1 KB)
+  - qualitative_example_lane_change.pdf (32.0 KB)
+  - qualitative_example_lane_change.png (259.1 KB)
+  - scenario_gallery.pdf (22.6 KB)
+  - scenario_gallery.png (168.8 KB)
+  - selection_comparison.pdf (24.0 KB)
+  - selection_comparison.png (146.5 KB)
+  - stage1_training.pdf (28.7 KB)
+  - stage1_training.png (448.1 KB)
+  - stage2_training.pdf (28.6 KB)
+  - stage2_training.png (429.6 KB)
+  - throughput_comparison.pdf (18.3 KB)
+  - throughput_comparison.png (107.5 KB)
+  - tier_violation_comparison.pdf (26.1 KB)
+  - tier_violation_comparison.png (161.1 KB)
+  - training_combined.pdf (36.9 KB)
+  - training_combined.png (385.6 KB)
+
+Generated Tables (5):
+  - applicability_per_rule.tex (1.5 KB)
+  - detailed_results.tex (0.8 KB)
+  - efficiency.tex (0.8 KB)
+  - main_results.tex (1.1 KB)
+  - param_breakdown.tex (0.4 KB)
+
+Failed scripts:
+  - generate_rule_violation_analysis.py: Traceback (most recent call last):
+  File "/workspace/models/RECTOR/scripts/artifacts/generate_rule_
+  - generate_ablation_study.py: Traceback (most recent call last):
+  File "/workspace/models/RECTOR/scripts/artifacts/generate_ablat
+
+Summary saved to: /workspace/models/RECTOR/output/artifacts/summary.json
+Artifact index saved to: /workspace/models/RECTOR/output/artifacts/artifact_index.tex
+
+============================================================
+All artifacts saved to:
+  /workspace/models/RECTOR/output/artifacts
+============================================================

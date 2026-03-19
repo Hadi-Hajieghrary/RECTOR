@@ -1,0 +1,548 @@
+{
+  "metadata": {
+    "n_scenarios": 200,
+    "n_weight_configs": 125,
+    "elapsed_s": 5.937689781188965
+  },
+  "n_any_divergent": 154,
+  "divergence_rate": 0.77,
+  "per_weight_class": {
+    "flat": {
+      "n_configs": 0,
+      "n_divergent_pairs": 0,
+      "n_cross_tier_tradeoffs": 0
+    },
+    "moderate": {
+      "n_configs": 105,
+      "n_divergent_pairs": 154,
+      "n_cross_tier_tradeoffs": 0
+    },
+    "lex_like": {
+      "n_configs": 20,
+      "n_divergent_pairs": 0,
+      "n_cross_tier_tradeoffs": 0
+    }
+  },
+  "examples": [
+    {
+      "scenario_idx": 0,
+      "lex_mode": 5,
+      "ws_mode": 0,
+      "weight_class": "moderate",
+      "weights": [
+        100,
+        10,
+        1,
+        1.0
+      ],
+      "lex_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "ws_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "safety_worse_for_ws": false,
+      "comfort_better_for_ws": false
+    },
+    {
+      "scenario_idx": 2,
+      "lex_mode": 5,
+      "ws_mode": 0,
+      "weight_class": "moderate",
+      "weights": [
+        100,
+        10,
+        1,
+        1.0
+      ],
+      "lex_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "ws_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "safety_worse_for_ws": false,
+      "comfort_better_for_ws": false
+    },
+    {
+      "scenario_idx": 3,
+      "lex_mode": 2,
+      "ws_mode": 0,
+      "weight_class": "moderate",
+      "weights": [
+        100,
+        10,
+        1,
+        1.0
+      ],
+      "lex_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "ws_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "safety_worse_for_ws": false,
+      "comfort_better_for_ws": false
+    },
+    {
+      "scenario_idx": 4,
+      "lex_mode": 4,
+      "ws_mode": 0,
+      "weight_class": "moderate",
+      "weights": [
+        100,
+        10,
+        1,
+        1.0
+      ],
+      "lex_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "ws_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "safety_worse_for_ws": false,
+      "comfort_better_for_ws": false
+    },
+    {
+      "scenario_idx": 5,
+      "lex_mode": 1,
+      "ws_mode": 0,
+      "weight_class": "moderate",
+      "weights": [
+        100,
+        10,
+        1,
+        1.0
+      ],
+      "lex_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "ws_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "safety_worse_for_ws": false,
+      "comfort_better_for_ws": false
+    },
+    {
+      "scenario_idx": 6,
+      "lex_mode": 5,
+      "ws_mode": 0,
+      "weight_class": "moderate",
+      "weights": [
+        100,
+        10,
+        1,
+        1.0
+      ],
+      "lex_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "ws_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "safety_worse_for_ws": false,
+      "comfort_better_for_ws": false
+    },
+    {
+      "scenario_idx": 7,
+      "lex_mode": 5,
+      "ws_mode": 0,
+      "weight_class": "moderate",
+      "weights": [
+        100,
+        10,
+        1,
+        1.0
+      ],
+      "lex_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "ws_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "safety_worse_for_ws": false,
+      "comfort_better_for_ws": false
+    },
+    {
+      "scenario_idx": 8,
+      "lex_mode": 1,
+      "ws_mode": 0,
+      "weight_class": "moderate",
+      "weights": [
+        100,
+        10,
+        1,
+        1.0
+      ],
+      "lex_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "ws_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "safety_worse_for_ws": false,
+      "comfort_better_for_ws": false
+    },
+    {
+      "scenario_idx": 9,
+      "lex_mode": 3,
+      "ws_mode": 2,
+      "weight_class": "moderate",
+      "weights": [
+        100,
+        10,
+        1,
+        1.0
+      ],
+      "lex_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "ws_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "safety_worse_for_ws": false,
+      "comfort_better_for_ws": false
+    },
+    {
+      "scenario_idx": 10,
+      "lex_mode": 1,
+      "ws_mode": 0,
+      "weight_class": "moderate",
+      "weights": [
+        100,
+        10,
+        1,
+        1.0
+      ],
+      "lex_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "ws_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "safety_worse_for_ws": false,
+      "comfort_better_for_ws": false
+    },
+    {
+      "scenario_idx": 11,
+      "lex_mode": 4,
+      "ws_mode": 0,
+      "weight_class": "moderate",
+      "weights": [
+        100,
+        10,
+        1,
+        1.0
+      ],
+      "lex_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "ws_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "safety_worse_for_ws": false,
+      "comfort_better_for_ws": false
+    },
+    {
+      "scenario_idx": 12,
+      "lex_mode": 2,
+      "ws_mode": 0,
+      "weight_class": "moderate",
+      "weights": [
+        100,
+        10,
+        1,
+        1.0
+      ],
+      "lex_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "ws_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "safety_worse_for_ws": false,
+      "comfort_better_for_ws": false
+    },
+    {
+      "scenario_idx": 13,
+      "lex_mode": 3,
+      "ws_mode": 0,
+      "weight_class": "moderate",
+      "weights": [
+        100,
+        10,
+        1,
+        1.0
+      ],
+      "lex_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "ws_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "safety_worse_for_ws": false,
+      "comfort_better_for_ws": false
+    },
+    {
+      "scenario_idx": 14,
+      "lex_mode": 2,
+      "ws_mode": 0,
+      "weight_class": "moderate",
+      "weights": [
+        100,
+        10,
+        1,
+        1.0
+      ],
+      "lex_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "ws_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "safety_worse_for_ws": false,
+      "comfort_better_for_ws": false
+    },
+    {
+      "scenario_idx": 16,
+      "lex_mode": 3,
+      "ws_mode": 0,
+      "weight_class": "moderate",
+      "weights": [
+        100,
+        10,
+        1,
+        1.0
+      ],
+      "lex_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "ws_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "safety_worse_for_ws": false,
+      "comfort_better_for_ws": false
+    },
+    {
+      "scenario_idx": 17,
+      "lex_mode": 4,
+      "ws_mode": 0,
+      "weight_class": "moderate",
+      "weights": [
+        100,
+        10,
+        1,
+        1.0
+      ],
+      "lex_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "ws_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "safety_worse_for_ws": false,
+      "comfort_better_for_ws": false
+    },
+    {
+      "scenario_idx": 18,
+      "lex_mode": 3,
+      "ws_mode": 0,
+      "weight_class": "moderate",
+      "weights": [
+        100,
+        10,
+        1,
+        1.0
+      ],
+      "lex_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "ws_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "safety_worse_for_ws": false,
+      "comfort_better_for_ws": false
+    },
+    {
+      "scenario_idx": 19,
+      "lex_mode": 1,
+      "ws_mode": 0,
+      "weight_class": "moderate",
+      "weights": [
+        100,
+        10,
+        1,
+        1.0
+      ],
+      "lex_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "ws_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "safety_worse_for_ws": false,
+      "comfort_better_for_ws": false
+    },
+    {
+      "scenario_idx": 20,
+      "lex_mode": 1,
+      "ws_mode": 0,
+      "weight_class": "moderate",
+      "weights": [
+        100,
+        10,
+        1,
+        1.0
+      ],
+      "lex_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "ws_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "safety_worse_for_ws": false,
+      "comfort_better_for_ws": false
+    },
+    {
+      "scenario_idx": 21,
+      "lex_mode": 3,
+      "ws_mode": 0,
+      "weight_class": "moderate",
+      "weights": [
+        100,
+        10,
+        1,
+        1.0
+      ],
+      "lex_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "ws_tier_scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "safety_worse_for_ws": false,
+      "comfort_better_for_ws": false
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+✓ Rule ordering validated: 28 rules, 4 tiers
+  Tier 0 (Safety): 5 rules
+  Tier 1 (Legal): 7 rules
+  Tier 2 (Road): 2 rules
+  Tier 3 (Comfort): 14 rules
+======================================================================
+CANONICAL RECTOR EVALUATION
+Single source of truth for all paper metrics
+======================================================================
+
+[1/4] Loading model...
+Using M2I encoder (will fine-tune with low LR)
+Loading M2I weights from /workspace/models/pretrained/m2i/models/relation_v2v/model.25.bin
+  Loaded 48 parameter tensors from M2I
+  Frozen M2I params: 223,296
+  Trainable params: 100,992 / 324,288
+Proxy coverage: 24/28 rules
+  Rules without proxies: ['L5.R2', 'L5.R3', 'L5.R4', 'L5.R5']
+  Loaded: /workspace/models/RECTOR/models/best.pt
+  Epoch: 20, best_ade: 0.6656132715940476
+
+[2/4] Loading validation data...
+  150 TFRecord shards
+
+[3/4] Evaluating (RECTOR predictions)...
+2026-03-17 05:38:50.817042: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-17 05:38:50.817067: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-17 05:38:50.817078: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+2026-03-17 05:38:50.817107: E tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:1278] could not retrieve CUDA device count: CUDA_ERROR_NOT_INITIALIZED: initialization error
+  Batch 10: 640 samples (8.8s)
+  Batch 20: 1280 samples (14.5s)
+  Batch 30: 1920 samples (20.4s)
+  Batch 40: 2560 samples (26.2s)
+  Batch 50: 3200 samples (32.3s)
+  Batch 60: 3840 samples (39.0s)
+  Batch 70: 4480 samples (107.4s)
+  Batch 80: 5120 samples (201.6s)
+  Batch 90: 5760 samples (301.2s)
+  Batch 100: 6400 samples (397.9s)
+  Batch 110: 7040 samples (474.7s)
+  Batch 120: 7680 samples (483.1s)
+  Batch 130: 8320 samples (489.6s)
+  Batch 140: 8960 samples (496.4s)
+  Batch 150: 9600 samples (503.1s)
+  Batch 160: 10240 samples (509.7s)
+  Batch 170: 10880 samples (516.3s)
+  Batch 180: 11520 samples (522.8s)
+  Batch 190: 12160 samples (529.6s)
+  Batch 200: 12800 samples (536.1s)
+
+[4/4] Aggregating results (12800 samples, 536.7s)...
+
+======================================================================
+RESULTS SUMMARY
+======================================================================
+
+Geometric (oracle best-of-K):
+  minADE: 0.6841m ± 0.7535
+  minFDE: 1.2696m ± 1.8152
+  Miss Rate: 18.56%
+
+Selection Strategies (Protocol A: proxy-24, predicted):
+  Strategy               Total%     S+L%  Safety%   selADE
+  confidence              23.9%    21.9%    21.9%   2.208m
+  weighted_sum            15.0%    13.1%    13.1%   2.043m
+  lexicographic           15.0%    13.1%    13.1%   2.043m
+
+Protocol Reconciliation Table:
+  Protocol                    Total%  Safety%   Legal%
+  proxy-24/predicted           15.0%    13.1%     0.0%
+  proxy-24/oracle              32.1%    19.9%     0.9%
+  full-28/predicted            15.0%    13.1%     0.0%
+  full-28/oracle               32.1%    19.9%     0.9%
+
+Per-Rule Applicability Accuracy (learned mode):
+  Rule           Prec   Recall       F1      Acc  Support
+  L0.R2        0.673   0.089   0.157   0.828     2311
+  L0.R3        0.682   0.358   0.470   0.705     4666
+  L0.R4        0.653   0.299   0.411   0.804     2924
+  L1.R1        0.650   0.846   0.735   0.649     7372
+  L1.R2        0.631   0.688   0.658   0.627     6685
+  L1.R3        0.000   0.000   0.000   1.000        0
+  L1.R4        0.000   0.000   0.000   1.000        0
+  L1.R5        0.000   0.000   0.000   1.000        0
+  L10.R1       0.487   0.842   0.617   0.550     5508
+  L10.R2       0.000   0.000   0.000   1.000        0
+  L3.R3        0.000   0.000   0.000   1.000        0
+  L4.R3        0.999   1.000   1.000   0.999    12793
+  L5.R1        0.000   0.000   0.000   1.000        0
+  L5.R2        0.000   0.000   0.000   1.000        0
+  L5.R3        0.000   0.000   0.000   1.000        0
+  L5.R4        0.000   0.000   0.000   1.000        0
+  L5.R5        1.000   1.000   1.000   1.000    12800
+  L6.R1        0.000   0.000   0.000   1.000        0
+  L6.R2        0.662   0.213   0.323   0.754     3513
+  L6.R3        0.000   0.000   0.000   0.955      580
+  L6.R4        1.000   1.000   1.000   1.000    12800
+  L6.R5        1.000   1.000   1.000   1.000    12800
+  L7.R3        0.000   0.000   0.000   0.982      228
+  L7.R4        0.000   0.000   0.000   0.924      970
+  L8.R1        0.839   0.925   0.880   0.810     9628
+  L8.R2        1.000   1.000   1.000   1.000    12800
+  L8.R3        1.000   1.000   1.000   1.000    12800
+  L8.R5        0.853   0.941   0.894   0.825    10066
+======================================================================
+
+Results saved to: /workspace/output/evaluation/canonical_results.json
+Per-scenario CSV saved to: /workspace/output/evaluation/per_scenario_metrics.csv

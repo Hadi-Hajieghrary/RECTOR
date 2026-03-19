@@ -1,0 +1,12 @@
+# Waymo Rule Evaluation Pipeline Requirements
+
+numpy>=1.21.0
+scipy>=1.7.0
+shapely>=2.0.0
+
+# Optional: Waymo Open Dataset (for TFRecord parsing)
+# Install separately as it has specific TensorFlow version requirements
+# pip install waymo-open-dataset-tf-2-11-0
+
+# Testing
+pytest>=7.0.0

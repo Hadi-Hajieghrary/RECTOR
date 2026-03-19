@@ -1,0 +1,204 @@
+{
+  "metadata": {
+    "n_scenarios": 43219,
+    "n_bootstrap": 10000
+  },
+  "mcnemar_tests": {
+    "Safety_lex_vs_conf": {
+      "test": "mcnemar",
+      "comparison": "Lexicographic vs Confidence",
+      "n": 43219,
+      "both_violated": 28513,
+      "neither_violated": 10936,
+      "a_only_violated": 0,
+      "b_only_violated": 3770,
+      "chi2_statistic": 3768.0002652519893,
+      "p_value": 0.0,
+      "p_exact": null,
+      "significant_005": 1,
+      "significant_001": 1,
+      "direction": "Lexicographic has fewer unique violations"
+    },
+    "Safety_lex_vs_ws": {
+      "test": "mcnemar",
+      "comparison": "Lexicographic vs WeightedSum",
+      "n": 43219,
+      "both_violated": 28513,
+      "neither_violated": 14706,
+      "a_only": 0,
+      "b_only": 0,
+      "note": "No discordant pairs \u2014 strategies produce identical violations",
+      "p_value": 1.0
+    },
+    "Total_lex_vs_conf": {
+      "test": "mcnemar",
+      "comparison": "Lexicographic vs Confidence",
+      "n": 43219,
+      "both_violated": 41877,
+      "neither_violated": 883,
+      "a_only_violated": 0,
+      "b_only_violated": 459,
+      "chi2_statistic": 457.00217864923746,
+      "p_value": 0.0,
+      "p_exact": null,
+      "significant_005": 1,
+      "significant_001": 1,
+      "direction": "Lexicographic has fewer unique violations"
+    },
+    "Total_lex_vs_ws": {
+      "test": "mcnemar",
+      "comparison": "Lexicographic vs WeightedSum",
+      "n": 43219,
+      "both_violated": 41877,
+      "neither_violated": 1342,
+      "a_only": 0,
+      "b_only": 0,
+      "note": "No discordant pairs \u2014 strategies produce identical violations",
+      "p_value": 1.0
+    },
+    "S+L_lex_vs_conf": {
+      "test": "mcnemar",
+      "comparison": "Lexicographic vs Confidence",
+      "n": 43219,
+      "both_violated": 31073,
+      "neither_violated": 8580,
+      "a_only_violated": 0,
+      "b_only_violated": 3566,
+      "chi2_statistic": 3564.000280426248,
+      "p_value": 0.0,
+      "p_exact": null,
+      "significant_005": 1,
+      "significant_001": 1,
+      "direction": "Lexicographic has fewer unique violations"
+    },
+    "S+L_lex_vs_ws": {
+      "test": "mcnemar",
+      "comparison": "Lexicographic vs WeightedSum",
+      "n": 43219,
+      "both_violated": 31073,
+      "neither_violated": 12146,
+      "a_only": 0,
+      "b_only": 0,
+      "note": "No discordant pairs \u2014 strategies produce identical violations",
+      "p_value": 1.0
+    }
+  },
+  "wilcoxon_tests": {
+    "selADE_lex_vs_conf": {
+      "test": "wilcoxon_signed_rank",
+      "comparison": "Lexicographic vs Confidence",
+      "statistic": 175384998.0,
+      "p_value": 6.779287454598755e-33,
+      "significant_005": 1,
+      "significant_001": 1,
+      "n_pairs": 43219,
+      "n_nonzero": 27658,
+      "mean_diff": -0.14967986658796825,
+      "median_diff": 0.0
+    },
+    "selADE_lex_vs_ws": {
+      "test": "wilcoxon_signed_rank",
+      "comparison": "Lexicographic vs WeightedSum",
+      "statistic": 35746649.0,
+      "p_value": 2.1522534137592948e-27,
+      "significant_005": 1,
+      "significant_001": 1,
+      "n_pairs": 43219,
+      "n_nonzero": 12683,
+      "mean_diff": -0.011170598713264734,
+      "median_diff": 0.0
+    },
+    "selFDE_lex_vs_conf": {
+      "test": "wilcoxon_signed_rank",
+      "comparison": "Lexicographic vs Confidence",
+      "statistic": 171311915.5,
+      "p_value": 5.962149574213975e-51,
+      "significant_005": 1,
+      "significant_001": 1,
+      "n_pairs": 43219,
+      "n_nonzero": 27658,
+      "mean_diff": -0.460103168543267,
+      "median_diff": 0.0
+    },
+    "selFDE_lex_vs_ws": {
+      "test": "wilcoxon_signed_rank",
+      "comparison": "Lexicographic vs WeightedSum",
+      "statistic": 37576292.0,
+      "p_value": 1.4944766278679025e-10,
+      "significant_005": 1,
+      "significant_001": 1,
+      "n_pairs": 43219,
+      "n_nonzero": 12683,
+      "mean_diff": -0.003053924001118025,
+      "median_diff": 0.0
+    }
+  },
+  "bootstrap_cis": {
+    "confidence": {
+      "Safety_Viol_pct": {
+        "point": 74.696,
+        "ci_95_low": 74.289,
+        "ci_95_high": 75.104
+      },
+      "Total_Viol_pct": {
+        "point": 97.957,
+        "ci_95_low": 97.823,
+        "ci_95_high": 98.091
+      },
+      "SL_Viol_pct": {
+        "point": 80.148,
+        "ci_95_low": 79.773,
+        "ci_95_high": 80.522
+      },
+      "selADE": {
+        "point": 2.199,
+        "ci_95_low": 2.179,
+        "ci_95_high": 2.219
+      }
+    },
+    "lexicographic": {
+      "Safety_Viol_pct": {
+        "point": 65.973,
+        "ci_95_low": 65.527,
+        "ci_95_high": 66.422
+      },
+      "Total_Viol_pct": {
+        "point": 96.895,
+        "ci_95_low": 96.728,
+        "ci_95_high": 97.057
+      },
+      "SL_Viol_pct": {
+        "point": 71.897,
+        "ci_95_low": 71.473,
+        "ci_95_high": 72.322
+      },
+      "selADE": {
+        "point": 2.049,
+        "ci_95_low": 2.03,
+        "ci_95_high": 2.068
+      }
+    },
+    "weighted_sum": {
+      "Safety_Viol_pct": {
+        "point": 65.973,
+        "ci_95_low": 65.527,
+        "ci_95_high": 66.429
+      },
+      "Total_Viol_pct": {
+        "point": 96.895,
+        "ci_95_low": 96.731,
+        "ci_95_high": 97.057
+      },
+      "SL_Viol_pct": {
+        "point": 71.897,
+        "ci_95_low": 71.478,
+        "ci_95_high": 72.311
+      },
+      "selADE": {
+        "point": 2.06,
+        "ci_95_low": 2.042,
+        "ci_95_high": 2.079
+      }
+    }
+  }
+}

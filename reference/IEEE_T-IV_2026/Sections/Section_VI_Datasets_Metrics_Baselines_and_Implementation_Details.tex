@@ -1,0 +1,283 @@
+The preceding two sections specified \emph{what} RECTOR computes (the architecture, Section~\ref{Sec:RECTOR}) and \emph{what rules it enforces} (the evaluation layer, Section~\ref{Sec:Rule_Evaluation_And_Data_Pipeline}). This section defines the experimental protocol under which those components are evaluated.  We test RECTOR on the WOMD \texttt{validation\_interactive} split (12{,}800 scenarios)---the ``long tail'' of urban driving where rule-aware selection is especially informative---comparing three selection strategies applied to the same multi-modal candidate set: \emph{Confidence Only}, \emph{Weighted Sum}, and \emph{RECTOR Lexicographic}.  A central point is the separation between (i)~\emph{candidate-set quality} (multi-modal prediction coverage) and (ii)~\emph{selected-trajectory quality and compliance} (the final decision after rule-aware selection). Unless explicitly stated otherwise, all compliance statistics are computed on the \emph{selected} trajectory using the evaluation pipeline described in Sections~\ref{subsec:rule_catalog}--\ref{subsec:data_pipeline}. 
+%-------------------------------------------------------------------------------
+\subsection{Dataset}
+\label{subsec:dataset}
+%-------------------------------------------------------------------------------
+
+\subsubsection{Waymo Open Motion Dataset (WOMD)}
+
+We use the Waymo Open Motion Dataset (WOMD) v1.3.0~\cite{WOMD_20201}, which provides temporally aligned trajectories for the ego vehicle and surrounding agents, HD map context (lane topology, crosswalks, boundaries), and traffic control state annotations (e.g., signals and stop signs) that are required for both motion prediction and rule applicability/violation computation. Table~\ref{tab:womd_stats} summarizes the key statistics.
+
+\begin{table}[t]
+\centering
+\caption{Waymo Open Motion Dataset Statistics (Interactive Scenarios)}
+\label{tab:womd_stats}
+\begin{tabular}{ll}
+\toprule
+\textbf{Property} & \textbf{Value} \\
+\midrule
+\multicolumn{2}{l}{\textit{Dataset Overview}} \\
+Total augmented scenarios & 160,184 \\
+Training split & 102,040 augmented scenarios \\
+Validation split & 12,800 evaluation scenarios \\
+Test split & 14,665 augmented scenarios (withheld) \\
+Interactive criterion & Exactly 2 objects\_of\_interest \\
+Geographic regions & Phoenix, San Francisco, Mountain View, CA \\
+Traffic convention & Right-hand traffic (US) \\
+Average agents per scenario & 8.2 \\
+Maximum agents & 40+ \\
+Object types & Vehicles, pedestrians, cyclists \\
+Agent tracking consistency & Validity masks over the 9.1\,s window \\
+\midrule
+\multicolumn{2}{l}{\textit{Map Context}} \\
+Map coverage & Full HD maps \\
+Lane annotations & Complete lane topology \\
+Traffic signals & Per-timestep state annotations \\
+Stop signs & Location and orientation \\
+Crosswalks & Polygon boundaries \\
+Speed limits & Where available \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Data Split Strategy}
+
+We follow WOMD's official interactive splits to avoid leakage across training and evaluation distributions.  Training uses 102,040 augmented interactive scenarios, while all reported results use the \texttt{validation\_interactive} split (12{,}800 scenarios sampled from 150 validation shards).  Each augmented TFRecord entry wraps the original WOMD Scenario proto together with per-rule applicability labels, violation flags, and severity scores computed by the \texttt{waymo\_rule\_eval} pipeline; these labels serve as oracle applicability ground truth in ablations (Table~\ref{tab:applicability_ablation}).  The test split is withheld and is not accessed during development.
+
+\subsubsection{Interactive Scenario Selection}
+
+WOMD defines an \emph{interactive} scenario by the presence of exactly two \texttt{objects\_of\_interest}, which serve as the primary interacting entities.  This restriction emphasises cases where inter-agent coupling and priority reasoning are salient, making them an appropriate stress test for rule-aware selection.  We use all interaction types present in the validation split: vehicle-to-vehicle~(v2v), vehicle-to-pedestrian~(v2p), vehicle-to-cyclist~(v2c), and other agent pairings.
+
+\subsubsection{Scenario Filtering}
+
+We apply minimal filtering to preserve the natural distribution while removing degenerate cases that do not meaningfully test interaction or map reasoning: scenarios with fewer than 2~agents are excluded (interaction requires at least one other agent beyond ego context); scenarios with ego speed consistently below $0.1\,\text{m/s}$ are excluded (parked or near-static trajectories); and scenarios with incomplete map features required by the rule set (e.g., missing lane topology) are excluded.  All other scenarios are retained to maintain geographic and behavioral diversity.  Overall, approximately 98\% of scenarios survive these filters. The Legal-tier rule catalog reflects traffic norms applicable to U.S. right-hand traffic scenarios in WOMD; extending to other jurisdictions would require re-parameterizing the catalog and re-evaluating proxy coverage accordingly.
+
+%-------------------------------------------------------------------------------
+\subsection{Evaluation Protocols}
+\label{subsec:eval_protocols}
+%-------------------------------------------------------------------------------
+
+Compliance numbers are only meaningful when the evaluation scope is unambiguous.  We use Protocols~A and~B as defined in Section~\ref{Sec:Rule_Evaluation_And_Data_Pipeline} (Table~\ref{tab:training_eval_comparison}); all main-paper results use Protocol~A unless explicitly noted otherwise.
+
+\noindent\textbf{Aggregation conventions.}  Three summary statistics are used throughout the results: \emph{Total~Viol.\%} is the fraction of scenarios where the selected trajectory violates at least one rule across the rulebook (union probability); \emph{Per-tier~Viol.\%} is the fraction violating at least one rule in that tier; and \emph{S+L~Viol.\%} is the fraction violating at least one Safety or Legal tier rule. Per-tier rates may sum to more than Total~Viol.\% because a single scenario can violate rules in multiple tiers.
+
+\noindent Protocol~B applies the full rule set with oracle applicability, so its absolute violation rates are higher than Protocol~A and are reported as a separate evaluation setting.
+
+\noindent\textbf{Evaluation populations.}  Several scenario subsets appear in different analyses.  Table~\ref{tab:eval_populations} provides a single reference for which subset is used where, to avoid confusion across sections.
+
+\begin{table}[t]
+\centering
+\caption{Evaluation Population Reference}
+\label{tab:eval_populations}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lrl}
+\toprule
+\textbf{Population} & \textbf{$N$} & \textbf{Used in} \\
+\midrule
+Canonical validation & 12{,}800 & Tables~\ref{tab:selection_strategy}--\ref{tab:protocol_matrix}; main results \\
+Augmented validation & 43{,}219 & Tables~\ref{tab:ws_independent}, \ref{tab:conservative_applicability}, \ref{tab:selector_ablation_protB} \\
+Proxy alignment & 1{,}000 & Table~\ref{tab:proxy_correlation_detailed} (Section~\ref{Sec:Section_VIII_Verification_Invariants_Numerical_Stability_and_Integration_Tests}) \\
+Perturbation & 500 & Table~\ref{tab:robustness_perturbations} \\
+Constrained baselines & 1{,}000 & Section~\ref{subsec:constrained_baselines} (illustrative) \\
+Waymax bridge & 55 & Section~\ref{subsec:closed_loop} (bridge validation) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%-------------------------------------------------------------------------------
+\subsection{Evaluation Metrics}
+\label{subsec:metrics}
+%-------------------------------------------------------------------------------
+
+The evaluation protocols above define \emph{which rules are checked}; this subsection defines \emph{which quantities are reported}.  We organize metrics into three groups: trajectory accuracy, rule compliance, and computational efficiency.
+
+\subsubsection{Trajectory Accuracy Metrics}
+
+We use the standard geometric metrics (ADE, FDE, minADE, minFDE, MissRate) as defined in Section~\ref{subsec:geometric_metrics}, evaluated over the WOMD prediction horizon ($T{=}50$ at 10\,Hz) with miss threshold~$\delta = 2.0\,\text{m}$.  In addition, we report \emph{selected-trajectory} metrics that quantify the accuracy of the final decision after lexicographic selection:
+\begin{equation}
+\text{selADE} = \text{ADE}(\hat{\tau}, \tau^*), \qquad
+\text{selFDE} = \text{FDE}(\hat{\tau}, \tau^*),
+\end{equation}
+where $\hat{\tau}$ is the trajectory chosen by the selection strategy.  These quantify decision quality, not only candidate-set diversity. 
+\subsubsection{Rule Compliance Metrics}
+
+Compliance is evaluated using the evaluation pipeline described in Sections~\ref{subsec:rule_catalog}--\ref{subsec:proxy_functions}.  We report tier-wise rates to capture reliability and per-rule rates for diagnosis.
+
+\textbf{Tier-wise violation rate.}
+For tier~$\ell$ with aggregated score~$S_\ell(\tau; s)$:
+\begin{equation}
+\text{ViolationRate}_\ell
+= \frac{1}{N} \sum_{i=1}^{N} \mathbb{1}\!\left[S_\ell(\tau_i; s_i) > 0\right].
+\end{equation}
+
+\textbf{High-priority (S+L) violations.}
+We treat violations in the top two tiers (Safety~$\cup$~Legal) as high-priority:
+\begin{align}
+\text{S{+}L\_ViolationRate}
+&=\mathbb{E}_{s \sim \mathcal{D}} \left[
+\mathbf{1}\!\left[S_0(\tau; s) > 0 \ \text{or}\ S_1(\tau; s) > 0\right]
+\right].\nonumber
+\end{align}
+
+\textbf{Per-rule violation rate.}
+For each rule~$r$ with violation score~$V_r(\tau; s)$:
+\begin{equation}
+\text{ViolationRate}_r
+= \frac{1}{N} \sum_{i=1}^{N} \mathbb{1}\!\left[V_r(\tau_i; s_i) > 0\right].
+\end{equation}
+\noindent All tables report violation rates for conciseness; the \emph{Compliance Rate} at tier~$\ell$ is the complement, $\text{CR}_\ell = 1 - \text{ViolationRate}_\ell$, representing the fraction of scenarios where the selected trajectory satisfies all rules in that tier.
+
+\subsubsection{Closed-Loop Simulation Metrics}
+\label{subsubsec:closed_loop_metrics}
+
+For the Waymax-based closed-loop bridge validation (Section~\ref{subsec:closed_loop}), we collect Waymax's built-in metrics and custom motion-planning metrics. \textbf{Overlap rate} is the fraction of simulation steps where the ego vehicle's bounding box overlaps any other agent (Waymax \texttt{overlap} metric). \textbf{Log divergence}~(m) measures displacement between the simulated and logged trajectory (Waymax \texttt{log\_divergence}). \textbf{Kinematic infeasibility rate} is the fraction of steps whose action violates the dynamics model's feasibility bounds, e.g.\ excessive lateral acceleration for the bicycle model. \textbf{Longitudinal jerk}~(m/s$^3$) quantifies ride comfort via the time derivative of acceleration, reported as per-scenario mean and max. \textbf{Minimum clearance}~(m) is the closest Euclidean distance between the ego and any other valid agent at each step, aggregated as per-scenario minimum. \textbf{Time-to-collision}~(s) estimates the time before the first collision under a constant-velocity assumption, reported as per-scenario minimum.  These metrics are included because the bridge-validation subsection reports them.
+
+\subsubsection{Computational Efficiency Metrics}
+
+We report latency, throughput, and memory footprint under the same batching and hardware conditions used for all models.  Inference latency is defined as
+\begin{equation}
+\text{Latency}_{\text{mean}} = \frac{1}{N} \sum_{i=1}^{N} t_{\text{forward}}^{(i)},
+\end{equation}
+where $t_{\text{forward}}^{(i)}$ includes the forward pass and the selection step, measured with GPU synchronization; we also report P95~latency. Throughput is the reciprocal:
+\begin{equation}
+\text{Throughput} = \frac{N}{\sum_{i=1}^{N} t_{\text{forward}}^{(i)}}.
+\end{equation}
+We additionally report parameter counts and peak GPU memory usage during inference.
+
+%-------------------------------------------------------------------------------
+\subsection{Baseline Methods}
+\label{subsec:baseline_methods}
+%-------------------------------------------------------------------------------
+
+With the metrics defined, we now specify the baselines against which RECTOR is compared.  Comparisons serve two distinct purposes: \emph{external} baselines assess candidate-set accuracy relative to the state of the art, while \emph{internal} baselines isolate the effect of the selection strategy on a fixed candidate set.
+
+\subsubsection{External Trajectory Accuracy Baselines}
+
+We compare RECTOR against five representative motion prediction methods.  These numbers are included as geometric-accuracy context rather than as the paper's causal comparison, which is the internal same-candidate-set study below.  Unless explicitly stated as reproduced in our pipeline, the external baseline values follow the published descriptions or reference reports of the respective methods and may therefore reflect different implementation details even when they target the same \texttt{validation\_interactive} setting.
+
+\textbf{LaneGCN}~\cite{liang2020lanegcn}: graph neural network over lane-graph structure.  Reported metrics: minADE~= 0.87\,m, minFDE~= 1.92\,m, Miss Rate~= 28.4\%, throughput~= 180~samples/s.  \textbf{DenseTNT}~\cite{gu2021densetnt}: dense goal-based prediction with iterative refinement and WTA-style training.  Reported metrics: minADE~= 0.73\,m, minFDE~= 1.55\,m, Miss Rate~= 20.1\%, throughput~= 120~samples/s.
+
+\textbf{M2I}~\cite{Sun_2022}: interaction-centric scene encoding with multi-modal decoding.  Reported metrics: minADE~= 0.75\,m, minFDE~= 1.63\,m, Miss Rate~= 22.8\%.
+
+\textbf{Wayformer}~\cite{nayakanti2023wayformer}: Transformer-based motion forecasting with long-range attention.  Reported metrics: minADE~= 0.68\,m, minFDE~= 1.42\,m, Miss Rate~= 18.9\%, throughput~= 85~samples/s.
+
+\textbf{MTR}~\cite{shi2022motion}: Transformer-based motion modeling with structured candidate generation.  Reported metrics: minADE~= 0.70\,m, minFDE~= 1.48\,m, Miss Rate~= 19.5\%, throughput~= 95~samples/s.
+
+\textbf{RECTOR (Ours):}  Transformer--CVAE with rule-aware lexicographic selection, trained via two-stage procedure (Section~\ref{subsec:system_overview}).  Reported metrics: minADE~= 0.684\,m, minFDE~= 1.270\,m, Miss Rate~= 18.56\%, throughput~= 136.5~samples/s.  Compliance improvement (Protocol~A): total violations 23.86\%~$\rightarrow$~15.03\% ($-$8.83~pp), Safety-tier violations 21.87\%~$\rightarrow$~13.15\% ($-$8.72~pp), Legal-tier violations 0.0\% across all strategies vs.\ confidence-only selection.
+
+\subsubsection{Internal Selection Strategy Baselines}
+
+The more important comparison is the \emph{internal} one: all three strategies below operate on the \emph{same} $K{=}6$ candidate set, so any difference in compliance is attributable entirely to the selection mechanism. This is the cleanest experimental isolation in the paper.
+
+\textbf{Confidence Only:}  $\hat{\tau} = \arg\max_k p^{(k)}$.  No rule awareness.
+
+\textbf{Weighted Sum:}  $\hat{\tau} = \arg\min_k \sum_r w_r \hat{a}_r \bar{V}_{r,k}$.  Uses the same predicted applicability as RECTOR to ensure a fair comparison; per-rule weights are uniform ($w_r{=}1$ for all $r$), as used in the closed-loop validation pipeline (\texttt{validate\_50.py}).  On this evaluation, the weighted sum achieves near-identical compliance to RECTOR.  The distinction between the two selectors is discussed in Section~\ref{subsec:strategy_comparison}.
+
+\textbf{Human GT (reference):}  Ground-truth trajectories evaluated under the identical Protocol~A pipeline.  This serves as the \emph{imitation ceiling}---the performance of a system that perfectly replicates human drivers---and its non-zero Legal-tier violation rate~(12.8\%) establishes that human-like trajectories are not synonymous with rule-compliant ones.
+
+%-------------------------------------------------------------------------------
+\subsection{Implementation Details}
+\label{subsec:implementation}
+%-------------------------------------------------------------------------------
+
+To enable reproducibility, we report the complete training and inference configuration below.
+
+\subsubsection{Model Architecture}
+
+RECTOR is implemented as an interaction-aware encoder paired with a multimodal CVAE trajectory decoder, augmented by a rule-applicability head and a tiered scorer.  Table~\ref{tab:param_breakdown} summarizes the configuration and parameter allocation; the additional capacity beyond the motion backbone is concentrated in rule applicability prediction, while the tiered scorer itself is lightweight and primarily structural. 
+\subsubsection{Training Configuration}
+
+Training uses AdamW with a OneCycleLR cosine schedule and a brief warm-up. Table~\ref{tab:training_config} reports all hyperparameters, loss weights, augmentation settings, and hardware.
+
+\begin{table}[t]
+\centering
+\caption{Training hyper-parameters and Configuration}
+\label{tab:training_config}
+\begin{tabular}{ll}
+\toprule
+\textbf{hyper-parameter} & \textbf{Value} \\
+\midrule
+\multicolumn{2}{l}{\textit{Optimizer Settings}} \\
+Optimizer & AdamW \\
+Max learning rate & $3 \times 10^{-4}$ \\
+Learning rate schedule & OneCycleLR (cosine) \\
+Weight decay & $1 \times 10^{-4}$ \\
+Gradient clipping & max norm = 1.0 \\
+Batch size & 256 \\
+Epochs (Stage~1 / Stage~2) & 20 / 20+5 \\
+Precision & Mixed (AMP) \\
+Random seed & 42 \\
+\midrule
+\multicolumn{2}{l}{\textit{Loss Weights}} \\
+$\lambda_{\text{WTA}}$ (reconstruction) & 20.0 \\
+$\lambda_{\text{end}}$ (endpoint) & 5.0 \\
+$\lambda_{\text{KL}}$ (KL divergence) & 0.05 \\
+$\lambda_{\text{goal}}$ (goal prediction) & 2.0 \\
+$\lambda_{\text{smooth}}$ (smoothness) & 1.0 \\
+$\lambda_{\text{conf}}$ (confidence) & 1.0 \\
+$\lambda_{\text{app}}$ (applicability) & 1.0 \\
+$\lambda_{\text{rule}}$ (proxy compliance) & 1.0 \\
+\midrule
+\multicolumn{2}{l}{\textit{Checkpoint Selection}} \\
+
+Selection criterion & Best validation loss \\
+Early stopping patience & 15 epochs \\
+\midrule
+\multicolumn{2}{l}{\textit{Data Augmentation}} \\
+Random rotation & $\pm 15^\circ$ \\
+Position noise & $\mathcal{N}(0, 0.1^2)$\,m \\
+Agent dropout & 10\% \\
+Time reversal$^*$ & 50\% probability \\
+Mirror flip & 50\% probability \\
+\midrule
+\multicolumn{2}{l}{\textit{Hardware}} \\
+GPU & NVIDIA RTX A3000 (12\,GB) \\
+Training duration & $\sim$12 hours \\
+Peak GPU memory & 9\,GB \\
+\bottomrule
+\end{tabular}
+\vspace{1mm}
+\caption*{\footnotesize $^*$Time reversal is applied to spatial position sequences only, not to rule violation labels or temporal rule semantics. Rule applicability and violation labels are computed on the original (non-reversed) trajectory.  Training follows a two-stage procedure: Stage~1 trains only the applicability head (focal BCE, $\gamma{=}2.0$) on frozen encoder features for 20 epochs; Stage~2 fine-tunes the full model end-to-end with all eight loss terms for 20+5 epochs.  The loss weights in this table apply to Stage~2; Stage~1 uses $\mathcal{L}_{\text{app}}$ only.}
+\end{table}
+
+\subsubsection{Loss Functions}
+
+The full training objective is a flat weighted sum of eight terms as specified in Section~\ref{subsec:training_objective}
+($\mathcal{L}_{\text{WTA}}$, $\mathcal{L}_{\text{end}}$,
+$\mathcal{L}_{\text{KL}}$, $\mathcal{L}_{\text{goal}}$,
+$\mathcal{L}_{\text{smooth}}$, $\mathcal{L}_{\text{conf}}$,
+$\mathcal{L}_{\text{app}}$, $\mathcal{L}_{\text{rule}}$).
+Table~\ref{tab:training_config} reports the corresponding weight values used in all experiments.  The checkpoint with the lowest composite validation loss is selected; because the reconstruction term ($\lambda_{\text{WTA}}{=}20.0$) dominates the total, the best validation loss closely tracks the best validation ADE.
+
+\subsubsection{Inference Configuration}
+
+Inference runs in FP32 with batch size~128; selection uses tiered lexicographic ordering as specified in Algorithm~\ref{alg:lexicographic}. Latency, throughput, and memory footprint are reported in Table~\ref{tab:efficiency} (Section~\ref{Sec:Accuracy_SectionRule-Compliance_Behavior_and_Efficiency}).
+
+%-------------------------------------------------------------------------------
+\subsection{Reproducibility}
+\label{subsec:reproducibility}
+%-------------------------------------------------------------------------------
+
+Beyond the reference training configuration, full reproducibility requires specifying the software environment, random-seed management, and the data-preprocessing pipeline.  We report each in turn.
+
+\subsubsection{Software Environment}
+
+All experiments use Python~3.10, PyTorch~2.2, CUDA~12.1, and Waymo Open Dataset~v1.5.2; full dependency versions are provided with the code release. The closed-loop bridge validation (Section~\ref{subsec:closed_loop}) additionally uses Waymax~0.1.0~\cite{gulino2024waymax} and JAX~0.6.2 with the CUDA~12 plugin.
+
+\subsubsection{Random Seed Management}
+
+All experiments use a fixed random seed of 42 across PyTorch, NumPy, and Python's \texttt{random} module.  CUDA deterministic mode and cuDNN deterministic mode are both enabled, with an expected $\sim$2\% throughput cost from the latter.
+
+\subsubsection{Data Preprocessing}
+
+The preprocessing pipeline consists of seven stages: parsing TFRecord scenarios from WOMD; extracting ego and agent trajectories with validity masks and dropping invalid timesteps; transforming all states to an ego-centric frame at $t{=}0$ (translation + rotation by ego heading); sampling lane polylines within a 100\,m radius and constructing lane-graph features; extracting traffic control states (signals, stop signs) and geometry required by the rulebook; computing ground-truth rule supervision signals (applicability labels and proxy violations) from map context and annotated states; and caching processed features as NumPy arrays for fast, deterministic loading.
+
+\subsubsection{Expected Runtime}
+
+The two-stage training requires approximately 12 hours total on a single NVIDIA RTX~A3000 Laptop GPU (12\,GB); full evaluation with rule violation computation on 12{,}800 scenarios takes approximately 9 minutes (536.7\,s); and inference latency is 7.3\,ms per sample (mean) or 9.2\,ms (P95).  This modest single-GPU setup strengthens reproducibility, but it also constrained the scale of additional ablations and large-sweep experiments in the current study.
+%-------------------------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:setup_summary}
+%-------------------------------------------------------------------------------
+
+In summary, the experimental setup provides comprehensive evaluation (trajectory accuracy, rule compliance, and efficiency), fair comparison (consistent preprocessing, horizon, and evaluation protocol across baselines), reproducibility (fixed seeds, deterministic settings, and explicit software/hardware reporting), and operational relevance (results on the interactive validation split, where coupled behaviors and priority reasoning are most informative for rule-aware selection).  With all protocol elements fixed, Section~\ref{Sec:Accuracy_SectionRule-Compliance_Behavior_and_Efficiency} presents the full results.
