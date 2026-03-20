@@ -1,6 +1,6 @@
 # RECTOR: Rule-Enforced Constrained Trajectory Orchestrator
 
-> **Authors**: Hadi Hajieghrary, Benedikt Walter, Chaitanya Shinde, Miguel Hurtado — TORC Robotics; and Paul Schmitt — Mass Robotics
+> **Authors**: Hadi Hajieghrary, Benedikt Walter, Chaitanya Shinde, Miguel Hurtado — TORC Robotics; and Paul Schmitt — MassRobotics
 
 ---
 
